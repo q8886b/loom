@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest an improvement to Loom.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What workflow or limitation are you trying to improve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the smallest useful change.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What have you tried or considered?
+  - type: checkboxes
+    id: data-boundary
+    attributes:
+      label: Data boundary
+      options:
+        - label: This request does not require publishing private card data or source material.
+          required: true

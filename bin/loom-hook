@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# bin/loom-hook — hook adapter for Loom.
+#
+# Hook runtimes may execute multiple command hooks for the same event in
+# parallel, so Loom keeps guard + stop-check in one process. The hook stays
+# silent when inactive or when there is nothing to block, and forwards only
+# decision:block JSON back to the agent runtime.
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
+
+if ! "$SCRIPT_DIR/loom" hook-guard >/dev/null 2>&1; then
+  exit 0
+fi
+
+out="$("$SCRIPT_DIR/loom-admin" stop-check-pending 2>&1 || true)"
+
+if [[ "$out" == *'"decision"'* && "$out" == *'"block"'* ]]; then
+  printf '%s\n' "$out"
+fi

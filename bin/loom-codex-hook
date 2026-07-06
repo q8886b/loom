@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Backward-compatible alias. New installs use loom-hook.
+SCRIPT_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
+exec "$SCRIPT_DIR/loom-hook" "$@"

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# bin/loom-admin — privileged wrapper for Loom admin commands.
+# Intended for hooks and human-approved maintenance actions.
+SCRIPT_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
+if [[ -x /opt/homebrew/bin/python3.11 ]]; then
+  PYTHON_BIN="/opt/homebrew/bin/python3.11"
+elif [[ -x /usr/local/bin/python3.11 ]]; then
+  PYTHON_BIN="/usr/local/bin/python3.11"
+elif command -v python3.11 >/dev/null 2>&1; then
+  PYTHON_BIN="$(command -v python3.11)"
+else
+  echo "ERROR: python3.11 not found. Install Python 3.11 or add it to PATH." >&2
+  exit 127
+fi
+LOOM_ENTRYPOINT=loom-admin exec "$PYTHON_BIN" "$SCRIPT_DIR/loom.py" "$@"

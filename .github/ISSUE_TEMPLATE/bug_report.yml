@@ -1,0 +1,51 @@
+name: Bug report
+description: Report a reproducible Loom bug.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please do not include private card data,
+        source material, API keys, or local database files.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What went wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Use a temporary `LOOM_HOME` and minimal sample content when possible.
+      placeholder: |
+        1. Set `LOOM_HOME=$(mktemp -d)`
+        2. Run `...`
+        3. Observe `...`
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: |
+        OS:
+        Python:
+        Node/npm, if Workbench-related:
+        Loom install method:
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or command output
+      description: Redact private content before pasting.
+      render: text
