@@ -131,7 +131,10 @@ fi
 
 echo "==> Installing loom CLI"
 BIN_DIR=""
-if [[ -w "/usr/local/bin" ]]; then
+PYTHON_BIN_DIR="$(dirname "$PYTHON_BIN")"
+if [[ -d "$PYTHON_BIN_DIR" && -w "$PYTHON_BIN_DIR" ]]; then
+  BIN_DIR="$PYTHON_BIN_DIR"
+elif [[ -w "/usr/local/bin" ]]; then
   BIN_DIR="/usr/local/bin"
 elif [[ -d "$HOME/.local/bin" ]] || mkdir -p "$HOME/.local/bin"; then
   BIN_DIR="$HOME/.local/bin"
@@ -384,7 +387,7 @@ fi
 echo ""
 echo "Loom installed."
 echo "  Home:    $LOOM_HOME"
-echo "  CLI:     $(command -v loom || echo 'not in PATH yet')"
+echo "  CLI:     $BIN_DIR/loom"
 if [[ "$INSTALL_CLAUDE_SKILLS" == 1 ]]; then
   echo "  Claude skills: ~/.claude/skills/loom-{digest,think,use,pipeline}"
 fi
