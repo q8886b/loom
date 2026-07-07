@@ -2,102 +2,65 @@
 
 **Language:** English | [简体中文](README.zh-CN.md)
 
-Loom is a local-first cognitive harness for AI agents.
+Loom is an external brain for AI agents — and a continuously evolving cognitive network.
 
-It is not a note app, and it is not a chatbot memory cache. Loom gives an
-agent a disciplined way to read source material, digest it into cards, connect
-those cards across materials, and grow reusable thinking patterns without
-writing directly into the database.
+Drop in a book, paper, or video — AI digests it into linked cards:
+raw text → single-material digest → cross-material synthesis → cross-domain patterns.
+Each card is typed by its cognitive role, and real associations are carried by
+an explicit link network.
 
-The core design lives in:
+When you ask a question, make a decision, or review an experience, AI pulls the
+relevant cards back into context and thinks through your digested network. New
+insights from that thinking then feed back into the network, so it grows
+denser with use. Over time, sub-networks from different domains or people can
+connect and collide, producing new cross-domain patterns at their intersections.
 
-- [004 - Layered Redesign Purpose](docs/design/004-layered-redesign-purpose.md)
-- [005 - Layered Redesign Harness](docs/design/005-layered-redesign-harness.md)
+## Highlights
 
-## The Shape
-
-Loom has four layers:
-
-| Layer | Role | Output |
-|---|---|---|
-| `L1` | Faithful source capture | Markdown source cards |
-| `L2` | Understanding one material | Concepts, structures, mechanisms, cases, judgments |
-| `L3` | Thinking across materials | Synthesis, comparison, practical judgment |
-| `L4` | Thinking about thinking | Patterns, judgments, reflections |
-
-L1/L2 are about reading well. L3/L4 are about thinking with what has been read.
-
-The important constraint: agents do not write straight into the card database.
-They write drafts, Loom runs checks, then the agent performs a semantic review
-before commit.
-
-```text
-write-draft -> mark-ready -> stop-check -> semantic review -> commit-ready
-```
-
-This is the harness: prompts explain the rules, tools enforce the state
-transitions, hooks catch unfinished work, and the database keeps the graph
-traceable.
-
-## Search And Links
-
-Vector search is a core capability. Without it, Loom loses much of its ability
-to discover hidden relationships across materials.
-
-But embeddings are not the source of truth. In Loom:
-
-```text
-embedding helps discover relationships
-links record relationships
-```
-
-The embedding provider is configurable:
-
-- Local Ollama embeddings, recommended for local-first use
-- OpenAI-compatible embedding APIs
-- Zhipu, kept as a compatibility preset
-
-One database uses one embedding dimension. If you change embedding models, run:
-
-```bash
-loom-admin rebuild-embeddings
-```
+- **Layered** // L1 source, L2 single-material digest, L3 cross-material synthesis, L4 cross-domain patterns
+- **Real digestion, not excerpting** // Scout reads for theme cards, Deep reads for the rest; cards are in your own words, atomic, and self-contained
+- **Links are the source of truth** // The explicit link network carries associations; embeddings are only a tool for discovering missing links
+- **Double-gated entry** // Compute checks + semantic checks before anything enters the database
+- **Builds up** // Asking, thinking, and practicing all feed new cognition back into the network
+- **Cross-domain / cross-people connectable** // The network structure naturally supports collisions across domains and people
+- **Local-first** // SQLite on disk, embedding model of your choice
 
 ## Quick Start
+
+Need: Claude Code or Codex, Python 3.11, an embedding model.
 
 ```bash
 git clone git@github.com:q8886b/loom.git
 cd loom
 ./install.sh
+loom on
 ```
 
-Then follow [docs/quickstart.md](docs/quickstart.md) for embedding setup,
-source import, search, hooks, and the optional Workbench.
+Set up a local embedding model (recommended: Ollama), edit `~/.loom/.env`:
 
-## Private Data Boundary
-
-The repository contains code, skills, tests, and design documents. It does not
-contain your Loom data.
-
-Runtime data lives outside Git:
-
-```text
-~/.loom/data/       SQLite database and derived indexes
-~/.loom/cards/      Markdown card mirrors
-~/.loom/sources/    Local source material
-/tmp/loom_task/     Draft task workspaces
+```bash
+ollama pull bge-m3
 ```
 
-## Repository Map
-
-```text
-bin/                CLI wrappers
-src/loom/           Python implementation
-skills/             Agent skills for digest / think / use
-docs/design/        Design baseline
-workbench/          Optional local graph browser
-tests/              Harness regression tests
 ```
+LOOM_EMBED_PROVIDER=ollama
+LOOM_EMBED_MODEL=bge-m3
+LOOM_EMBED_DIM=1024
+```
+
+Try it — in Claude Code:
+
+> Digest `~/.loom/sources/07-LLM/demo/ch01.md` into L2 with loom-digest
+
+AI reads the source, drafts cards, runs checks, commits. Verify with
+`loom search "..."`.
+
+More in [docs/quickstart.md](docs/quickstart.md).
+
+## Design
+
+The design baseline lives in [004](docs/design/004-layered-redesign-purpose.md)
+(purpose) and [005](docs/design/005-layered-redesign-harness.md) (harness).
 
 ## Development
 

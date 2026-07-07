@@ -2,92 +2,63 @@
 
 **语言：** [English](README.md) | 简体中文
 
-Loom 是一个本地优先的 AI agent 认知 harness。
+Loom 是 AI 的外置大脑，也是一个持续演化的认知网络。
 
-它不是笔记软件，也不是聊天机器人的记忆缓存。Loom 给 agent 一套受约束的方式：读取原始材料，消化成卡片，跨材料建立关联，并在不直接写数据库的前提下沉淀可复用的思考模式。
+给它一本书、一篇论文、一段视频——AI 会把材料一层层消化成互相连接的卡片：
+原文 → 单材料精华 → 跨材料综合 → 跨域模式。每张卡片用认知类型定性，
+用显性的 link 网络承载真实关联。
 
-核心设计看这两份：
+下次你问问题、做决策、复盘经历时，AI 会先把相关卡片读回 context，
+基于你消化过的认知网络来思考；思考过程中产生的新洞察又会沉淀回去，
+让网络越用越厚。长期来看，不同领域、不同人的子网络还可以连接碰撞，
+在交叉处涌现出新的跨域模式。
 
-- [004 - 分层重设计：目的与思想](docs/design/004-layered-redesign-purpose.md)
-- [005 - 分层重设计的 Harness 落地](docs/design/005-layered-redesign-harness.md)
+## 特性
 
-## 结构
+- **分层消化** // L1 原文 / L2 单材料精华 / L3 跨材料综合 / L4 跨域模式
+- **真消化，不是摘录** // Scout 通读建主题卡，Deep 精读产出其余卡片；
+  卡片用自己的话写、原子化、自足可读
+- **Link 是真相** // 显性 link 网络承载关联，embedding 只是辅助建 link 的工具
+- **双门禁入库** // 计算校验 + 语义校验，确保质量后才进库
+- **越用越厚** // 提问、思考、实践的过程本身会沉淀新认知
+- **跨域/跨人可连接** // 网络结构天然支持不同领域、不同人之间的碰撞
+- **本地优先** // SQLite 在本地，向量模型自选
 
-Loom 有四层：
+## 怎么开始
 
-| Layer | 作用 | 产物 |
-|---|---|---|
-| `L1` | 忠实捕获原文 | Markdown 原文卡 |
-| `L2` | 理解单份材料 | 概念、结构、机制、案例、判断 |
-| `L3` | 跨材料思考 | 综合、比较、实践判断 |
-| `L4` | 对思考方式的沉淀 | 模式、判断、反思 |
-
-L1/L2 是把材料读好。L3/L4 是用读过的材料继续思考。
-
-关键约束：agent 不直接写卡片数据库。它先写 draft，Loom 跑检查，然后 agent 做语义复检，最后才能入库。
-
-```text
-write-draft -> mark-ready -> stop-check -> semantic review -> commit-ready
-```
-
-这就是 harness：prompt 说明规则，工具强制状态机，hook 捕获未完成工作，数据库保留可追溯的图结构。
-
-## 向量与链接
-
-向量化是核心能力。没有语义召回，Loom 发现跨材料隐性关联的能力会明显变弱。
-
-但 embedding 不是事实来源。在 Loom 里：
-
-```text
-embedding 用来发现关系
-link 用来记录关系
-```
-
-embedding provider 可配置：
-
-- 本地 Ollama embedding，推荐的本地优先路径
-- OpenAI-compatible embedding API
-- Zhipu，作为兼容 preset 保留
-
-一个数据库固定一个 embedding 维度。换模型后运行：
-
-```bash
-loom-admin rebuild-embeddings
-```
-
-## 快速开始
+需要：Claude Code 或 Codex、Python 3.11、一个向量模型。
 
 ```bash
 git clone git@github.com:q8886b/loom.git
 cd loom
 ./install.sh
+loom on
 ```
 
-然后看 [docs/quickstart.md](docs/quickstart.md)，里面有 embedding 配置、原文导入、搜索、hooks 和可选 Workbench。
+配本地向量模型（推荐 Ollama），编辑 `~/.loom/.env`：
 
-## 私有数据边界
-
-仓库只包含代码、skills、测试和设计文档，不包含你的 Loom 数据。
-
-运行时数据在 Git 之外：
-
-```text
-~/.loom/data/       SQLite 数据库和派生索引
-~/.loom/cards/      Markdown 卡片镜像
-~/.loom/sources/    本地源材料
-/tmp/loom_task/     draft 任务工作区
+```bash
+ollama pull bge-m3
 ```
 
-## 仓库结构
-
-```text
-bin/                CLI wrapper
-src/loom/           Python 实现
-skills/             digest / think / use agent skills
-docs/design/        设计基准
-workbench/          可选本地图谱浏览器
-tests/              harness 回归测试
 ```
+LOOM_EMBED_PROVIDER=ollama
+LOOM_EMBED_MODEL=bge-m3
+LOOM_EMBED_DIM=1024
+```
+
+试一份材料——在 Claude Code 里直接说：
+
+> 用 loom-digest 把 `~/.loom/sources/07-LLM/demo/ch01.md` 消化成 L2
+
+AI 自己读原文、写卡片、跑校验、入库。`loom search "..."` 验证。
+
+更多见 [docs/quickstart.md](docs/quickstart.md)。
+
+## 设计
+
+Loom 的设计基准在 [004](docs/design/004-layered-redesign-purpose.md)（目的）
+和 [005](docs/design/005-layered-redesign-harness.md)（harness 落地）。
 
 ## 开发
 
