@@ -16,8 +16,8 @@
 |---|---|
 | 项目根 | `~/loom/` |
 | Python | python3.11 |
-| 向量索引 | sqlite-vec（2048 维） |
-| Embedding | 智谱 Embedding-3，API Key 从 `~/.loom/.env` 读取 |
+| 向量索引 | sqlite-vec（维度由当前 DB 的 `loom_meta.embedding_dim` 固定） |
+| Embedding | provider 可配置：Ollama / OpenAI-compatible / Zhipu，配置从 `~/.loom/.env` 读取 |
 | Claude Code / Codex | 默认 `./install.sh` 安装全局 hooks 到 Claude `~/.claude/settings.json` / Codex `$CODEX_HOME/hooks.json`；`./install.sh --no-hooks` 跳过 hooks；项目级 hooks 用 `./install.sh --project` 生成到 `.claude/settings.json` / `.codex/hooks.json` |
 
 **监督人执行前检查**：
@@ -27,7 +27,7 @@ cd ~/loom
 ls loom                           # CLI 入口存在
 ls data/brain.db                    # 主库存在
 python3.11 -c "import sqlite_vec"   # 向量扩展可用
-cat ~/.loom/.env | grep ZHIPU  # API Key 存在
+cat ~/.loom/.env | grep LOOM_EMBED_PROVIDER  # embedding provider 已选择
 ```
 
 ## 三、测试材料集
@@ -64,7 +64,7 @@ sqlite3 data/brain.db ".schema"
 - `cards` 表，字段：`id, title, type, content, source, layer, use_count, search_count`
 - `links` 表，字段：`source_id, target_id`（双向图邻接边）
 - `cards_fts` 虚拟表（FTS5，挂 cards 的 title/content）
-- `cards_vec` 虚拟表（sqlite-vec，2048 维 embedding 列）
+- `cards_vec` 虚拟表（sqlite-vec，embedding 维度与 `loom_meta.embedding_dim` 一致）
 - `task_trace` 表（任务记录：task_id, start, end, status, drafts_count, retries）
 
 **自检结果**：（实现完成后填写实际 `.schema` 输出摘要）
@@ -384,7 +384,7 @@ cat AGENTS.md
 **通过标准**：
 - CLI 用法更新为 `loom`（不是老 `python3.11 tools.py`）
 - 老的 store.py/tools.py 相关内容删除或移到 _legacy 说明
-- 保留通用规则：python3.11、ZHIPU_API_KEY 位置、资源管理硬约束、反作弊规范
+- 保留通用规则：python3.11、embedding provider 配置位置、资源管理硬约束、反作弊规范
 - 密度门禁章节标注"由 write-draft + Claude/Codex stop-check hook 强制执行"
 
 **自检结果**：

@@ -438,6 +438,7 @@ bin/loom-admin tag-card <card_id> --remove='["X"]'           # 人明确维护 t
 bin/loom-admin delete-card <card_id>                         # 删除卡片（cascade）
 bin/loom-admin rebuild-l4-index                              # 重建 L4 索引（pull 模式派生物）
 bin/loom-admin rebuild-tag-index                             # 从 cards.tags 重建 card_tags 派生索引
+bin/loom-admin rebuild-embeddings [--batch-size=N]           # 用当前 provider/model/dim 重建 cards_vec
 ```
 
 注：旧的 `loom-admin commit` 入口已移除（008 §5）——它绕过 `.computed_passed.json`、语义自检和 `--semantic-passed`。
@@ -462,6 +463,8 @@ bin/loom neighbors <card_id> [--depth=N]       # link 图遍历（无向）
 ```
 
 search 的 hybrid 模式是默认——FTS 抓精确术语，向量抓同义改写，两者融合（RRF：Reciprocal Rank Fusion）覆盖更全。单独用 fts 或 vector 是特殊情况。
+
+向量化是 Loom 的核心能力，但 provider 不是核心依赖。`LOOM_EMBED_PROVIDER` 支持本地 Ollama、OpenAI-compatible API、Zhipu preset；默认新用户路径推荐本地 Ollama。一个 DB 固定一个 embedding 维度，维度写入 `loom_meta.embedding_dim`；切换 provider/model/dim 后必须显式运行 `loom-admin rebuild-embeddings` 重建 `cards_vec`。卡片和 link 不受影响。
 
 **embedding 的两个用途严格区分**：
 

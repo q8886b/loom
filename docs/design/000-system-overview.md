@@ -528,7 +528,7 @@ CREATE TABLE links (
 -- 向量索引（sqlite-vec 扩展）
 CREATE VIRTUAL TABLE card_vectors USING vec0(
     card_id TEXT,
-    embedding FLOAT[2048]
+    embedding FLOAT[<loom_meta.embedding_dim>]
 );
 
 -- 全文搜索

@@ -902,6 +902,42 @@ def cmd_rebuild_tag_index(args) -> int:
     return 0
 
 
+def _chunks(items: list[dict[str, str]], size: int):
+    for i in range(0, len(items), size):
+        yield items[i:i + size]
+
+
+def cmd_rebuild_embeddings(args) -> int:
+    batch_size = max(1, args.batch_size)
+    cfg = embed.get_config()
+    cards = store.list_cards_for_embedding()
+    if cards:
+        try:
+            embed.embed(f"{cards[0]['title']}\n{cards[0]['content']}")
+        except Exception as e:
+            return _err(f"embedding provider check failed: {e}")
+
+    store.reset_vector_index(cfg.dim)
+    embedded = 0
+    for batch in _chunks(cards, batch_size):
+        texts = [f"{c['title']}\n{c['content']}" for c in batch]
+        try:
+            vectors = embed.embed_batch(texts)
+        except Exception as e:
+            return _err(f"embedding batch failed after {embedded} cards: {e}")
+        store.upsert_embeddings_batch([c["id"] for c in batch], vectors)
+        embedded += len(batch)
+
+    _print_json({
+        "status": "ok",
+        "provider": cfg.provider,
+        "model": cfg.model,
+        "dim": cfg.dim,
+        "embedded": embedded,
+    })
+    return 0
+
+
 def cmd_tag_card(args) -> int:
     if args.add is None and args.remove is None:
         return _err("tag-card requires --add and/or --remove")
@@ -1776,6 +1812,10 @@ def _build_parser(entrypoint: str = "loom") -> argparse.ArgumentParser:
 
         sp = sub.add_parser("rebuild-tag-index", help="[特权] 从 cards.tags 重建 tag 派生索引")
         sp.set_defaults(func=cmd_rebuild_tag_index)
+
+        sp = sub.add_parser("rebuild-embeddings", help="[特权] 用当前 embedding provider 重建向量索引")
+        sp.add_argument("--batch-size", type=int, default=32)
+        sp.set_defaults(func=cmd_rebuild_embeddings)
 
         sp = sub.add_parser("tag-card", help="[特权] 人类明确维护单卡 tag（增量 add/remove）")
         sp.add_argument("card_id")

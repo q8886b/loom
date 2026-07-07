@@ -113,7 +113,7 @@ ensure_dir "$LOOM_HOME/active"
 if [[ ! -f "$LOOM_HOME/.env" ]]; then
   if [[ -f "$REPO_DIR/.env.example" ]]; then
     cp "$REPO_DIR/.env.example" "$LOOM_HOME/.env"
-    echo "Created $LOOM_HOME/.env from example. Edit it to add your ZHIPU_API_KEY."
+    echo "Created $LOOM_HOME/.env from example. Edit it to choose your embedding provider."
   fi
 fi
 
@@ -405,7 +405,7 @@ if [[ "$INSTALL_HOOKS" == 1 && "$PROJECT_LOCAL" == 1 && "$INSTALL_CODEX_HOOKS" =
 fi
 echo ""
 echo "Next steps:"
-echo "  1. Add ZHIPU_API_KEY to $LOOM_HOME/.env"
+echo "  1. Review embedding settings in $LOOM_HOME/.env"
 if [[ "$INSTALL_HOOKS" == 1 ]]; then
   echo "  2. In any project where you want Loom hooks active, run: loom on"
 else

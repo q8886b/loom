@@ -8,7 +8,8 @@ Tables:
   links         - bidirectional graph edges (source_id, target_id)
   card_tags     - derived tag index maintained from cards.tags
   cards_fts     - FTS5 virtual table on title + content
-  cards_vec     - sqlite-vec virtual table (2048-dim embedding)
+  cards_vec     - sqlite-vec virtual table (embedding dim fixed per DB)
+  loom_meta     - small key/value metadata such as embedding_dim
   task_trace    - task execution log
   reject_log    - write-draft rejection log (for density gate statistics)
 
@@ -29,6 +30,8 @@ from pathlib import Path
 from typing import Any, Iterable
 
 import sqlite_vec
+
+from . import embed
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -61,7 +64,7 @@ LAYER_TYPE_MATRIX: dict[str, set[str]] = {
 VALID_LAYERS = set(LAYER_TYPE_MATRIX.keys())
 TASK_TARGET_LAYERS = {"L1", "L2_light", "L2", "L3", "L4"}
 
-EMBED_DIM = 2048
+EMBED_DIM = embed.embedding_dim()
 MIN_CONTENT_LEN = 30
 
 MATURITY_PATTERN = re.compile(r"^\[(探索期|熟练期)\]")
@@ -121,7 +124,7 @@ def connect(db_path: Path = DB_PATH):
 # init_db 启动时检查 PRAGMA user_version：匹配则跳过所有 CREATE/迁移；不匹配才跑。
 # 这样首次跑会建 schema + 跑迁移；后续启动 <1ms 跳过。
 # 将来 schema 变更：1) 改 schema 代码 2) bump SCHEMA_VERSION 3)（可选）加迁移函数。
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 
 
 def init_db(db_path: Path = DB_PATH) -> None:
@@ -190,6 +193,11 @@ def init_db(db_path: Path = DB_PATH) -> None:
                 reason     TEXT NOT NULL,
                 stage      TEXT NOT NULL   -- write_draft / stop_hook
             );
+
+            CREATE TABLE IF NOT EXISTS loom_meta (
+                key   TEXT PRIMARY KEY,
+                value TEXT NOT NULL
+            );
         """)
         # FTS5 — contentless-less external content via cards table
         # trigram tokenizer：对中文友好（按 3 字符滑窗），要求 SQLite 3.34+
@@ -215,14 +223,8 @@ def init_db(db_path: Path = DB_PATH) -> None:
                 VALUES (new.rowid, new.id, new.title, new.content);
             END;
         """)
-        # sqlite-vec virtual table
-        try:
-            conn.execute(
-                f"CREATE VIRTUAL TABLE IF NOT EXISTS cards_vec USING vec0("
-                f"card_id TEXT PRIMARY KEY, embedding float[{EMBED_DIM}])"
-            )
-        except sqlite3.OperationalError:
-            pass  # already exists
+        _migrate_embedding_meta(conn)
+        _ensure_cards_vec(conn)
 
         # 一次性迁移：删除 l1_files 旁路表，把活跃度合并到 cards 表
         # l1_files 是 008 §10 决议之前的历史包袱，005 §2.1 已明确 L1 走 cards 统一活跃度
@@ -238,6 +240,8 @@ def init_db(db_path: Path = DB_PATH) -> None:
         # v4: card origin + human-maintained tags. card_tags is a derived index.
         _migrate_add_column_if_missing(conn, "cards", "origin", "TEXT NOT NULL DEFAULT 'ai'")
         _migrate_add_column_if_missing(conn, "cards", "tags", "TEXT NOT NULL DEFAULT '[]'")
+        _migrate_embedding_meta(conn)
+        _ensure_cards_vec(conn)
         conn.executescript("""
             CREATE INDEX IF NOT EXISTS idx_cards_origin ON cards(origin);
             CREATE TABLE IF NOT EXISTS card_tags (
@@ -252,6 +256,98 @@ def init_db(db_path: Path = DB_PATH) -> None:
 
         # 跑完所有 CREATE + 迁移，标记版本——下次启动直接跳过
         conn.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
+
+
+def _table_exists(conn: sqlite3.Connection, name: str) -> bool:
+    row = conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE name=? AND type IN ('table', 'virtual table')",
+        (name,),
+    ).fetchone()
+    return row is not None
+
+
+def _get_meta(conn: sqlite3.Connection, key: str) -> str | None:
+    row = conn.execute("SELECT value FROM loom_meta WHERE key=?", (key,)).fetchone()
+    return str(row["value"]) if row else None
+
+
+def _set_meta(conn: sqlite3.Connection, key: str, value: str) -> None:
+    conn.execute(
+        "INSERT OR REPLACE INTO loom_meta(key, value) VALUES (?, ?)",
+        (key, value),
+    )
+
+
+def _migrate_embedding_meta(conn: sqlite3.Connection) -> None:
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS loom_meta (
+            key   TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+        )
+    """)
+    if _get_meta(conn, "embedding_dim") is not None:
+        return
+    # Pre-v5 Loom only had one vector shape: Zhipu embedding-3, 2048 dim.
+    # If cards_vec already exists, preserve that dimension until an explicit
+    # rebuild. Fresh DBs use the configured provider dimension.
+    dim = 2048 if _table_exists(conn, "cards_vec") else EMBED_DIM
+    _set_meta(conn, "embedding_dim", str(dim))
+
+
+def _db_embedding_dim(conn: sqlite3.Connection) -> int:
+    _migrate_embedding_meta(conn)
+    value = _get_meta(conn, "embedding_dim")
+    return int(value) if value else EMBED_DIM
+
+
+def get_embedding_dim() -> int:
+    with connect() as conn:
+        return _db_embedding_dim(conn)
+
+
+def _create_cards_vec(conn: sqlite3.Connection, dim: int) -> None:
+    conn.execute(
+        f"CREATE VIRTUAL TABLE IF NOT EXISTS cards_vec USING vec0("
+        f"card_id TEXT PRIMARY KEY, embedding float[{dim}])"
+    )
+
+
+def _ensure_cards_vec(conn: sqlite3.Connection) -> None:
+    if not _table_exists(conn, "cards_vec"):
+        _create_cards_vec(conn, _db_embedding_dim(conn))
+
+
+def _ensure_embedding_dim(conn: sqlite3.Connection, dim: int) -> None:
+    expected = _db_embedding_dim(conn)
+    if dim != expected:
+        raise ValueError(
+            f"embedding dimension mismatch for this DB: got {dim}, expected {expected}. "
+            "Use the same embedding model or run `loom-admin rebuild-embeddings` after "
+            "changing LOOM_EMBED_PROVIDER / LOOM_EMBED_MODEL / LOOM_EMBED_DIM."
+        )
+
+
+def reset_vector_index(dim: int) -> None:
+    with connect() as conn:
+        conn.execute("DROP TABLE IF EXISTS cards_vec")
+        _set_meta(conn, "embedding_dim", str(dim))
+        _create_cards_vec(conn, dim)
+
+
+def list_cards_for_embedding() -> list[dict[str, str]]:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT id, title, content FROM cards ORDER BY id"
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+
+def upsert_embeddings_batch(card_ids: list[str], embeddings: list[list[float]]) -> None:
+    if len(card_ids) != len(embeddings):
+        raise ValueError("card_ids and embeddings length mismatch")
+    with connect() as conn:
+        for cid, emb in zip(card_ids, embeddings):
+            _upsert_embedding(conn, cid, emb)
 
 
 def _migrate_drop_l1_files(conn: sqlite3.Connection) -> None:
@@ -976,6 +1072,8 @@ def bump_l1_card_use_by_path(path: str) -> None:
 
 def _upsert_embedding(conn: sqlite3.Connection, card_id: str, embedding: list[float]) -> None:
     import struct
+    _ensure_cards_vec(conn)
+    _ensure_embedding_dim(conn, len(embedding))
     blob = struct.pack(f"{len(embedding)}f", *embedding)
     conn.execute("DELETE FROM cards_vec WHERE card_id=?", (card_id,))
     conn.execute(
@@ -1052,6 +1150,8 @@ def search_vector(query_vec: list[float], top: int = 10, ns: str | None = None,
     import struct
     blob = struct.pack(f"{len(query_vec)}f", *query_vec)
     with connect() as conn:
+        _ensure_cards_vec(conn)
+        _ensure_embedding_dim(conn, len(query_vec))
         sql = """SELECT v.card_id AS id, v.distance AS score
                  FROM cards_vec v
                  JOIN cards c ON c.id = v.card_id
