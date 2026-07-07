@@ -2,6 +2,8 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -30,7 +32,18 @@ jobs:
           print("sqlite_vec", getattr(sqlite_vec, "__version__", "unknown"))
           PY
       - name: Run tests
-        run: python -m pytest -q
+        run: |
+          set -o pipefail
+          python -m pytest -q 2>&1 | tee pytest.log
+      - name: Publish pytest log
+        if: always()
+        run: |
+          {
+            echo "## pytest log"
+            echo '```text'
+            tail -200 pytest.log || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
   frontend:
     runs-on: ubuntu-latest
