@@ -2,14 +2,32 @@
 # bin/loom — global-safe wrapper for the Python CLI
 # Resolves symlinks so it works whether run from the repo or via /usr/local/bin/loom.
 SCRIPT_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
-if [[ -x /opt/homebrew/bin/python3.11 ]]; then
-  PYTHON_BIN="/opt/homebrew/bin/python3.11"
-elif [[ -x /usr/local/bin/python3.11 ]]; then
-  PYTHON_BIN="/usr/local/bin/python3.11"
-elif command -v python3.11 >/dev/null 2>&1; then
-  PYTHON_BIN="$(command -v python3.11)"
-else
-  echo "ERROR: python3.11 not found. Install Python 3.11 or add it to PATH." >&2
+
+is_python311() {
+  local candidate="$1"
+  [[ -n "$candidate" && -x "$candidate" ]] || return 1
+  "$candidate" - <<'PY' >/dev/null 2>&1
+import sys
+raise SystemExit(0 if sys.version_info >= (3, 11) else 1)
+PY
+}
+
+PYTHON_BIN=""
+for candidate in \
+  /opt/homebrew/bin/python3.11 \
+  /usr/local/bin/python3.11 \
+  "$(command -v python3.11 2>/dev/null || true)" \
+  "$(command -v python3 2>/dev/null || true)" \
+  "$(command -v python 2>/dev/null || true)"
+do
+  if is_python311 "$candidate"; then
+    PYTHON_BIN="$candidate"
+    break
+  fi
+done
+
+if [[ -z "$PYTHON_BIN" ]]; then
+  echo "ERROR: Python 3.11+ not found. Install Python 3.11 or add it to PATH." >&2
   exit 127
 fi
 exec "$PYTHON_BIN" "$SCRIPT_DIR/loom.py" "$@"

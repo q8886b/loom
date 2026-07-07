@@ -45,19 +45,29 @@ else
 fi
 
 find_python311() {
-  if command -v python3.11 >/dev/null 2>&1; then
-    command -v python3.11
-  elif [[ -x /opt/homebrew/bin/python3.11 ]]; then
-    echo "/opt/homebrew/bin/python3.11"
-  elif [[ -x /usr/local/bin/python3.11 ]]; then
-    echo "/usr/local/bin/python3.11"
-  else
-    return 1
-  fi
+  local candidate
+  for candidate in \
+    /opt/homebrew/bin/python3.11 \
+    /usr/local/bin/python3.11 \
+    "$(command -v python3.11 2>/dev/null || true)" \
+    "$(command -v python3 2>/dev/null || true)" \
+    "$(command -v python 2>/dev/null || true)"
+  do
+    [[ -n "$candidate" && -x "$candidate" ]] || continue
+    if "$candidate" - <<'PY' >/dev/null 2>&1
+import sys
+raise SystemExit(0 if sys.version_info >= (3, 11) else 1)
+PY
+    then
+      echo "$candidate"
+      return 0
+    fi
+  done
+  return 1
 }
 
 if ! PYTHON_BIN="$(find_python311)"; then
-  echo "ERROR: python3.11 not found. Install Python 3.11 or add it to PATH." >&2
+  echo "ERROR: Python 3.11+ not found. Install Python 3.11 or add it to PATH." >&2
   exit 127
 fi
 
