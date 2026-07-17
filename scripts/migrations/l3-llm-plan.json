@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "scope": {
+    "layer": "L3",
+    "namespace": "llm"
+  },
+  "outputs": [
+    {
+      "target_id": "llm:1",
+      "source_ids": ["llm:94g"],
+      "canonical_source_id": "llm:94g",
+      "rationale": "约束通过收缩非法解空间换取可信自主，是 Harness 约束支系的实质根命题。"
+    },
+    {
+      "target_id": "llm:1a",
+      "source_ids": ["llm:1a"],
+      "canonical_source_id": "llm:1a",
+      "rationale": "硬约束前置是约束换自主在约束位置和强度上的工程展开。"
+    },
+    {
+      "target_id": "llm:1a1",
+      "source_ids": ["llm:3a"],
+      "canonical_source_id": "llm:3a",
+      "rationale": "Hook 风暴直接修正硬约束前置的独立性假设，属于该命题的反思子卡。"
+    },
+    {
+      "target_id": "llm:1b",
+      "source_ids": ["llm:1b"],
+      "canonical_source_id": "llm:1b",
+      "rationale": "不可逆性决定强约束和人类介入的优先位置。"
+    },
+    {
+      "target_id": "llm:1c",
+      "source_ids": ["llm:1d"],
+      "canonical_source_id": "llm:1d",
+      "rationale": "可形式化度决定哪些空间交给机械约束、哪些保留人类判断。"
+    },
+    {
+      "target_id": "llm:1d",
+      "source_ids": ["llm:93a"],
+      "canonical_source_id": "llm:93a",
+      "rationale": "Harness 约束编码能力假设，因此必须随模型能力重新评估。"
+    },
+    {
+      "target_id": "llm:2",
+      "source_ids": ["llm:1c"],
+      "canonical_source_id": "llm:1c",
+      "rationale": "高置信度错误揭示概率系统可靠性判断的根本局部性，作为审计支系根命题。"
+    },
+    {
+      "target_id": "llm:2a",
+      "source_ids": ["llm:3b"],
+      "canonical_source_id": "llm:3b",
+      "rationale": "概率范式下测试只能估计局部分布，是高置信度可靠性陷阱的具体失效面。"
+    },
+    {
+      "target_id": "llm:2b",
+      "source_ids": ["llm:93t"],
+      "canonical_source_id": "llm:93t",
+      "rationale": "失败驱动审计对稳定正样本盲视，是局部证据结构造成的另一种误校准。"
+    },
+    {
+      "target_id": "llm:2c",
+      "source_ids": ["llm:2a"],
+      "canonical_source_id": "llm:2a",
+      "rationale": "把趋同降格为佐证，是在不完备证据下克制可靠性结论的方法。"
+    },
+    {
+      "target_id": "llm:3",
+      "source_ids": ["llm:93w"],
+      "canonical_source_id": "llm:93w",
+      "rationale": "感知、行动、评估、反思、记忆构成 Agent 架构支系的实质根骨架。"
+    },
+    {
+      "target_id": "llm:3a",
+      "source_ids": ["llm:94h"],
+      "canonical_source_id": "llm:94h",
+      "rationale": "经典算法外壳与神经启发式是为根骨架组织推理搜索的一种结构。"
+    },
+    {
+      "target_id": "llm:3b",
+      "source_ids": ["llm:93f"],
+      "canonical_source_id": "llm:93f",
+      "rationale": "内在失败信号 backoff 是评估结果驱动下一步行动的路由结构。"
+    },
+    {
+      "target_id": "llm:3c",
+      "source_ids": ["llm:93x"],
+      "canonical_source_id": "llm:93x",
+      "rationale": "跨 session 状态外置是根骨架中记忆环节的工程实现。"
+    },
+    {
+      "target_id": "llm:3d",
+      "source_ids": ["llm:93j"],
+      "canonical_source_id": "llm:93j",
+      "rationale": "汇总、阈值和压缩规定 Agent 与环境交互接口的有效形态。"
+    },
+    {
+      "target_id": "llm:3e",
+      "source_ids": ["llm:93m"],
+      "canonical_source_id": "llm:93m",
+      "rationale": "复杂度经济性约束根骨架何时升级为更复杂的 workflow 或 Agent。"
+    },
+    {
+      "target_id": "llm:4",
+      "source_ids": ["llm:2b"],
+      "canonical_source_id": "llm:2b",
+      "rationale": "Harness 与 Loom 三流同构是独立的系统比较判断，没有现成真实父卡。"
+    },
+    {
+      "target_id": "llm:5",
+      "source_ids": ["llm:6a"],
+      "canonical_source_id": "llm:6a",
+      "rationale": "AI 代码上线验收双程 Harness 是一套独立、完整的应用架构。"
+    },
+    {
+      "target_id": "llm:5a",
+      "source_ids": ["llm:6b"],
+      "canonical_source_id": "llm:6b",
+      "rationale": "Attestation 自引用反例直接修正上线验收证据账本的边界。"
+    },
+    {
+      "target_id": "llm:6",
+      "source_ids": ["llm:99a"],
+      "canonical_source_id": "llm:99a",
+      "rationale": "画像驱动的大规模采集治理是独立应用判断，不强挂到代码验收树。"
+    }
+  ]
+}

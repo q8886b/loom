@@ -1,8 +1,31 @@
 from __future__ import annotations
 
 import importlib
+import urllib.error
+import urllib.request
 
 import pytest
+
+
+def test_embedding_http_client_does_not_retry_non_transient_4xx(monkeypatch):
+    import loom.embed as embed
+
+    calls = 0
+    sleeps: list[float] = []
+
+    def fail_not_found(request, **_kwargs):
+        nonlocal calls
+        calls += 1
+        raise urllib.error.HTTPError(request.full_url, 404, "not found", {}, None)
+
+    monkeypatch.setattr(urllib.request, "urlopen", fail_not_found)
+    monkeypatch.setattr("time.sleep", lambda seconds: sleeps.append(seconds))
+
+    with pytest.raises(urllib.error.HTTPError):
+        embed._http_post_json("http://example.test/embed", {"input": "x"}, retries=3)
+
+    assert calls == 1
+    assert sleeps == []
 
 
 def test_embedding_default_is_local_ollama(monkeypatch, tmp_path):

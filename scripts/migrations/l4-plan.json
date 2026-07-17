@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "scope": {
+    "layer": "L4",
+    "namespace": "gen"
+  },
+  "outputs": [
+    {
+      "target_id": "gen:1",
+      "source_ids": ["gen:1a"],
+      "canonical_source_id": "gen:1a",
+      "rationale": "以局部与全局的非加性关系作为该支系的实质根命题。"
+    },
+    {
+      "target_id": "gen:1a",
+      "source_ids": ["gen:2b", "gen:4p"],
+      "canonical_source_id": "gen:2b",
+      "rationale": "两卡正文重复；作为非加性问题的操作层回应归于 gen:1 之下。"
+    },
+    {
+      "target_id": "gen:1b",
+      "source_ids": ["gen:2a", "gen:3g"],
+      "canonical_source_id": "gen:3g",
+      "title": "分层依赖不可逆：上层投入不能补偿底层缺陷",
+      "content_file": "l4-content/gen-1b.md",
+      "rationale": "两卡共享底层约束上层的同一命题，合并保留适应性延迟和上层不可补偿两个边界。"
+    },
+    {
+      "target_id": "gen:1b1",
+      "source_ids": ["gen:4l"],
+      "canonical_source_id": "gen:4l",
+      "rationale": "体先用辅是分层依赖不可逆在表述系统中的专门深化。"
+    },
+    {
+      "target_id": "gen:1c",
+      "source_ids": ["gen:2d"],
+      "canonical_source_id": "gen:2d",
+      "rationale": "决策矩阵把相互冲突的局部建议重组为可操作的全局结构。"
+    },
+    {
+      "target_id": "gen:1c1",
+      "source_ids": ["gen:4j"],
+      "canonical_source_id": "gen:4j",
+      "rationale": "编码、关系判定、决断是决策矩阵在诊断场景中的具体展开。"
+    },
+    {
+      "target_id": "gen:2",
+      "source_ids": ["gen:2c"],
+      "canonical_source_id": "gen:2c",
+      "rationale": "以正面对抗触发自保性阻力作为独立根命题。"
+    },
+    {
+      "target_id": "gen:2a",
+      "source_ids": ["gen:4k"],
+      "canonical_source_id": "gen:4k",
+      "rationale": "能量重定向给出绕过自保机制的具体变更路径。"
+    },
+    {
+      "target_id": "gen:2b",
+      "source_ids": ["gen:3y"],
+      "canonical_source_id": "gen:3y",
+      "rationale": "权威位置使观念获得制度性保护，是自保性阻力的组织层机制。"
+    },
+    {
+      "target_id": "gen:3",
+      "source_ids": ["gen:3o"],
+      "canonical_source_id": "gen:3o",
+      "rationale": "以外部结构补偿不稳定内部能力作为实质根命题。"
+    },
+    {
+      "target_id": "gen:3a",
+      "source_ids": ["gen:5f"],
+      "canonical_source_id": "gen:5f",
+      "rationale": "结构摩擦把不稳定的自我控制外化为默认执行路径。"
+    },
+    {
+      "target_id": "gen:3b",
+      "source_ids": ["gen:4m"],
+      "canonical_source_id": "gen:4m",
+      "rationale": "认知偏误工程化把不稳定判断外化为流程约束。"
+    },
+    {
+      "target_id": "gen:4",
+      "source_ids": ["gen:3p", "gen:3q", "gen:3r"],
+      "canonical_source_id": "gen:3q",
+      "title": "多路径独立收敛：不确定系统中的互证机制",
+      "content_file": "l4-content/gen-4.md",
+      "rationale": "三卡分别从信号、视角、推导路径描述同一独立收敛结构，合并后保留独立性、发散信息和概率边界。"
+    },
+    {
+      "target_id": "gen:4a",
+      "source_ids": ["gen:3n"],
+      "canonical_source_id": "gen:3n",
+      "rationale": "外部平行参照系是多路径独立互证用于恢复失传映射的专门方法。"
+    },
+    {
+      "target_id": "gen:5",
+      "source_ids": ["gen:4s"],
+      "canonical_source_id": "gen:4s",
+      "rationale": "环境与机制的匹配度是认知架构有效性的上位根命题。"
+    },
+    {
+      "target_id": "gen:5a",
+      "source_ids": ["gen:5b"],
+      "canonical_source_id": "gen:5b",
+      "rationale": "双程架构是系统适应常规与异常两类环境的具体信息处理结构。"
+    },
+    {
+      "target_id": "gen:5a1",
+      "source_ids": ["gen:3k"],
+      "canonical_source_id": "gen:3k",
+      "rationale": "启发式替代是快速层筛选污染慢速推理输入的内部失效方式。"
+    },
+    {
+      "target_id": "gen:5a2",
+      "source_ids": ["gen:5c"],
+      "canonical_source_id": "gen:5c",
+      "rationale": "自动通道劫持是快速处理架构被外部伪造触发利用的失效方式。"
+    },
+    {
+      "target_id": "gen:5b",
+      "source_ids": ["gen:8a"],
+      "canonical_source_id": "gen:8a",
+      "rationale": "自我实现预期描述心智反过来改变环境并强化匹配的反馈通道。"
+    },
+    {
+      "target_id": "gen:6",
+      "source_ids": ["gen:4n"],
+      "canonical_source_id": "gen:4n",
+      "rationale": "以不同诠释范式导致意义裂变作为理论演化支系的根命题。"
+    },
+    {
+      "target_id": "gen:6a",
+      "source_ids": ["gen:5a"],
+      "canonical_source_id": "gen:5a",
+      "rationale": "核心假设替换解释同一结构框架如何生成不可通约的理论变体。"
+    },
+    {
+      "target_id": "gen:7",
+      "source_ids": ["gen:4r"],
+      "canonical_source_id": "gen:4r",
+      "rationale": "层级分析本身是独立认知操作，不强挂到某个具体分层模型之下。"
+    },
+    {
+      "target_id": "gen:8",
+      "source_ids": ["gen:3d"],
+      "canonical_source_id": "gen:3d",
+      "rationale": "具身意象具有独立机制与边界，现有卡中没有真实上位父卡。"
+    },
+    {
+      "target_id": "gen:9",
+      "source_ids": ["gen:5e"],
+      "canonical_source_id": "gen:5e",
+      "rationale": "以收益和尾部损失分属不同主体作为激励风险支系的根命题。"
+    },
+    {
+      "target_id": "gen:9a",
+      "source_ids": ["gen:5d"],
+      "canonical_source_id": "gen:5d",
+      "rationale": "小额兑现到大额套牢是利用非对称损失和退出成本的具体承诺升级结构。"
+    }
+  ]
+}

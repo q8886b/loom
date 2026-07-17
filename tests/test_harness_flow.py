@@ -159,7 +159,7 @@ def test_replayable_harness_from_empty_store(loom):
     loom["run"]([
         "write-draft",
         think,
-        "llm:1a",
+        "llm:1",
         "--layer=L3",
         "--type=判断",
         "--title=Harness 生成判断",
@@ -172,10 +172,10 @@ def test_replayable_harness_from_empty_store(loom):
     loom["run"]([
         "propose-l4",
         propose_task,
-        "gen:1a",
+        "gen:1",
         "--title=跨域锚定模式",
         "--type=模式",
-        f"--related=llm:1a,{med_l2}",
+        f"--related=llm:1,{med_l2}",
         "--content=[探索期] 当一个判断能同时锚定软件智能与医学实践两个领域时，它才可能从领域经验上升为元层模式。这个模式仍需持续补充反例和边界。",
     ])
     proposals = sorted((Path("/tmp/loom_task") / propose_task / "staging").glob("*.json"))
@@ -188,8 +188,8 @@ def test_replayable_harness_from_empty_store(loom):
     ], admin=True)
     loom["run"](["commit-l4", str(proposals[0])], admin=True)
 
-    assert loom["store"].get_card("gen:1a")["layer"] == "L4"
-    assert set(loom["store"].get_links("gen:1a")) >= {"llm:1a", med_l2}
+    assert loom["store"].get_card("gen:1")["layer"] == "L4"
+    assert set(loom["store"].get_links("gen:1")) >= {"llm:1", med_l2}
 
     med_think = loom["task_id"]("think_med")
     loom["write_plan"](
@@ -201,7 +201,7 @@ def test_replayable_harness_from_empty_store(loom):
     loom["run"]([
         "write-draft",
         med_think,
-        "med:1a",
+        "med:1",
         "--layer=L3",
         "--type=判断",
         "--title=医学边界判断",
@@ -214,15 +214,15 @@ def test_replayable_harness_from_empty_store(loom):
     loom["run"]([
         "propose-card-edit",
         edit_task,
-        "gen:1a",
+        "gen:1",
         "--type=补充",
-        "--related=med:1a",
+        "--related=med:1",
         "--content=[探索期] 当一个判断能同时锚定软件智能与医学实践两个领域时，它才可能从领域经验上升为元层模式。新增医学边界判断后，这个模式的适用范围更清楚：跨域迁移必须保留领域约束，而不是只保留抽象相似性。",
     ])
     edit_proposals = sorted((Path("/tmp/loom_task") / edit_task / "staging").glob("*.json"))
     assert len(edit_proposals) == 1
     payload = json.loads(edit_proposals[0].read_text(encoding="utf-8"))
-    assert payload["related_cards"] == ["med:1a"]
+    assert payload["related_cards"] == ["med:1"]
     loom["run"]([
         "proposal-decision",
         str(edit_proposals[0]),
@@ -230,8 +230,8 @@ def test_replayable_harness_from_empty_store(loom):
     ], admin=True)
     loom["run"](["apply-card-edit", str(edit_proposals[0])], admin=True)
 
-    assert "med:1a" in set(loom["store"].get_links("gen:1a"))
-    assert "新增医学边界判断" in loom["store"].get_card("gen:1a")["content"]
+    assert "med:1" in set(loom["store"].get_links("gen:1"))
+    assert "新增医学边界判断" in loom["store"].get_card("gen:1")["content"]
 
     loom["run"](["search", "判断", "--mode=fts", "--top=5"])
     original_embed = loom["cli"].embed.embed

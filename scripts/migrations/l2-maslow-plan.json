@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "scope": {
+    "layer": "L2",
+    "namespace": "psy:maslow",
+    "source_id_prefix": "psy:maslow:02"
+  },
+  "outputs": [
+    {
+      "target_id": "psy:maslow:02",
+      "source_ids": ["psy:maslow:02a"],
+      "canonical_source_id": "psy:maslow:02a",
+      "rationale": "方法中心与问题中心给出本组另外两张卡共同依赖的上位区分。"
+    },
+    {
+      "target_id": "psy:maslow:02a",
+      "source_ids": ["psy:maslow:02c"],
+      "canonical_source_id": "psy:maslow:02c",
+      "rationale": "手段目的混淆是方法中心范式的直接机制展开。"
+    },
+    {
+      "target_id": "psy:maslow:02b",
+      "source_ids": ["psy:maslow:02b"],
+      "canonical_source_id": "psy:maslow:02b",
+      "rationale": "科学正统抑制创造性是方法中心范式的制度后果。"
+    }
+  ]
+}

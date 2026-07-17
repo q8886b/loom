@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "scope": {
+    "layer": "L2",
+    "namespace": "fin:grimes",
+    "source_id_prefix": "fin:grimes:c"
+  },
+  "root_start": 13,
+  "default_rationale": "保留既有章节主题卡与直属子卡的语义关系，只移除非法 c 前缀。",
+  "trees": [
+    {"source": "fin:grimes:c01"},
+    {"source": "fin:grimes:c02"},
+    {"source": "fin:grimes:c03"},
+    {"source": "fin:grimes:c04"},
+    {"source": "fin:grimes:c05"},
+    {"source": "fin:grimes:c06"},
+    {"source": "fin:grimes:c07"},
+    {"source": "fin:grimes:c08"},
+    {"source": "fin:grimes:c09"},
+    {"source": "fin:grimes:c10"},
+    {"source": "fin:grimes:c11", "children": [
+      {"source": "fin:grimes:c11a"}, {"source": "fin:grimes:c11b"}, {"source": "fin:grimes:c11c"}
+    ]},
+    {"source": "fin:grimes:c12", "children": [
+      {"source": "fin:grimes:c12a"}, {"source": "fin:grimes:c12b"}, {"source": "fin:grimes:c12c"}
+    ]},
+    {"source": "fin:grimes:c13", "children": [
+      {"source": "fin:grimes:c13a"}, {"source": "fin:grimes:c13b"}, {"source": "fin:grimes:c13c"}
+    ]},
+    {"source": "fin:grimes:c14", "children": [
+      {"source": "fin:grimes:c14a"}, {"source": "fin:grimes:c14b"}, {"source": "fin:grimes:c14c"}
+    ]},
+    {"source": "fin:grimes:c15", "children": [
+      {"source": "fin:grimes:c15a"}, {"source": "fin:grimes:c15b"}, {"source": "fin:grimes:c15c"}
+    ]},
+    {"source": "fin:grimes:c16", "children": [
+      {"source": "fin:grimes:c16a"}, {"source": "fin:grimes:c16b"}, {"source": "fin:grimes:c16c"}
+    ]},
+    {"source": "fin:grimes:c17", "children": [
+      {"source": "fin:grimes:c17a"}, {"source": "fin:grimes:c17b"}
+    ]},
+    {"source": "fin:grimes:c18", "children": [
+      {"source": "fin:grimes:c18a"}, {"source": "fin:grimes:c18b"}
+    ]},
+    {"source": "fin:grimes:c19", "children": [
+      {"source": "fin:grimes:c19a"}, {"source": "fin:grimes:c19b"}
+    ]},
+    {"source": "fin:grimes:c20", "children": [
+      {"source": "fin:grimes:c20a"}, {"source": "fin:grimes:c20b"}, {"source": "fin:grimes:c20c"}
+    ]},
+    {"source": "fin:grimes:c21", "children": [
+      {"source": "fin:grimes:c21a"}, {"source": "fin:grimes:c21b"}, {"source": "fin:grimes:c21c"},
+      {"source": "fin:grimes:c21d"}, {"source": "fin:grimes:c21e"}
+    ]},
+    {"source": "fin:grimes:c22", "children": [
+      {"source": "fin:grimes:c22a"}, {"source": "fin:grimes:c22b"}, {"source": "fin:grimes:c22c"},
+      {"source": "fin:grimes:c22d"}, {"source": "fin:grimes:c22e"}, {"source": "fin:grimes:c22f"}
+    ]},
+    {"source": "fin:grimes:c23", "children": [
+      {"source": "fin:grimes:c23a"}, {"source": "fin:grimes:c23b"}, {"source": "fin:grimes:c23c"},
+      {"source": "fin:grimes:c23d"}, {"source": "fin:grimes:c23e"}, {"source": "fin:grimes:c23f"}
+    ]},
+    {"source": "fin:grimes:c24", "children": [
+      {"source": "fin:grimes:c24a"}, {"source": "fin:grimes:c24b"}, {"source": "fin:grimes:c24c"},
+      {"source": "fin:grimes:c24d"}, {"source": "fin:grimes:c24e"}, {"source": "fin:grimes:c24f"}
+    ]},
+    {"source": "fin:grimes:c25", "children": [
+      {"source": "fin:grimes:c25a"}, {"source": "fin:grimes:c25b"}, {"source": "fin:grimes:c25c"},
+      {"source": "fin:grimes:c25d"}, {"source": "fin:grimes:c25e"}, {"source": "fin:grimes:c25f"}
+    ]},
+    {"source": "fin:grimes:c26", "children": [
+      {"source": "fin:grimes:c26a"}, {"source": "fin:grimes:c26b"}, {"source": "fin:grimes:c26c"},
+      {"source": "fin:grimes:c26d"}, {"source": "fin:grimes:c26e"}
+    ]},
+    {"source": "fin:grimes:c27", "children": [
+      {"source": "fin:grimes:c27a"}, {"source": "fin:grimes:c27b"}, {"source": "fin:grimes:c27c"},
+      {"source": "fin:grimes:c27d"}, {"source": "fin:grimes:c27e"}
+    ]},
+    {"source": "fin:grimes:c28", "children": [
+      {"source": "fin:grimes:c28a"}, {"source": "fin:grimes:c28b"}, {"source": "fin:grimes:c28c"}
+    ]},
+    {"source": "fin:grimes:c29", "children": [
+      {"source": "fin:grimes:c29a"}, {"source": "fin:grimes:c29b"}
+    ]},
+    {"source": "fin:grimes:c30"}
+  ]
+}

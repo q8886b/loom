@@ -1,0 +1,261 @@
+{
+  "version": 1,
+  "scope": {"layer": "L3", "namespace": "fin"},
+  "expected_source_count": 424,
+  "expected_source_ids_sha256": "4407b5d5f0e7c92877db18ee9c0176613017d2d8740757d1f974df8138924c99",
+  "remaining_as_roots": true,
+  "trees": [
+    {
+      "source": "fin:6a",
+      "rationale": "不确定性与概率思维是交易认知和系统方法的共同根。",
+      "children": [
+        {
+          "source": "fin:6b",
+          "rationale": "交易者自身是概率执行系统中的核心变量。",
+          "children": [
+            {"source_ids": ["fin:3c", "fin:3c_v2"], "canonical": "fin:3c", "rationale": "两卡高度重复，整合内在掌控与系统设计。"},
+            {"source_ids": ["fin:3b", "fin:3b_v2"], "canonical": "fin:3b", "rationale": "两卡高度重复，描述通过解活而非消灭改变信念。"},
+            {"source": "fin:5f", "rationale": "以多书互证内在掌控的绩效边界。"},
+            {"source_ids": ["fin:3e", "fin:5i"], "canonical": "fin:3e", "rationale": "两卡正文重复，给出个人适配的系统闭环。"}
+          ]
+        },
+        {
+          "source": "fin:6c",
+          "rationale": "系统设计与执行能力是交易方法的两个不可约维度。",
+          "children": [
+            {"source_ids": ["fin:1c", "fin:4x"], "canonical": "fin:1c", "rationale": "两卡正文重复，描述风险到头寸管理的递进。"},
+            {"source": "fin:5g", "rationale": "R 乘数把数学系统与心理执行连接起来。"},
+            {"source": "fin:5h", "rationale": "头寸规模是系统设计中被低估的独立维度。"},
+            {"source": "fin:6e", "rationale": "风险管理从单笔扩展到组合层级。"},
+            {"source": "fin:6d", "rationale": "实践弧线说明系统如何转化为执行能力。"}
+          ]
+        },
+        {
+          "source": "fin:6f",
+          "rationale": "量化与主观范式的张力统摄技术分析方法。",
+          "children": [
+            {"source_ids": ["fin:1a", "fin:4v"], "canonical": "fin:1a", "rationale": "两卡正文重复，描述工具箱与多信号收敛。"},
+            {"source_ids": ["fin:1b", "fin:4w"], "canonical": "fin:1b", "rationale": "两卡正文重复，解释趋势的结构基础。"},
+            {"source_ids": ["fin:1d", "fin:4y"], "canonical": "fin:1d", "rationale": "两卡正文重复，分解反转信号的认知层次。"},
+            {"source_ids": ["fin:1e", "fin:4z"], "canonical": "fin:1e", "rationale": "两卡正文重复，比较工具与心理的权重。"}
+          ]
+        },
+        {
+          "source": "fin:6g",
+          "rationale": "市场可预测性光谱规定概率决策的认识论边界。",
+          "children": [
+            {"source_ids": ["fin:3a", "fin:3a_v2"], "canonical": "fin:3a", "rationale": "两卡高度重复，以概率真理纠正认知偏误。"},
+            {"source_ids": ["fin:3d", "fin:3d_v2"], "canonical": "fin:3d", "rationale": "两卡高度重复，说明确定性心智与概率环境错配。"},
+            {"source": "fin:94q", "rationale": "给出不依赖预测的概率优势执行框架。"}
+          ]
+        },
+        {"source_ids": ["fin:2a", "fin:4j"], "canonical": "fin:2a", "rationale": "两卡正文重复，描述失败到系统规则的成长路径。"},
+        {
+          "source": "fin:93s",
+          "rationale": "失败作为认知门槛解释非对称反馈下的学习。",
+          "children": [{"source": "fin:94d", "rationale": "破产驱动升级是断裂式学习的交易实例。"}]
+        },
+        {
+          "source": "fin:1a_v2",
+          "rationale": "启发式替代链是交易认知偏误支系根。",
+          "children": [
+            {"source": "fin:1b_v2", "rationale": "处置效应是损失厌恶与心理账户的交互。"},
+            {"source": "fin:1c_v2", "rationale": "可得性级联把媒体叙事传导到价格。"},
+            {"source": "fin:1d_v2", "rationale": "把启发式替代抽象为跨域认知操作。"},
+            {"source": "fin:1e_v2", "rationale": "用牵涉痛原则区分亏损症状和偏误病源。"},
+            {"source": "fin:5e", "rationale": "把偏误分类转化为交易系统工程约束。"}
+          ]
+        }
+      ]
+    },
+    {
+      "source": "fin:7a",
+      "rationale": "交易经典结构性盲区是一张完整反思根卡。",
+      "children": [{"source": "fin:7b", "rationale": "从盲区中追踪未显式卡片化的反脆弱线索。"}]
+    },
+    {
+      "source": "fin:8a",
+      "rationale": "关系信任的风险折扣统摄熟人交易风险。",
+      "children": [
+        {"source": "fin:8b", "rationale": "小额兑现梯子利用信任与承诺升级。"},
+        {"source": "fin:8c", "rationale": "非对称损失解释关系中的兜底结构。"}
+      ]
+    },
+    {
+      "source": "fin:9a",
+      "rationale": "居住、投资、货币三层框架是早期房产判断支系根。",
+      "children": [
+        {"source": "fin:1a1", "rationale": "调控通过能量重定向作用于房产系统。"},
+        {"source": "fin:1a2", "rationale": "双轨制形成收益与风险的不对称分配。"},
+        {"source": "fin:1a3", "rationale": "地位财属性补充核心城市房产需求。"},
+        {"source": "fin:1a4", "rationale": "法币、土地与房产形成层级信用依赖。"},
+        {"source": "fin:1a5", "rationale": "指出调控解释中的分析层级错配。"},
+        {"source": "fin:1a6", "rationale": "用决策矩阵比较稀缺资产替代路径。"},
+        {"source": "fin:9b", "rationale": "局部调控合理性可能叠加为全局失效。"},
+        {"source": "fin:9c", "rationale": "目标、激励和信息错配解释政策异化。"},
+        {"source": "fin:9d", "rationale": "庄家思维用于识别资产分配位置。"},
+        {"source": "fin:9e", "rationale": "标出中日泡沫模型不可直接类比的边界。"},
+        {"source": "fin:9f", "rationale": "把房产可行性转成三维筛选框架。"},
+        {"source": "fin:9g", "rationale": "反思稀缺房产永远抗通胀的适用边界。"}
+      ]
+    },
+    {
+      "source": "fin:95b",
+      "rationale": "土地财政、地方债和房地产形成信用依赖支系根。",
+      "children": [
+        {"source": "fin:5l", "rationale": "把土地信用循环表述为分层依赖。"},
+        {"source": "fin:107a", "rationale": "土地权力升级为信用组织能力。"},
+        {"source": "fin:112e", "rationale": "房价判断嵌入地方财政与金融循环。"},
+        {"source": "fin:149d", "rationale": "指出分层解释仍需外部硬约束检查。"},
+        {"source": "fin:156b", "rationale": "货币投放使土地财政成为流量枢纽。"},
+        {"source": "fin:156g", "rationale": "抵押品稳定把土地财政接到货币政策。"},
+        {"source": "fin:164a", "rationale": "把信用锚、财政和内需压进同一抵押品链。"},
+        {
+          "source": "fin:153b",
+          "rationale": "土地财政托底内生化通胀两难。",
+          "children": [{"source": "fin:153d", "rationale": "托底仍不能保证房产兑现购买力。"}]
+        }
+      ]
+    },
+    {
+      "source": "fin:155b",
+      "rationale": "房产抗通胀必须同时满足保值、进入和持有边界。",
+      "children": [
+        {"source": "fin:107c", "rationale": "要求把抗通胀命题分层判断。"},
+        {"source": "fin:108d", "rationale": "补充进入门槛与价格边界。"},
+        {"source": "fin:147c", "rationale": "唯一避险资产叙事暴露通道贫乏。"},
+        {
+          "source": "fin:156e",
+          "rationale": "将有效性落实到流动性、杠杆和买点。",
+          "children": [
+            {"source": "fin:156h", "rationale": "配置核心进一步收敛为退出权。"},
+            {"source": "fin:159c", "rationale": "紧缩路径会让抗通胀资产反转为负资产。"}
+          ]
+        }
+      ]
+    },
+    {
+      "source": "fin:116c",
+      "rationale": "租售比需拆成现金流与增长期权两把尺。",
+      "children": [
+        {"source": "fin:112c", "rationale": "租售比用于约束升值叙事而非替代目标。"},
+        {"source": "fin:155c", "rationale": "高售租比可能同时编码泡沫和增长期权。"}
+      ]
+    },
+    {
+      "source": "fin:118b",
+      "rationale": "城市房价必须联合计算需求导入与供给释放。",
+      "children": [
+        {"source": "fin:118a", "rationale": "核心城市需求由跨域购买力塑造。"},
+        {"source": "fin:126c", "rationale": "边际买家取决于辐射半径和替代网络。"},
+        {"source": "fin:127e", "rationale": "用有效接盘者校准全国趋势。"},
+        {"source": "fin:147d", "rationale": "区分总量进城与核心城市再集中。"},
+        {"source": "fin:160a", "rationale": "阶段判断还需城市功能和建设成本。"}
+      ]
+    },
+    {
+      "source": "fin:99a",
+      "rationale": "货币蓄水池轮换是资产承接支系根。",
+      "children": [
+        {
+          "source": "fin:125b",
+          "rationale": "蓄水池选择交换货币承接与社会承受力。",
+          "children": [{"source": "fin:125d", "rationale": "反思空间换时间只有底层修复时成立。"}]
+        },
+        {
+          "source": "fin:109b",
+          "rationale": "债务约束会让蓄水池反转为出清器。",
+          "children": [{"source": "fin:113a", "rationale": "全球退潮时进一步反转为风险传导器。"}]
+        }
+      ]
+    },
+    {
+      "source": "fin:140a",
+      "rationale": "信用宽松必须穿透现金流才形成资产支撑。",
+      "children": [
+        {"source": "fin:143a", "rationale": "信用闸门比货币总量更直接决定资产价格。"},
+        {
+          "source": "fin:134a",
+          "rationale": "信用扩张关键在承接资产。",
+          "children": [{"source": "fin:135e", "rationale": "反思总量解释不能替代承接通道分析。"}]
+        },
+        {
+          "source": "fin:138b",
+          "rationale": "宽松政策先检查水流承载体。",
+          "children": [{"source": "fin:156d", "rationale": "行情判据进一步落到水流顺序。"}]
+        }
+      ]
+    },
+    {
+      "source": "fin:109c",
+      "rationale": "价格管制会把风险迁移到权利变量。",
+      "children": [{"source": "fin:163a", "rationale": "处置权风险是该迁移的具体表现。"}]
+    },
+    {
+      "source": "fin:129c",
+      "rationale": "安全边际的底层作用是保留等待与再决策权。",
+      "children": [
+        {"source": "fin:164e", "rationale": "把安全边际进一步表述为可调度现金。"},
+        {"source": "fin:112a", "rationale": "低流动性杠杆资产需以逆境偿债能力衡量。"},
+        {"source": "fin:131e", "rationale": "自住与转手价值共同构成房产安全边际。"},
+        {"source": "fin:144d", "rationale": "家庭安全边际应由现金流而非账面资产衡量。"},
+        {"source": "fin:145a", "rationale": "经营现金流持续生产等待权。"}
+      ]
+    },
+    {
+      "source": "fin:134b",
+      "rationale": "政策托底改变路径但不消灭信用边界。",
+      "children": [{"source": "fin:164c", "rationale": "将托底明确为路径管理而非损失消灭。"}]
+    },
+    {
+      "source": "fin:111b",
+      "rationale": "逆向有效来自退出拥挤而非机械反多数。",
+      "children": [{"source": "fin:111f", "rationale": "反思逆向仍受安全边界和趋势约束。"}]
+    },
+    {
+      "source": "fin:101c",
+      "rationale": "政策失败会被叙事重写为加码理由。",
+      "children": [{"source": "fin:108e", "rationale": "高房价政策展示同一不可证伪加码结构。"}]
+    },
+    {
+      "source": "fin:132b",
+      "rationale": "需求管制因反馈时间尺度错配产生延迟反噬。",
+      "children": [{"source": "fin:95a", "rationale": "供给反噬提供跨书验证。"}]
+    },
+    {
+      "source": "fin:136b",
+      "rationale": "刚需不能形成价格底，只能形成现金流边界。",
+      "children": [{"source": "fin:137b", "rationale": "退出权不足解释刚需的真实刚性。"}]
+    },
+    {
+      "source": "fin:157a",
+      "rationale": "十年回本是跨行业现金流生存检验。",
+      "children": [{"source": "fin:157j", "rationale": "反思粗锚不能被误用为唯一估值尺。"}]
+    },
+    {
+      "source": "fin:121d",
+      "rationale": "商业诡道只在环境错配下具有临时防御价值。",
+      "children": [{"source": "fin:122e", "rationale": "明确诡道不能替代企业核心能力。"}]
+    },
+    {
+      "source": "fin:5m",
+      "rationale": "市场信号可以作为政策效果的外部验收。",
+      "children": [{"source": "fin:158b", "rationale": "把市场信号表述为行政干预的成本回执。"}]
+    },
+    {
+      "source": "fin:107e",
+      "rationale": "锁市控制的是出清速度而非单一价格。",
+      "children": [{"source": "fin:142a", "rationale": "把锁市识别为资本管制的资产端版本。"}]
+    },
+    {
+      "source": "fin:155a",
+      "rationale": "房产存钱罐通过资产结构外化储蓄纪律。",
+      "children": [{"source": "fin:155g", "rationale": "现金流续航规定存钱罐的安全边界。"}]
+    },
+    {
+      "source": "fin:155d",
+      "rationale": "继承房产错觉来自支配权与名义资产混淆。",
+      "children": [{"source": "fin:155h", "rationale": "房产养老进一步强调支配权而非传承义务。"}]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "scope": {"layer": "L3", "namespace": "fit"},
+  "trees": [
+    {
+      "source": "fit:1c",
+      "rationale": "系统框架先于碎片知识，是分层与结构支系的独立根命题。",
+      "children": [
+        {"source": "fit:1e", "rationale": "从学习效用进一步论证框架优先。"},
+        {
+          "source": "fit:1a",
+          "rationale": "金字塔依赖是框架具有先后约束的一种结构。",
+          "children": [
+            {"source": "fit:93h", "rationale": "深化底层失稳导致上层必败和延迟伤害。"},
+            {"source": "fit:cross:1a", "rationale": "用多个健身子领域互证分层框架。"},
+            {"source": "fit:3b", "rationale": "把分层依赖具体化为干预架构。"},
+            {"source": "fit:94a", "rationale": "根枝叶是分层依赖的具体模型。"}
+          ]
+        },
+        {"source": "fit:1d", "rationale": "结构决定功能说明框架约束为何不能被意志替代。"}
+      ]
+    },
+    {"source": "fit:1f", "rationale": "知几讨论改进前的信号感知，没有现成真实父卡。"},
+    {
+      "source": "fit:1g",
+      "rationale": "不可能三角是多目标约束的独立根命题。",
+      "children": [{"source": "fit:cross:1c", "rationale": "补充跨域实例和适用边界。"}]
+    },
+    {
+      "source": "fit:1h",
+      "rationale": "单变量实验是因果归因的独立方法根。",
+      "children": [{"source": "fit:3i", "rationale": "将单变量原则用于动作和营养学习优化。"}]
+    },
+    {"source": "fit:1j", "rationale": "记录使改进可量化，是独立方法命题。"},
+    {
+      "source": "fit:1i",
+      "rationale": "二元对立是条件化判断的独立认知问题。",
+      "children": [{"source": "fit:cross:1e", "rationale": "给出从对错判断升级为条件判断的操作。"}]
+    },
+    {
+      "source": "fit:93c",
+      "rationale": "决策矩阵是个体化干预与知识重组支系的上位操作。",
+      "children": [
+        {"source": "fit:3e", "rationale": "减重指南是多维决策矩阵的具体实例。"},
+        {"source": "fit:3d", "rationale": "定性分档与定量计算是矩阵中的互补决策轴。"},
+        {"source": "fit:3f", "rationale": "分类到差异化干预是矩阵条件分支的具体机制。"},
+        {"source": "fit:cross:1b", "rationale": "比较分类匹配与自适应校准两条个体化路径。"}
+      ]
+    },
+    {
+      "source": "fit:3h",
+      "rationale": "退阶体系提供技能教学与学习路径的现成上位框架。",
+      "children": [
+        {"source": "fit:4a", "rationale": "可视化下一步解释退阶如何维持动机。"},
+        {"source": "fit:3a", "rationale": "时间窗口替代次数是自适应难度的一种实现。"},
+        {"source": "fit:3g", "rationale": "身体意象是复杂动作教学的一种指令通道。"},
+        {"source": "fit:3j", "rationale": "跨材料互证动作形态优先的教学判断。"}
+      ]
+    },
+    {
+      "source": "fit:4b",
+      "rationale": "深蹲稳定机制是一张完整实践机制卡。",
+      "children": [{"source": "fit:4c", "rationale": "记录该机制在个人实践中的发现过程。"}]
+    },
+    {
+      "source": "fit:94i",
+      "rationale": "绕开自保护是该支系的通用策略根。",
+      "children": [
+        {"source": "fit:cross:1d", "rationale": "用跨域材料扩展绕行策略。"},
+        {"source": "fit:2a", "rationale": "PNF 是绕过防御反射的具体生理实例。"}
+      ]
+    },
+    {
+      "source": "fit:2b",
+      "rationale": "从症状回溯病因是独立诊断操作。",
+      "children": [{"source": "fit:2c", "rationale": "痛点不等于病源是该操作的关键边界。"}]
+    },
+    {"source": "fit:1b", "rationale": "动力链能量传导具有独立机制，没有现成真实父卡。"},
+    {"source": "fit:3c", "rationale": "平台期的时序与因果双视角是独立分析判断。"}
+  ]
+}

@@ -93,23 +93,47 @@ def check_namespace_format(d: CardDraft) -> CheckResult:
 
     卢曼 ID：数字开头，字母数字交替（01 / 12a / 12a1）。
     """
-    patterns = {
-        "L1": store.NS_PATTERN_L1,
-        "L2": store.NS_PATTERN_L2,
-        "L3": store.NS_PATTERN_L3,
-        "L4": store.NS_PATTERN_L4,
-    }
-    pat = patterns.get(d.layer)
-    if pat is None:
+    if d.layer not in store.CARD_ID_PATTERNS:
         return CheckResult("namespace_format", True)
-    if not pat.match(d.id):
+    if not store.card_id_matches_layer(d.id, d.layer):
         return CheckResult(
             "namespace_format", False,
             f"card_id '{d.id}' 不符合 layer={d.layer} 的 namespace 格式（005 §2.1）。"
             f"期望：L1=<域>:<书>:src:<单元> / L2=<域>:<书>:<卢曼ID> / "
-            f"L3=<域>:<卢曼ID> / L4=gen:<卢曼ID>；卢曼 ID 以数字开头（01/12a/12a1）",
+            f"L3=<域>:<卢曼ID> / L4=gen:<卢曼ID>；卢曼 ID 完整匹配"
+            f"数字段(字母段数字段)*字母段?（01/12a/12a1）",
         )
     return CheckResult("namespace_format", True)
+
+
+def check_luhmann_parent_exists(
+    d: CardDraft,
+    conn: sqlite3.Connection,
+    drafts: list[CardDraft],
+) -> CheckResult:
+    """卢曼父级存在校验（005 §2.1 / §5.3）。
+
+    L2/L3/L4 新卡的父级 ID 必须先存在（库中或同 task drafts）。
+    根卡（无父级）不校验。
+    """
+    if d.layer not in ("L2", "L3", "L4"):
+        return CheckResult("luhmann_parent_exists", True)
+    parent_id = store._parent_id(d.id)
+    if parent_id is None:
+        # 顶层根卡，无需父级
+        return CheckResult("luhmann_parent_exists", True)
+    draft_ids = {x.id for x in drafts}
+    if parent_id in draft_ids:
+        return CheckResult("luhmann_parent_exists", True)
+    row = conn.execute("SELECT 1 FROM cards WHERE id=?", (parent_id,)).fetchone()
+    if row is not None:
+        return CheckResult("luhmann_parent_exists", True)
+    return CheckResult(
+        "luhmann_parent_exists",
+        False,
+        f"card_id '{d.id}' 的父级 '{parent_id}' 不存在。"
+        f"请先建父级卡，再建子节点（005 §2.1 卢曼树规则）。",
+    )
 
 
 def check_layer_type_matrix(d: CardDraft) -> CheckResult:
@@ -380,6 +404,7 @@ def check_l2_no_cross_domain_links(
 PER_CARD_CHECKS = [
     check_type_valid,
     check_namespace_format,
+    check_luhmann_parent_exists,
     check_layer_type_matrix,
     check_min_length,
     check_links_exist,
@@ -395,13 +420,14 @@ PER_CARD_CHECKS = [
 
 def run_per_card_checks(d: CardDraft, conn: sqlite3.Connection,
                          drafts: list[CardDraft]) -> list[CheckResult]:
-    """Run all 12 per-card checks. Returns list of results (all of them).
+    """Run all 13 per-card checks. Returns list of results (all of them).
 
     注：source_real 对 L4 提案（无 source）跳过；propose-l4 调用方需自行排除。
     """
     results = [
         check_type_valid(d),
         check_namespace_format(d),
+        check_luhmann_parent_exists(d, conn, drafts),
         check_layer_type_matrix(d),
         check_min_length(d),
         check_links_exist(d, conn, drafts),

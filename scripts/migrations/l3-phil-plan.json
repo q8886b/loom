@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "scope": {"layer": "L3", "namespace": "phil"},
+  "trees": [
+    {
+      "source": "phil:1a",
+      "rationale": "交与不交是系统耦合支系的哲学根命题。",
+      "children": [{"source": "phil:3f_v2", "rationale": "具体展开系统耦合的条件性与反非加性。"}]
+    },
+    {
+      "source": "phil:3b",
+      "rationale": "积渐到延迟失效是渐进变化支系根。",
+      "children": [
+        {"source": "phil:94e", "rationale": "深化微小信号走向不可逆崩溃的路径。"},
+        {"source": "phil:3h", "rationale": "渐进不越次说明序为何优先于速度。"},
+        {"source": "phil:3k", "rationale": "成功态预防是识别渐进失败的操作回应。"}
+      ]
+    },
+    {
+      "source": "phil:3g",
+      "rationale": "物极则反是周期和反转支系根。",
+      "children": [
+        {"source": "phil:4a", "rationale": "将极反结构迁移到金融趋势反转。"},
+        {"source": "phil:93z", "rationale": "把极端生成对立面表述为系统动力学。"},
+        {"source": "phil:3e_v2", "rationale": "消息盈虚给出周期模型的汉易源头。"},
+        {"source": "phil:3g_v2", "rationale": "损益与时偕行补充双向反馈调适。"},
+        {"source": "phil:3l", "rationale": "未完成态说明循环为何持续生成。"}
+      ]
+    },
+    {
+      "source": "phil:2a",
+      "rationale": "节制约束是制度边界支系根。",
+      "children": [{"source": "phil:3c", "rationale": "认同边界说明约束何时触发自保护。"}]
+    },
+    {
+      "source": "phil:3e",
+      "rationale": "变革需要治理约束，是变革合法性支系根。",
+      "children": [
+        {"source": "phil:3f", "rationale": "时、位、才把治理前提变成三条件。"},
+        {"source": "phil:6f_v2", "rationale": "追踪变革合法性论证的历史层累。"},
+        {"source": "phil:93e", "rationale": "典常与变动说明变革中保留什么。"},
+        {"source": "phil:93u", "rationale": "始生之难描述变革起点的结构阻力。"}
+      ]
+    },
+    {
+      "source": "phil:3n",
+      "rationale": "有限范畴生成无限实例是分类编码支系根。",
+      "children": [
+        {"source": "phil:3o", "rationale": "同一类型内部配比差异修正表面分类。"},
+        {"source": "phil:94f", "rationale": "完备性假定区分封闭与开放编码。"},
+        {"source": "phil:7c", "rationale": "八卦变换群是有限编码的代数结构实例。"}
+      ]
+    },
+    {
+      "source": "phil:93i",
+      "rationale": "本质层与现象层区分是体用和表述模型支系根。",
+      "children": [
+        {"source": "phil:5a", "rationale": "道器之分说明不可见底层如何成为系统前提。"},
+        {"source": "phil:7a", "rationale": "先天守恒与后天不确定给出双层精度。"},
+        {"source": "phil:7b", "rationale": "量化不完备性标出有限表述的边界。"},
+        {"source": "phil:7d", "rationale": "反思固定体规则可能比语境适配更脆弱。"},
+        {"source": "phil:93v", "rationale": "封闭编码双层模运算是该架构的形式化实例。"},
+        {"source": "phil:93l", "rationale": "场系统修正固定结构模型并强调界面操作。"}
+      ]
+    },
+    {
+      "source": "phil:94c",
+      "rationale": "逆序剥离解释层是知识传统清理支系根。",
+      "children": [
+        {"source": "phil:8a", "rationale": "黄宗羲象数清算给出具体操作序列。"},
+        {"source": "phil:8b", "rationale": "解释附加层如何在权威位置中累积。"},
+        {"source": "phil:8c", "rationale": "归纳揭示附加层的三类矛盾论证。"},
+        {"source": "phil:8d", "rationale": "经文本位与经传分离提供剥离依据。"}
+      ]
+    },
+    {"source": "phil:3h_v2", "rationale": "集解体保存多源知识是独立方法，没有真实父卡。"},
+    {
+      "source": "phil:6d_v2",
+      "rationale": "象数、义理、考据的范式分裂是诠释传统支系根。",
+      "children": [
+        {"source": "phil:6a_v2", "rationale": "复卦展示不可通约范式的意义分化。"},
+        {"source": "phil:6b_v2", "rationale": "神道设教展示诠释层次连续变化。"},
+        {"source": "phil:6c_v2", "rationale": "体用范畴展示概念的操作化沉降。"},
+        {"source": "phil:6e_v2", "rationale": "对应统一论是象数范式的替代世界观。"},
+        {"source": "phil:6g_v2", "rationale": "感应论解释象数分类体系的扩展。"}
+      ]
+    },
+    {
+      "source": "phil:6a",
+      "rationale": "立象尽意是符号表征支系根。",
+      "children": [
+        {"source": "phil:3a", "rationale": "卦序是符号表征形成生成序列的实例。"},
+        {"source": "phil:94b", "rationale": "琴棋书画阶梯描述从具象到纯形式的抽象层次。"}
+      ]
+    },
+    {"source": "phil:3m", "rationale": "多路径独立收敛是独立认识论判断。"},
+    {"source": "phil:3i", "rationale": "恐惧修省转化为反思循环是独立实践机制。"},
+    {"source": "phil:3j", "rationale": "中虚中实的诚信双层结构是独立判断。"},
+    {"source": "phil:3d", "rationale": "知几讨论有无之际的前置信号，是独立认知操作。"}
+  ]
+}

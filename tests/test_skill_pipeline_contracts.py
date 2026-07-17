@@ -224,6 +224,14 @@ def test_skill_text_keeps_core_pipeline_contracts_in_sync_with_005():
         assert "loom orient" in thinking_skill
         assert "--task-id $TASK_ID" in thinking_skill
         assert "标题对上 ≠ 模式适用" in thinking_skill
+        assert "探索铁律（必须）" in thinking_skill
+        assert "地图 → 问题" in thinking_skill
+        assert "问题 → 网络" in thinking_skill
+        assert "语义饱和" in thinking_skill
+        assert "彼此真正不同的多种结构假设" in thinking_skill
+        assert "检索命中只产生候选" in thinking_skill
+        assert "--mode=vector" in thinking_skill
 
     assert "未经明确触发，不写 draft、不 mark-ready、不 commit-ready" in use
     assert "入库只能走 `loom commit-ready <task_id> --semantic-passed`" in core
+    assert "禁止为满足 ID 或门禁创建空目录父卡" in core

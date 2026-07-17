@@ -456,27 +456,38 @@ def cmd_suggest_links(args) -> int:
 
 
 def cmd_browse_tree(args) -> int:
-    """namespace 主题树——namespace → 主题卡（type=主题）→ 子卡（卢曼 ID 前缀）"""
+    """namespace 主题树——namespace → 主题卡 → 卢曼结构后代。"""
     ns = args.namespace
     with store.connect() as conn:
-        rows = conn.execute("""
-            SELECT id, title FROM cards
-            WHERE id LIKE ? AND type = '主题'
+        rows = [dict(row) for row in conn.execute("""
+            SELECT id, title, type FROM cards
+            WHERE id LIKE ?
             ORDER BY id
-        """, (f"{ns}:%",)).fetchall()
+        """, (f"{ns}:%",)).fetchall()]
+
+        children_by_parent: dict[str, list[dict[str, Any]]] = {}
+        for row in rows:
+            parent_id = store._parent_id(row["id"])
+            if parent_id is not None:
+                children_by_parent.setdefault(parent_id, []).append(row)
+
+        def descendants(ancestor_id: str) -> list[dict[str, Any]]:
+            result: list[dict[str, Any]] = []
+            pending = list(children_by_parent.get(ancestor_id, []))
+            while pending:
+                row = pending.pop()
+                result.append(row)
+                pending.extend(children_by_parent.get(row["id"], []))
+            return sorted(result, key=lambda row: row["id"])
 
         tree = []
-        for r in rows:
+        for r in (row for row in rows if row["type"] == "主题"):
             theme_id = r["id"]
-            children_rows = conn.execute("""
-                SELECT id, title, type FROM cards
-                WHERE id LIKE ? AND id != ?
-                ORDER BY id
-            """, (theme_id + "%", theme_id)).fetchall()
+            children_rows = descendants(theme_id)
             tree.append({
                 "theme": {"id": theme_id, "title": r["title"]},
                 "children_count": len(children_rows),
-                "children": [dict(c) for c in children_rows],
+                "children": children_rows,
             })
 
     _print_json({"namespace": ns, "themes_count": len(tree), "themes": tree})
@@ -1047,7 +1058,10 @@ def cmd_delete_card(args) -> int:
     existing = store.get_card(card_id)
     if not existing:
         return _err(f"card not found: {card_id}")
-    store.delete_card(card_id)
+    try:
+        store.delete_card(card_id)
+    except ValueError as exc:
+        return _err(str(exc))
     _print_json({
         "status": "deleted", "card_id": card_id,
         "privileged": True,

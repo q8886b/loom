@@ -193,7 +193,7 @@ loom read-cards <topic_card_id> --task-id $DEEP_ID
 - 简单概念 30 字够，复杂机制 800 字才讲清，看单元本身
 - 禁止：总结型（塞多个单元）、目录型（<30 字）、抄录型（不改写）、碎片型（切碎单元）
 
-card_id 命名：`<ns>:<ch><suffix>`（如 he:12a、he:12b、he:12r），避免与现有卡冲突。
+card_id 命名：`<ns>:<ch><suffix>`（如 he:12a、he:12b、he:12r），避免与现有卡冲突。主题卡 `<ns>:<ch>` 是本章卢曼树根，Deep 卡作为其子节点延伸。
 
 每张 L2 卡必须 `--source=<对应 L1 source card id>` 且 `--links=<topic_card_id>[,本材料内其他 L2 卡]`（008 §1）：
 
@@ -220,7 +220,7 @@ loom write-draft $DEEP_ID <ns>:<ch>a \
 
 ### L3 模式卡写法
 
-L3 必须 link 至少一张 L2 卡（008 §20；L1 可补充但不满足门槛）：
+L3 必须 link 至少一张 L2 卡（008 §20；L1 可补充但不满足门槛）。ID 应反映该模式在领域树中的位置——它是螺旋探索中已确认的关系的产物，不是写卡后再去挂靠。具体规则见 `_loom_core.md`。
 
 ```bash
 loom write-draft $DEEP_ID <ns>:<lujiman_id> \

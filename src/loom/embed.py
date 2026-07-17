@@ -142,6 +142,7 @@ def _http_post_json(
     retries: int = 3,
 ) -> dict[str, Any]:
     import time
+    import urllib.error
     import urllib.request
 
     data = json.dumps(payload).encode("utf-8")
@@ -152,6 +153,12 @@ def _http_post_json(
             req = urllib.request.Request(url, data=data, headers=request_headers, method="POST")
             with urllib.request.urlopen(req, timeout=timeout, context=_get_ssl_context()) as resp:
                 return json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            last_err = exc
+            if 400 <= exc.code < 500 and exc.code not in {408, 429}:
+                break
+            if attempt < retries - 1:
+                time.sleep(1.5 * (attempt + 1))
         except Exception as exc:
             last_err = exc
             if attempt < retries - 1:

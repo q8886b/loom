@@ -74,17 +74,38 @@ MATURITY_PATTERN = re.compile(r"^\[(探索期|熟练期)\]")
 DOMAINS = {"llm", "fin", "med", "law", "sw", "phil", "prod", "psy", "fit"}
 _DOMAINS_RE = "|".join(sorted(DOMAINS))
 
-# 卢曼 ID：数字开头，字母数字交替嵌套（01 / 12a / 12a1 / 1a1a1）
-LUHMANN_ID = r"[0-9]+[a-z0-9]*"
-# 书名 ID：英文关键词 / 中文拼音（可含下划线连多词）
-BOOK_ID = r"[a-z0-9_]+"
-# L1 单元 ID：材料内部天然编号（章节号/段落号/"full"等）
-L1_UNIT_ID = r"[a-z0-9]+"
+# 卢曼 ID：数字段与小写字母段交替，可停在任一段。
+# 例：3 / 3a / 3a1 / 3ab / 3ab12c
+LUHMANN_ID = r"[0-9]+(?:[a-z]+[0-9]+)*(?:[a-z]+)?"
+LUHMANN_ID_PATTERN = re.compile(rf"^{LUHMANN_ID}$")
+# 书名 ID：英文关键词 / 中文拼音，可用单个连字符或下划线分段。
+BOOK_ID = r"[a-z0-9]+(?:[-_][a-z0-9]+)*"
+# L1 单元 ID：材料内部天然编号（章节号/段落号/"full"等），可分段。
+L1_UNIT_ID = BOOK_ID
 
 NS_PATTERN_L1 = re.compile(rf"^({_DOMAINS_RE}):({BOOK_ID}):src:({L1_UNIT_ID})$")
 NS_PATTERN_L2 = re.compile(rf"^({_DOMAINS_RE}):({BOOK_ID}):({LUHMANN_ID})$")
 NS_PATTERN_L3 = re.compile(rf"^({_DOMAINS_RE}):({LUHMANN_ID})$")
 NS_PATTERN_L4 = re.compile(rf"^gen:({LUHMANN_ID})$")
+
+CARD_ID_PATTERNS = {
+    "L1": NS_PATTERN_L1,
+    "L2": NS_PATTERN_L2,
+    "L3": NS_PATTERN_L3,
+    "L4": NS_PATTERN_L4,
+}
+
+
+def card_id_matches_layer(card_id: str, layer: str) -> bool:
+    """Return whether the complete card ID matches the layer grammar."""
+    pattern = CARD_ID_PATTERNS.get(layer)
+    return pattern is not None and pattern.fullmatch(card_id) is not None
+
+
+def _require_card_id_format(card_id: str, layer: str) -> None:
+    """Defence-in-depth format gate for every store write path."""
+    if not card_id_matches_layer(card_id, layer):
+        raise ValueError(f"card_id '{card_id}' does not match layer={layer} format")
 
 
 # ---------------------------------------------------------------------------
@@ -662,87 +683,189 @@ def get_neighbors(card_id: str, depth: int = 1) -> list[str]:
 
 
 def get_children(card_id: str) -> list[str]:
-    """Luhmann-style children: ids that start with `<card_id><suffix char>`
-    e.g. fin:3a -> fin:3a1, fin:3ab. Heuristic, not strictly hierarchical."""
+    """Return direct Luhmann children of `card_id`.
+
+    A direct child is `card_id` plus exactly one new segment:
+    - if the parent ends with digits, the child appends one letter (e.g. `fin:3` -> `fin:3a`);
+    - if the parent ends with a letter, the child appends one digit run (e.g. `fin:3a` -> `fin:3a1`).
+
+    This avoids misclassifying `fin:30a` as a child of `fin:3`.
+    """
+    split = _luhmann_ns_and_id(card_id)
+    if split is None:
+        return []
+    segments = _luhmann_segments(split[1])
+    if not segments:
+        return []
+    last = segments[-1]
+    if last[0].isdigit():
+        tail_re = re.compile(r"^[a-z]+$")
+    else:
+        tail_re = re.compile(r"^\d+$")
+
     with connect() as conn:
-        # match card_id followed by an alphanumeric suffix character
         rows = conn.execute(
             "SELECT id FROM cards WHERE id LIKE ? AND id != ?",
             (card_id + "%", card_id),
         ).fetchall()
-        children = []
-        for r in rows:
-            cid = r["id"]
-            tail = cid[len(card_id):]
-            # child = exactly one extra alnum segment start (e.g. 'a', 'a1' but not 'a/b')
-            if re.match(r"^[A-Za-z0-9]+$", tail):
-                children.append(cid)
-        return sorted(children)
+        children = [
+            r["id"] for r in rows
+            if tail_re.match(r["id"][len(card_id):])
+        ]
+    return sorted(children)
 
 
 def get_siblings(card_id: str) -> list[str]:
-    """Heuristic siblings: share the parent prefix.
-    Parent of fin:3a1 is fin:3a; siblings are fin:3a2, fin:3ab, etc."""
+    """Return Luhmann siblings of `card_id` (cards sharing the same parent)."""
     parent = _parent_id(card_id)
     if parent is None:
-        # top-level: siblings are other top-level ids in same namespace
-        ns = _id_namespace(card_id)
-        own_segid = card_id.split(":", 1)[1] if ":" in card_id else card_id
-        if not ns:
+        # Top-level root cards share the namespace.
+        split = _luhmann_ns_and_id(card_id)
+        if split is None:
+            return []
+        ns, luhmann = split
+        if not re.fullmatch(r"\d+", luhmann):
             return []
         with connect() as conn:
             rows = conn.execute(
-                "SELECT id FROM cards WHERE id LIKE ? ORDER BY id",
+                "SELECT id FROM cards WHERE id LIKE ?",
                 (ns + ":%",),
             ).fetchall()
-            sibs = []
+            sibs: list[str] = []
             for r in rows:
                 cid = r["id"]
-                seg = cid.split(":", 1)[1]
-                # top-level = single segment, no further nesting markers
-                if re.match(r"^[A-Za-z0-9]+$", seg) and cid != card_id:
+                c_split = _luhmann_ns_and_id(cid)
+                if (
+                    c_split is not None
+                    and c_split[0] == ns
+                    and c_split[1] != luhmann
+                    and re.fullmatch(r"\d+", c_split[1])
+                ):
                     sibs.append(cid)
-            return sibs
+        return sorted(sibs)
     return [c for c in get_children(parent) if c != card_id]
+
+
+def _luhmann_segments(luhmann: str) -> list[str]:
+    """Split a Luhmann ID into alternating digit/letter segments.
+
+    Examples: ``"12a1" -> ["12", "a", "1"]``; ``"3" -> ["3"]``.
+    Invalid or partially matching input returns an empty list.
+    """
+    if LUHMANN_ID_PATTERN.fullmatch(luhmann) is None:
+        return []
+    return re.findall(r"\d+|[a-z]+", luhmann)
+
+
+def _luhmann_parent(luhmann: str) -> str | None:
+    """Return the Luhmann ID with the last segment stripped.
+
+    Examples: ``"12a1" -> "12a"``; ``"3a" -> "3"``; ``"3" -> None``.
+    """
+    segments = _luhmann_segments(luhmann)
+    if len(segments) <= 1:
+        return None
+    return "".join(segments[:-1])
+
+
+def _luhmann_ns_and_id(card_id: str) -> tuple[str, str] | None:
+    """Return (namespace prefix, luhmann segment) for L2/L3/L4 ids.
+
+    - L2: ``llm:harness:03a`` -> ("llm:harness", "03a")
+    - L3: ``fin:3a`` -> ("fin", "3a")
+    - L4: ``gen:1a`` -> ("gen", "1a")
+    - L1 / malformed: None
+    """
+    parts = card_id.split(":")
+    if (
+        len(parts) == 2
+        and (parts[0] in DOMAINS or parts[0] == "gen")
+        and LUHMANN_ID_PATTERN.fullmatch(parts[1]) is not None
+    ):
+        return parts[0], parts[1]
+    if (
+        len(parts) == 3
+        and parts[0] in DOMAINS
+        and re.fullmatch(BOOK_ID, parts[1]) is not None
+        and LUHMANN_ID_PATTERN.fullmatch(parts[2]) is not None
+    ):
+        return f"{parts[0]}:{parts[1]}", parts[2]
+    return None
 
 
 def _parent_id(card_id: str) -> str | None:
     """Strip one trailing Luhmann segment.
 
-    L2 ids include a book namespace: ``llm:harness:01a`` -> ``llm:harness:01``.
-    L3/L4 ids do not: ``llm:1a`` stays top-level (original behaviour).
+    Examples:
+      - ``llm:harness:01a`` -> ``llm:harness:01``
+      - ``fin:3a`` -> ``fin:3``
+      - ``gen:1a1`` -> ``gen:1a``
+      - ``fin:3`` / ``llm:harness:01`` -> None
     """
-    if ":" not in card_id:
+    split = _luhmann_ns_and_id(card_id)
+    if split is None:
         return None
-    ns, seg = card_id.split(":", 1)
+    ns, luhmann = split
+    parent_luhmann = _luhmann_parent(luhmann)
+    if parent_luhmann is None:
+        return None
+    return f"{ns}:{parent_luhmann}"
 
-    # L2 style: <domain>:<book>:<luhmann>
-    if ":" in seg:
-        parts = seg.split(":")
-        last = parts[-1]
-        m = re.match(r"^(.*?)([A-Za-z])(\d*)$", last)
-        if not m:
-            return None
-        base, alpha, digits = m.groups()
-        if digits:
-            parent_last = f"{base}{alpha}"
-        elif base:
-            parent_last = base
-        else:
-            return None
-        parent_seg = ":".join(parts[:-1] + [parent_last])
-        return f"{ns}:{parent_seg}"
 
-    # L3/L4 style: keep legacy top-level behaviour.
-    m = re.match(r"^(.*?)([A-Za-z])(\d*)$", seg)
-    if not m:
-        return None
-    base, alpha, digits = m.groups()
-    if not base and not digits:
-        return None
-    if digits:
-        return f"{ns}:{base}{alpha}"
-    return None
+def audit_luhmann_tree(db_path: Path = DB_PATH) -> dict[str, Any]:
+    """Audit all card ID formats and L2/L3/L4 parent completeness."""
+    with connect(db_path) as conn:
+        rows = conn.execute(
+            "SELECT id, layer FROM cards ORDER BY id"
+        ).fetchall()
+
+    all_ids = {row["id"] for row in rows}
+    invalid_ids: list[dict[str, str]] = []
+    missing_parents: list[dict[str, str]] = []
+    for row in rows:
+        card_id = row["id"]
+        layer = row["layer"]
+        if not card_id_matches_layer(card_id, layer):
+            invalid_ids.append({"id": card_id, "layer": layer})
+            continue
+        if layer == "L1":
+            continue
+        parent_id = _parent_id(card_id)
+        if parent_id is not None and parent_id not in all_ids:
+            missing_parents.append(
+                {"id": card_id, "layer": layer, "parent_id": parent_id}
+            )
+
+    missing_parent_ids = sorted({item["parent_id"] for item in missing_parents})
+    invalid_by_layer = {
+        layer: sum(item["layer"] == layer for item in invalid_ids)
+        for layer in ("L1", "L2", "L3", "L4")
+    }
+    missing_cards_by_layer = {
+        layer: sum(item["layer"] == layer for item in missing_parents)
+        for layer in ("L1", "L2", "L3", "L4")
+    }
+    missing_parent_ids_by_layer = {
+        layer: len(
+            {item["parent_id"] for item in missing_parents if item["layer"] == layer}
+        )
+        for layer in ("L1", "L2", "L3", "L4")
+    }
+    return {
+        "ok": not invalid_ids and not missing_parents,
+        "summary": {
+            "cards_checked": len(rows),
+            "invalid_ids": len(invalid_ids),
+            "invalid_ids_by_layer": invalid_by_layer,
+            "cards_with_missing_parent": len(missing_parents),
+            "cards_with_missing_parent_by_layer": missing_cards_by_layer,
+            "missing_parent_ids": len(missing_parent_ids),
+            "missing_parent_ids_by_layer": missing_parent_ids_by_layer,
+        },
+        "invalid_ids": invalid_ids,
+        "missing_parents": missing_parents,
+        "missing_parent_ids": missing_parent_ids,
+    }
 
 
 def get_card_links_types(conn: sqlite3.Connection, card_id: str) -> list[dict[str, Any]]:
@@ -805,6 +928,23 @@ def remove_card_file(card_id: str) -> None:
 # Insert / update (called only by privileged commit path)
 # ---------------------------------------------------------------------------
 
+def _require_luhmann_parent(
+    conn: sqlite3.Connection,
+    card_id: str,
+    layer: str,
+    batch_ids: set[str] | None = None,
+) -> None:
+    """Require a non-root card's parent in the DB or current atomic batch."""
+    if layer not in {"L2", "L3", "L4"}:
+        return
+    parent_id = _parent_id(card_id)
+    if parent_id is None or parent_id in (batch_ids or set()):
+        return
+    row = conn.execute("SELECT 1 FROM cards WHERE id=?", (parent_id,)).fetchone()
+    if row is None:
+        raise ValueError(f"card_id '{card_id}' requires missing parent '{parent_id}'")
+
+
 def insert_card(
     card_id: str,
     title: str,
@@ -817,8 +957,8 @@ def insert_card(
     links: Iterable[str] = (),
     embedding: list[float] | None = None,
 ) -> dict[str, Any]:
-    """Insert a card, sync FTS (via triggers), write file mirror, add links,
-    bump embedding if provided. Caller is responsible for validation."""
+    """Insert a card after enforcing ID format and parent completeness."""
+    _require_card_id_format(card_id, layer)
     ts = now()
     card_origin = normalize_origin(origin)
     card_tags = normalize_tags(tags)
@@ -836,6 +976,7 @@ def insert_card(
         "search_count": 0,
     }
     with connect() as conn:
+        _require_luhmann_parent(conn, card_id, layer)
         conn.execute(
             """INSERT INTO cards
                (id, title, type, content, source, layer, origin, tags, use_count, search_count,
@@ -876,10 +1017,17 @@ def insert_cards_batch(
     让子 agent 看到"全部被拒"，回去改完再来。文件镜像在 commit 成功后
     才写，避免事务 rollback 后留下孤儿镜像。
     """
+    for card in cards:
+        _require_card_id_format(card["id"], card["layer"])
+    batch_ids = {card["id"] for card in cards}
     ts = now()
     conflicts: list[str] = []
     try:
         with connect() as conn:
+            for card in cards:
+                _require_luhmann_parent(
+                    conn, card["id"], card["layer"], batch_ids=batch_ids
+                )
             for card, emb in zip(cards, embeddings):
                 cid = card["id"]
                 card_origin = normalize_origin(card.get("origin"))
@@ -942,6 +1090,15 @@ def update_card_content(
 
 def delete_card(card_id: str) -> None:
     with connect() as conn:
+        descendants = conn.execute(
+            "SELECT id FROM cards WHERE id LIKE ? AND id != ? ORDER BY id",
+            (card_id + "%", card_id),
+        ).fetchall()
+        children = [row["id"] for row in descendants if _parent_id(row["id"]) == card_id]
+        if children:
+            raise ValueError(
+                f"card '{card_id}' has children and cannot be deleted: {children}"
+            )
         conn.execute("DELETE FROM cards WHERE id=?", (card_id,))
         conn.execute("DELETE FROM links WHERE source_id=? OR target_id=?", (card_id, card_id))
         conn.execute("DELETE FROM cards_vec WHERE card_id=?", (card_id,))

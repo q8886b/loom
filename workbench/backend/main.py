@@ -138,40 +138,12 @@ def _dedup_edges(rows) -> list[dict[str, str]]:
 
 
 # --------------------------------------------------------------------------
-# Tree (Luhmann-style, derived from id heuristic)
+# Tree (Luhmann-style, derived from the store's canonical ID parser)
 # --------------------------------------------------------------------------
-import re as _re
 
 def _parent_of(card_id: str) -> str | None:
-    """Luhmann parent: strip the trailing alternation of digits/alpha.
-
-    Supports multi-segment namespaces (llm:harness:01a).
-
-    llm:harness:01   -> None                    (pure numeric = top)
-    llm:harness:01a  -> llm:harness:01          (alpha child)
-    llm:harness:01a1 -> llm:harness:01a         (numeric child)
-    llm:1a           -> llm:1 (likely absent)   (alpha child of numeric)
-    """
-    if ":" not in card_id:
-        return None
-    parts = card_id.split(":")
-    if len(parts) < 2:
-        return None
-    ns_path = ":".join(parts[:-1])
-    seg = parts[-1]
-    if not seg:
-        return None
-    if _re.match(r"^\d+$", seg):
-        return None  # pure numeric = top
-    if _re.match(r"^[A-Za-z]+$", seg):
-        return None  # pure alpha = top
-    m = _re.match(r"^(.+?)\d+$", seg)
-    if m and m.group(1):
-        return f"{ns_path}:{m.group(1)}"
-    m = _re.match(r"^(.+?)[A-Za-z]+$", seg)
-    if m and m.group(1):
-        return f"{ns_path}:{m.group(1)}"
-    return None
+    """Return the canonical L2/L3/L4 parent; L1 is never part of the tree."""
+    return store._parent_id(card_id)
 
 
 def _luhmann_depth(card_id: str, valid_ids: set[str] | None = None) -> int:

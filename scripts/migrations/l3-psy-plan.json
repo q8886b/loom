@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "scope": {"layer": "L3", "namespace": "psy"},
+  "trees": [
+    {
+      "source": "psy:1b",
+      "rationale": "双过程认知是认知架构支系的现成统一根命题。",
+      "children": [
+        {"source": "psy:1e", "rationale": "区分认知结构与动力结构两种自动加工。"},
+        {"source": "psy:1f", "rationale": "用模块化心智解释双过程的计算底座。"},
+        {"source": "psy:1d", "rationale": "启发式替代是自动加工的原子失效机制。"},
+        {"source": "psy:1h", "rationale": "WYSIATI 是双过程架构的跨域结构偏差。"},
+        {"source": "psy:5a", "rationale": "借 Marr 层次标定 Pinker 与 Kahneman 的互补关系。"},
+        {"source": "psy:5b", "rationale": "把两套理论放回教科书认知框架整合。"},
+        {"source": "psy:5c", "rationale": "将模块化架构具体迁移到 Agent 设计。"},
+        {"source": "psy:5d", "rationale": "以三条独立理论路径互证认知架构。"}
+      ]
+    },
+    {
+      "source": "psy:1c",
+      "rationale": "多层分析是心理机制整合支系的上位认知操作。",
+      "children": [
+        {"source": "psy:10a", "rationale": "把自由意志争论拆到不同分析层。"},
+        {"source": "psy:11a", "rationale": "把动机理论整合为六层模型。"},
+        {"source": "psy:3d", "rationale": "防御机制在个体到群体层连续展开。"},
+        {"source": "psy:3e", "rationale": "童年逆境到成人病理形成跨时间层级级联。"},
+        {"source": "psy:3f", "rationale": "攻击性需要生物、心理、社会多层解释。"},
+        {"source": "psy:3g", "rationale": "人格障碍的类别与维度是不同分析粒度。"},
+        {"source": "psy:3b", "rationale": "精神病态连接人格、诊断和犯罪三个层面。"},
+        {"source": "psy:13a", "rationale": "天性与教养在跨层机制中形成辩证综合。"},
+        {"source": "psy:16b", "rationale": "机制必须与环境耦合作为评价单位。"}
+      ]
+    },
+    {
+      "source": "psy:1a",
+      "rationale": "Freud、Adler、Jung 的比较构成深层心理学支系根。",
+      "children": [
+        {"source": "psy:2a", "rationale": "追踪荣格原型从内在经验到外在简化。"},
+        {"source": "psy:4a", "rationale": "无神话危机是荣格自性化路径的触发条件。"}
+      ]
+    },
+    {
+      "source": "psy:8a",
+      "rationale": "人本主义演化主线可承载成长与存在取向的深化。",
+      "children": [
+        {"source": "psy:3a", "rationale": "自性化连接多个人本成长理论。"},
+        {"source": "psy:3c", "rationale": "追踪存在主义治疗的人本主义根系。"},
+        {"source": "psy:7a", "rationale": "参照系转换是多位人本理论家的共同操作。"},
+        {"source": "psy:9a", "rationale": "成长型思维是心流与成长体验的认知前提。"}
+      ]
+    },
+    {
+      "source": "psy:6a",
+      "rationale": "教材呈现与研究产出错位是知识制度支系根。",
+      "children": [{"source": "psy:15a", "rationale": "权威位势锁定解释教材位置为何与论证质量解耦。"}]
+    },
+    {
+      "source": "psy:12a",
+      "rationale": "跨流派共同因素是心理治疗机制支系根。",
+      "children": [{"source": "psy:16a", "rationale": "创伤修复三层结构是共同改变机制的专门展开。"}]
+    },
+    {
+      "source": "psy:14a",
+      "rationale": "社会情境力量及边界是社会影响支系根。",
+      "children": [
+        {"source": "psy:1g", "rationale": "影响力武器是社会情境触发自动加工的具体机制。"},
+        {"source": "psy:94a", "rationale": "强行附和是高代价社会回避反应。"}
+      ]
+    }
+  ]
+}
