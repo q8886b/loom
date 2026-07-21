@@ -461,13 +461,53 @@ export function computeDockLinks(allLinkEdges, visibleIds, cardIndex) {
 }
 
 /**
+ * 矩形碰撞消除：力导向只看点距离，节点一多就会叠在一起。
+ * 按每个节点的实际宽高（中心卡更大）做迭代 push-apart，保证任意两卡不重叠。
+ * items: [{ id, cx, cy, hw, hh, fixed }] — 中心坐标 + 半宽半高；fixed 的不动。
+ */
+function resolveRectOverlaps(items, gap = 10) {
+  const MAX_ITER = 300
+  for (let iter = 0; iter < MAX_ITER; iter++) {
+    let moved = false
+    for (let i = 0; i < items.length; i++) {
+      for (let j = i + 1; j < items.length; j++) {
+        const a = items[i]
+        const b = items[j]
+        if (a.fixed && b.fixed) continue
+        const needX = a.hw + b.hw + gap
+        const needY = a.hh + b.hh + gap
+        const dx = b.cx - a.cx
+        const dy = b.cy - a.cy
+        const ox = needX - Math.abs(dx)
+        const oy = needY - Math.abs(dy)
+        if (ox <= 0 || oy <= 0) continue
+        moved = true
+        // 沿重叠更小的轴推开；fixed 的一方不动，另一方走全程
+        const aShare = a.fixed ? 0 : (b.fixed ? 1 : 0.5)
+        const bShare = b.fixed ? 0 : (a.fixed ? 1 : 0.5)
+        if (ox < oy) {
+          const dir = dx !== 0 ? Math.sign(dx) : (i < j ? 1 : -1)
+          a.cx -= dir * ox * aShare
+          b.cx += dir * ox * bShare
+        } else {
+          const dir = dy !== 0 ? Math.sign(dy) : (i < j ? 1 : -1)
+          a.cy -= dir * oy * aShare
+          b.cy += dir * oy * bShare
+        }
+      }
+    }
+    if (!moved) break
+  }
+}
+
+/**
  * 聚焦模式布局（力导向辐射）
  * 中心卡固定在原点，邻居通过力导向模拟分散在周围。
  * - 所有邻居被中心卡吸引（保持在合理距离）
  * - 邻居之间互相排斥（避免重叠）
  * - 有 link/hierarchy 连接的邻居之间轻微吸引（聚簇）
  * - 同域邻居互相吸引（视觉分组）
- * 结果：自然聚合、线条不穿越节点、有呼吸感
+ * - 最后按节点实际矩形做碰撞消除，保证不堆叠
  */
 export function layoutFocus(centerCard, neighbors, hierarchyEdges, linkEdges) {
   const nodes = []
@@ -656,6 +696,28 @@ export function layoutFocus(centerCard, neighbors, hierarchyEdges, linkEdges) {
       v.x *= DAMPING
       v.y *= DAMPING
     }
+  }
+
+  // 碰撞消除：力导向收敛后仍可能重叠（尤其同域聚集组）。
+  // 按真实节点尺寸（中心卡 260x~110，邻居卡 200x~68）把残余重叠全部推开，
+  // 中心卡固定不动。positions 是节点左上角坐标，这里换算成矩形中心来算。
+  const NB_HW = NODE_W / 2 + 2   // 邻居半宽 102
+  const NB_HH = 34               // 邻居半高（两行标题 ~68px）
+  const CT_HW = 132              // 中心卡半宽（260 + border）
+  const CT_HH = 56               // 中心卡半高（min-height 80 + padding/title）
+  const collisionItems = [
+    { id: centerCard.id, cx: CT_HW, cy: CT_HH, hw: CT_HW, hh: CT_HH, fixed: true },
+    ...neighbors.map(nb => {
+      const p = positions.get(nb.id)
+      return { id: nb.id, cx: p.x + NB_HW, cy: p.y + NB_HH, hw: NB_HW, hh: NB_HH, fixed: false }
+    }),
+  ]
+  resolveRectOverlaps(collisionItems)
+  for (const item of collisionItems) {
+    if (item.fixed) continue
+    const p = positions.get(item.id)
+    p.x = item.cx - NB_HW
+    p.y = item.cy - NB_HH
   }
 
   // 生成节点

@@ -42,6 +42,39 @@
       </div>
     </div>
 
+    <div class="sidebar-section" v-if="books.length">
+      <button class="section-toggle" @click="booksOpen = !booksOpen">
+        <span>书籍</span>
+        <span class="section-count">{{ books.length }}</span>
+        <span class="section-arrow" :class="{ open: booksOpen }">›</span>
+      </button>
+      <div v-if="booksOpen" class="book-list">
+        <button
+          class="book-item"
+          :class="{ active: !activeBook }"
+          @click="$emit('pick-book', '')"
+        >
+          <span class="book-name">全部材料</span>
+        </button>
+        <button
+          v-for="b in books"
+          :key="b.book"
+          class="book-item"
+          :class="{ active: b.book === activeBook }"
+          :title="`${b.book} · ${b.count} 卡`"
+          @click="$emit('pick-book', b.book)"
+        >
+          <span class="book-name">{{ b.name }}</span>
+          <span class="book-meta">
+            <span class="book-progress-track">
+              <i class="book-progress-fill" :style="{ width: progressPct(b) + '%' }"></i>
+            </span>
+            <span class="book-count">{{ b.readCount }}/{{ b.count }}</span>
+          </span>
+        </button>
+      </div>
+    </div>
+
     <div class="sidebar-section" v-if="recentCards.length">
       <button class="section-toggle" @click="recentOpen = !recentOpen">
         <span>最近访问</span>
@@ -69,17 +102,35 @@
         <span class="section-arrow" :class="{ open: cardsOpen }">›</span>
       </button>
       <div v-if="cardsOpen" ref="cardListEl" class="card-list" @scroll="onCardListScroll">
+        <div v-if="cards.length" class="card-list-header">
+          <span class="read-stats">已读 {{ readCountInList }} / {{ cards.length }}</span>
+          <button
+            v-if="nextUnreadId"
+            class="continue-btn"
+            title="跳到上次位置之后的下一张未读卡"
+            @click="$emit('pick-card', nextUnreadId)"
+          >继续阅读 →</button>
+        </div>
         <button
           v-for="(card, index) in visibleCards"
           :key="card.id"
           class="card-list-item"
-          :class="{ active: card.id === selectedId }"
+          :class="{
+            active: card.id === selectedId,
+            read: readIds.has(card.id),
+            'last-read': card.id === lastReadId,
+          }"
           @click="$emit('pick-card', card.id)"
         >
           <span class="card-list-index">{{ index + 1 }}</span>
           <span class="card-list-main">
-            <span class="card-list-title">{{ card.title }}</span>
-            <span class="card-list-id">{{ card.id }} · {{ card.type }}</span>
+            <span class="card-list-title">
+              <span v-if="readIds.has(card.id)" class="read-check">✓</span>{{ card.title }}
+            </span>
+            <span class="card-list-id">
+              {{ card.id }} · {{ card.type }}
+              <span v-if="card.id === lastReadId" class="last-read-flag">上次读到</span>
+            </span>
           </span>
         </button>
         <div v-if="!cards.length" class="card-list-empty">无卡片</div>
@@ -99,12 +150,21 @@ const props = defineProps({
   tags: { type: Array, default: () => [] },
   activeTags: { type: Array, default: () => [] },
   activeNs: { type: String, default: '' },
+  books: { type: Array, default: () => [] },
+  activeBook: { type: String, default: '' },
   selectedId: { type: String, default: '' },
   recentCards: { type: Array, default: () => [] },
   cards: { type: Array, default: () => [] },
+  readIds: { type: Set, default: () => new Set() },
+  lastReadId: { type: String, default: '' },
 })
 
-defineEmits(['pick-ns', 'pick-card', 'toggle-tag'])
+defineEmits(['pick-ns', 'pick-card', 'toggle-tag', 'pick-book'])
+
+function progressPct(book) {
+  if (!book.count) return 0
+  return Math.min(100, Math.round((book.readCount / book.count) * 100))
+}
 
 const DOMAIN_META = {
   fin:  { color: '#0ea5e9', hint: '金融' },
@@ -143,6 +203,7 @@ const domains = computed(() => {
 const activeTagSet = computed(() => new Set(props.activeTags || []))
 const domainsOpen = ref(true)
 const tagsOpen = ref(false)
+const booksOpen = ref(true)
 const recentOpen = ref(false)
 const cardsOpen = ref(true)
 const cardListEl = ref(null)
@@ -150,6 +211,30 @@ const visibleCount = ref(100)
 const BATCH_SIZE = 100
 
 const visibleCards = computed(() => props.cards.slice(0, visibleCount.value))
+
+const readCountInList = computed(() =>
+  props.cards.reduce((n, c) => n + (props.readIds.has(c.id) ? 1 : 0), 0)
+)
+
+// 继续阅读目标：上次读到之后的下一张未读卡；没有最后位置时取第一张未读
+const nextUnreadId = computed(() => {
+  const cards = props.cards
+  if (!cards.length) return ''
+  let start = 0
+  if (props.lastReadId) {
+    const idx = cards.findIndex(c => c.id === props.lastReadId)
+    if (idx >= 0) start = idx + 1
+  }
+  for (let i = start; i < cards.length; i++) {
+    if (!props.readIds.has(cards[i].id)) return cards[i].id
+  }
+  if (start > 0) {
+    for (let i = 0; i < start; i++) {
+      if (!props.readIds.has(cards[i].id)) return cards[i].id
+    }
+  }
+  return ''
+})
 
 watch(() => props.cards, () => {
   visibleCount.value = BATCH_SIZE
@@ -478,5 +563,139 @@ function onCardListScroll(e) {
   color: #9ca3af;
   font-size: 11px;
   text-align: center;
+}
+
+/* 书籍区 */
+.book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.book-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #374151;
+  text-align: left;
+  transition: background 0.12s;
+}
+
+.book-item:hover {
+  background: #f3f4f6;
+}
+
+.book-item.active {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.book-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.book-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.book-progress-track {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.book-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: #10b981;
+  transition: width 0.2s;
+}
+
+.book-count {
+  font-size: 10px;
+  color: #9ca3af;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.book-item.active .book-count {
+  color: #2563eb;
+}
+
+/* 阅读进度 */
+.card-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 2px 6px 6px;
+  position: sticky;
+  top: 0;
+  background: var(--surface, #fff);
+  z-index: 1;
+}
+
+.read-stats {
+  font-size: 11px;
+  color: #9ca3af;
+  font-variant-numeric: tabular-nums;
+}
+
+.continue-btn {
+  border: 1px solid #c7d2fe;
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.continue-btn:hover {
+  background: #e0e7ff;
+}
+
+.card-list-item.read .card-list-title {
+  color: #9ca3af;
+}
+
+.read-check {
+  color: #10b981;
+  margin-right: 3px;
+  font-size: 10px;
+}
+
+.last-read-flag {
+  margin-left: 4px;
+  background: #fef3c7;
+  color: #b45309;
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 9px;
+  font-family: inherit;
+}
+
+.card-list-item.last-read {
+  box-shadow: inset 2px 0 0 #f59e0b;
 }
 </style>

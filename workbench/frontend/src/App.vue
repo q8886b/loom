@@ -64,10 +64,15 @@
           :tags="tags"
           :active-tags="activeTags"
           :active-ns="activeNs"
+          :books="booksWithProgress"
+          :active-book="activeBook"
           :selected-id="workspaceSelectedId"
           :recent-cards="recentCards"
           :cards="sidebarCards"
+          :read-ids="readIdSet"
+          :last-read-id="lastReadId"
           @pick-ns="onPickNs"
+          @pick-book="onPickBook"
           @toggle-tag="toggleTag"
           @pick-card="onPickCard"
         />
@@ -81,9 +86,11 @@
           :card-index="cardIndex"
           :selected-id="workspaceSelectedId"
           :focus-data="focusData"
+          :focus-depth="focusDepth"
           @select="onSelectCard"
           @focus="onFocusCard"
           @navigate="onNavigate"
+          @set-focus-depth="onFocusDepth"
         />
       </section>
       <div class="panel-resizer" title="拖拽调整详情栏宽度" @mousedown="startResize"></div>
@@ -110,7 +117,7 @@
 import { ref, shallowRef, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import {
   getStats, getVersion, getCardsByNs, getGraphByNs, getGraphCluster,
-  getTags,
+  getTags, getBooks,
   search as apiSearch,
 } from './api.js'
 import GraphExplorer from './components/graph/GraphExplorer.vue'
@@ -141,6 +148,7 @@ const layerColor = {
 }
 
 const activeNs = ref('gen')
+const activeBook = ref('')
 const activeLayer = ref('')
 const activeTags = ref([])
 const detailSelectedId = ref('')
@@ -150,6 +158,7 @@ const linkEdges = shallowRef([])
 const allLinkEdges = shallowRef([])
 const cardIndex = shallowRef({})
 const namespaceCards = shallowRef([])
+const books = shallowRef([])
 const focusData = ref(null)
 const nsCounts = ref({})
 const layerCounts = ref({})
@@ -165,7 +174,46 @@ let dataRequestSeq = 0
 let graphRequestSeq = 0
 const cardsCache = new Map()
 const graphCache = new Map()
+const booksCache = new Map()
 let cacheVersionKey = ''
+
+// 阅读进度：按 scope（域 或 域:书）记录已读卡与最后阅读位置，存 localStorage
+const READING_KEY = 'loom.reading.v1'
+function loadReadingState() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(READING_KEY) || '{}')
+    return raw && typeof raw === 'object' ? raw : {}
+  } catch {
+    return {}
+  }
+}
+const readingState = ref(loadReadingState())
+const readScope = computed(() =>
+  activeBook.value ? `${activeNs.value}:${activeBook.value}` : activeNs.value
+)
+const scopeReading = computed(() => readingState.value[readScope.value] || { last: '', read: [] })
+const readIdSet = computed(() => new Set(scopeReading.value.read || []))
+const lastReadId = computed(() => scopeReading.value.last || '')
+
+function markRead(id) {
+  if (!id) return
+  const scope = readScope.value
+  const cur = readingState.value[scope] || { last: '', read: [] }
+  const read = cur.read.includes(id) ? cur.read : [...cur.read, id].slice(-20000)
+  readingState.value = { ...readingState.value, [scope]: { last: id, read } }
+  try {
+    localStorage.setItem(READING_KEY, JSON.stringify(readingState.value))
+  } catch { /* 存储满时静默降级，进度不持久化 */ }
+}
+
+watch(detailSelectedId, (id) => { if (id) markRead(id) })
+
+const booksWithProgress = computed(() =>
+  (books.value || []).map(b => {
+    const st = readingState.value[`${activeNs.value}:${b.book}`]
+    return { ...b, readCount: st?.read?.length || 0, lastRead: st?.last || '' }
+  })
+)
 
 // 搜索
 const q = ref('')
@@ -201,7 +249,9 @@ function filterTreeByLayer(nodes, layer) {
 }
 
 const visibleTreeRoots = computed(() => filterTreeByLayer(treeRoots.value, activeLayer.value))
-const isLargeNamespace = computed(() => namespaceCards.value.length > GRAPH_SUMMARY_THRESHOLD)
+// 书籍范围内不做 summary 裁剪：书内几乎没有 L3/L4，summary 会得到空图
+const isLargeNamespace = computed(() =>
+  !activeBook.value && namespaceCards.value.length > GRAPH_SUMMARY_THRESHOLD)
 const summaryIds = computed(() => {
   if (!isLargeNamespace.value || graphMode.value === 'all') return null
   const ids = new Set()
@@ -277,11 +327,11 @@ function asGraphRoots(cards) {
   return (cards || []).map(card => ({ ...card, children: [] }))
 }
 
-function filterKey(ns, tagValuesOrParam = activeTags.value) {
+function filterKey(ns, tagValuesOrParam = activeTags.value, book = activeBook.value) {
   const tagParam = Array.isArray(tagValuesOrParam)
     ? tagValuesOrParam.join(',')
     : (tagValuesOrParam || '')
-  return `${ns}|${tagParam}`
+  return `${ns}|${book || ''}|${tagParam}`
 }
 
 function graphIncludeParam() {
@@ -301,6 +351,7 @@ async function refreshDataVersion() {
   if (cacheVersionKey && cacheVersionKey !== next) {
     cardsCache.clear()
     graphCache.clear()
+    booksCache.clear()
     const [tagsData, statsData] = await Promise.all([getTags(), getStats()])
     tags.value = tagsData.tags || []
     nsCounts.value = statsData.namespaces || {}
@@ -357,14 +408,17 @@ function syncSelectionToVisible() {
   }
 }
 
-async function loadNamespaceData(ns = activeNs.value, tagValues = activeTags.value) {
+async function loadNamespaceData(ns = activeNs.value, tagValues = activeTags.value, book = activeBook.value) {
   const requestId = ++dataRequestSeq
   graphRequestSeq++
   await refreshDataVersion()
   if (requestId !== dataRequestSeq) return
+  // 跨域切换时书范围失效（书只属于某个域）
+  if (ns !== activeNs.value) book = ''
   const tagsParam = tagValues.join(',')
-  const key = filterKey(ns, tagsParam)
+  const key = filterKey(ns, tagsParam, book)
   activeNs.value = ns
+  activeBook.value = book || ''
   activeTags.value = [...tagValues]
   graphMode.value = 'summary'
   treeRoots.value = []
@@ -376,13 +430,27 @@ async function loadNamespaceData(ns = activeNs.value, tagValues = activeTags.val
     cardIndex.value = {}
   }
 
-  const cardsData = cardsCache.get(key) || await getCardsByNs(ns, tagsParam || undefined)
+  const booksPromise = book || booksCache.has(ns)
+    ? Promise.resolve(null)
+    : getBooks(ns).then(d => { booksCache.set(ns, d); return d })
+  const [cardsData, booksData] = await Promise.all([
+    cardsCache.get(key) || getCardsByNs(ns, tagsParam || undefined, book || undefined),
+    booksPromise,
+  ])
   if (requestId !== dataRequestSeq) return
   cardsCache.set(key, cardsData)
+  if (booksData) books.value = booksData.books || []
+  else if (!book && booksCache.has(ns)) books.value = booksCache.get(ns).books || []
 
   applyCardsData(cardsData)
   syncSelectionToVisible()
-  const nextGraphMode = cardsData.count > GRAPH_SUMMARY_THRESHOLD ? 'summary' : 'all'
+  // 恢复上次阅读位置：当前没有有效选中卡时，自动选中"上次读到"的卡
+  if (!workspaceSelectedId.value && lastReadId.value
+      && namespaceCards.value.some(c => c.id === lastReadId.value)) {
+    workspaceSelectedId.value = lastReadId.value
+    detailSelectedId.value = lastReadId.value
+  }
+  const nextGraphMode = !book && cardsData.count > GRAPH_SUMMARY_THRESHOLD ? 'summary' : 'all'
   graphMode.value = nextGraphMode
   await loadGraphData(nextGraphMode, requestId)
 }
@@ -402,6 +470,7 @@ async function loadGraphData(view = graphMode.value, namespaceRequestId = dataRe
     layerParam || undefined,
     includeParam || undefined,
     view === 'summary' ? GRAPH_SUMMARY_NODE_LIMIT : 0,
+    activeBook.value || undefined,
   )
   if (namespaceRequestId !== dataRequestSeq || requestId !== graphRequestSeq) return
   graphCache.set(key, graphData)
@@ -427,8 +496,8 @@ async function loadTags() {
   tags.value = data.tags || []
 }
 
-async function loadFocus(cardId) {
-  const data = await getGraphCluster(cardId, 2)
+async function loadFocus(cardId, depth = focusDepth.value) {
+  const data = await getGraphCluster(cardId, depth)
   const center = data.center || (data.nodes && data.nodes[0])
   if (!center) return
   const neighbors = (data.nodes || []).filter(n => n.id !== cardId)
@@ -440,13 +509,37 @@ async function loadFocus(cardId) {
   }
 }
 
+// 聚焦关联深度：默认 1 跳（直接邻居），可切 2 跳看邻居的邻居
+const focusDepth = ref(1)
+
+function onFocusDepth(depth) {
+  if (focusDepth.value === depth) return
+  focusDepth.value = depth
+  const centerId = focusData.value?.center?.id
+  if (centerId) loadFocus(centerId, depth)
+}
+
 // 事件处理
 function onPickNs(ns) {
-  if (activeNs.value === ns) return
+  if (activeNs.value === ns && !activeBook.value) return
+  activeBook.value = ''
+  workspaceSelectedId.value = ''
+  detailSelectedId.value = ''
   graphMode.value = 'summary'
   focusData.value = null
   explorer.value?.exitFocus()
-  loadNamespaceData(ns, activeTags.value)
+  loadNamespaceData(ns, activeTags.value, '')
+}
+
+function onPickBook(book) {
+  if (activeBook.value === book) return
+  activeBook.value = book || ''
+  workspaceSelectedId.value = ''
+  detailSelectedId.value = ''
+  graphMode.value = 'summary'
+  focusData.value = null
+  explorer.value?.exitFocus()
+  loadNamespaceData(activeNs.value, activeTags.value, book || '')
 }
 
 function toggleLayer(layer) {

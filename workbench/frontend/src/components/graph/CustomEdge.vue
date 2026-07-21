@@ -44,22 +44,39 @@ const path = computed(() => {
   return `M ${sx} ${sy} Q ${cx} ${cy} ${tx} ${ty}`
 })
 
+// state 来自 GraphExplorer 的 decorateEdges：
+//   normal — 默认；active — 悬停/选中卡的关联边；
+//   dim — 悬停别人时的无关边；faint — 聚焦模式下邻居↔邻居的背景边
 const edgeStyle = computed(() => {
+  const state = props.data?.state || (props.selected ? 'active' : 'normal')
   if (props.data?.kind === 'hierarchy') {
-    return {
-      stroke: props.selected ? '#64748b' : 'rgba(148, 163, 184, 0.4)',
-      strokeWidth: props.selected ? 1.5 : 1,
+    const base = {
+      stroke: 'rgba(100, 116, 139, 0.55)',
+      strokeWidth: 1.2,
       strokeDasharray: '4 3',
     }
+    if (state === 'active') return { ...base, stroke: '#7c3aed', strokeWidth: 2.2, strokeDasharray: 'none' }
+    if (state === 'dim') return { ...base, opacity: 0.1 }
+    if (state === 'faint') return { ...base, opacity: 0.15 }
+    return base
   }
-  return {
-    stroke: props.selected ? '#1d4ed8' : 'rgba(37, 99, 235, 0.45)',
-    strokeWidth: props.selected ? 2.5 : 1.5,
+  const base = {
+    stroke: 'rgba(37, 99, 235, 0.5)',
+    strokeWidth: 1.5,
   }
+  if (state === 'active') return { ...base, stroke: '#1d4ed8', strokeWidth: 2.5 }
+  if (state === 'dim') return { ...base, opacity: 0.08 }
+  if (state === 'faint') return { ...base, opacity: 0.12 }
+  return base
 })
 
+// 箭头按 kind + 状态选 marker（marker 颜色固定在 defs 里，两套色）
 const markerEnd = computed(() => {
-  if (props.data?.kind === 'link') return 'url(#link-arrow)'
-  return ''
+  const state = props.data?.state || 'normal'
+  if (state === 'dim' || state === 'faint') return ''
+  if (props.data?.kind === 'hierarchy') {
+    return state === 'active' ? 'url(#hier-arrow-active)' : 'url(#hier-arrow)'
+  }
+  return state === 'active' ? 'url(#link-arrow-active)' : 'url(#link-arrow)'
 })
 </script>

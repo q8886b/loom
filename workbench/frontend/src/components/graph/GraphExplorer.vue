@@ -16,6 +16,8 @@
       :edges-updatable="false"
       @node-click="onNodeClick"
       @node-double-click="onNodeDblClick"
+      @node-mouse-enter="onNodeMouseEnter"
+      @node-mouse-leave="onNodeMouseLeave"
     >
       <Background />
 
@@ -34,6 +36,39 @@
           >
             <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(37, 99, 235, 0.6)" />
           </marker>
+          <marker
+            id="link-arrow-active"
+            viewBox="0 0 10 10"
+            refX="10"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d4ed8" />
+          </marker>
+          <marker
+            id="hier-arrow"
+            viewBox="0 0 10 10"
+            refX="10"
+            refY="5"
+            markerWidth="6"
+            markerHeight="6"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(100, 116, 139, 0.6)" />
+          </marker>
+          <marker
+            id="hier-arrow-active"
+            viewBox="0 0 10 10"
+            refX="10"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed" />
+          </marker>
         </defs>
       </svg>
     </VueFlow>
@@ -48,13 +83,28 @@
     <div class="view-info">
       <span>{{ flowNodes.length }} 节点</span>
       <span class="sep">·</span>
-      <span>滚轮缩放 · 单击选卡 · 双击聚焦</span>
+      <span v-if="mode === 'focus'">单击邻居漫游 · 双击聚焦 · ⌘← 后退</span>
+      <span v-else>滚轮缩放 · 单击选卡 · 双击聚焦</span>
     </div>
 
-    <!-- 聚焦模式返回按钮 -->
-    <button v-if="mode === 'focus'" class="back-btn" @click="exitFocus">
-      ← 返回树视图
-    </button>
+    <!-- 聚焦模式：返回 + 关联深度切换 -->
+    <div v-if="mode === 'focus'" class="focus-toolbar">
+      <button class="back-btn" @click="exitFocus">
+        ← 返回树视图
+      </button>
+      <div class="depth-toggle" title="关联深度：1 跳只看直接邻居，2 跳包含邻居的邻居">
+        <button
+          class="depth-btn"
+          :class="{ active: focusDepth === 1 }"
+          @click="$emit('set-focus-depth', 1)"
+        >1 跳</button>
+        <button
+          class="depth-btn"
+          :class="{ active: focusDepth === 2 }"
+          @click="$emit('set-focus-depth', 2)"
+        >2 跳</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -78,9 +128,10 @@ const props = defineProps({
   cardIndex: { type: Object, default: () => ({}) },
   selectedId: { type: String, default: '' },
   focusData: { type: Object, default: null },
+  focusDepth: { type: Number, default: 1 },
 })
 
-const emit = defineEmits(['select', 'focus', 'navigate', 'toggle-expand'])
+const emit = defineEmits(['select', 'focus', 'navigate', 'toggle-expand', 'set-focus-depth'])
 
 const nodeTypes = markRaw({
   card: CardNode,
@@ -213,9 +264,40 @@ watch(flowNodeSignature, (signature) => {
   })
 }, { flush: 'post' })
 
+// 悬停/选中驱动的边强调：
+// - 悬停某卡：它的关联边 active（加粗加亮），无关边 dim 淡出
+// - 树模式无悬停时用当前选中卡兜底，保持其关联边可见
+// - 聚焦模式无悬停时：中心发出的边正常，邻居↔邻居的边 faint 作背景
+const hoveredNodeId = ref('')
+
+function onNodeMouseEnter({ node }) {
+  hoveredNodeId.value = node.id
+}
+
+function onNodeMouseLeave() {
+  hoveredNodeId.value = ''
+}
+
+function edgeState(source, target, centerId, activeId) {
+  if (activeId) {
+    return (source === activeId || target === activeId) ? 'active' : 'dim'
+  }
+  if (centerId) {
+    return (source === centerId || target === centerId) ? 'normal' : 'faint'
+  }
+  return 'normal'
+}
+
 const flowEdges = computed(() => {
-  if (mode.value === 'focus') return focusResult.value.edges
-  return [...treeResult.value.edges, ...treeLinkEdges.value]
+  const base = mode.value === 'focus'
+    ? focusResult.value.edges
+    : [...treeResult.value.edges, ...treeLinkEdges.value]
+  const centerId = mode.value === 'focus' ? props.focusData?.center?.id : null
+  const activeId = hoveredNodeId.value || (mode.value === 'tree' ? props.selectedId : null) || null
+  return base.map(e => ({
+    ...e,
+    data: { ...e.data, state: edgeState(e.source, e.target, centerId, activeId) },
+  }))
 })
 
 // 停靠区数据
@@ -227,6 +309,11 @@ const dockGroups = computed(() => {
 
 // 事件处理
 function onNodeClick({ node }) {
+  // 漫游：聚焦模式下单击邻居卡 → 直接以它为新中心（来回走用 ⌘←/⌘→ 历史）
+  if (mode.value === 'focus' && node.id !== props.focusData?.center?.id) {
+    emit('focus', node.id)
+    return
+  }
   emit('select', node.id)
 }
 
@@ -298,9 +385,6 @@ defineExpose({ toggleExpand, enterFocus, exitFocus })
 }
 
 .back-btn {
-  position: absolute;
-  top: 16px;
-  left: 16px;
   border: none;
   background: #2563eb;
   color: #fff;
@@ -316,5 +400,44 @@ defineExpose({ toggleExpand, enterFocus, exitFocus })
 
 .back-btn:hover {
   opacity: 0.9;
+}
+
+.focus-toolbar {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
+}
+
+.depth-toggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.depth-btn {
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.depth-btn:hover {
+  background: #f3f4f6;
+}
+
+.depth-btn.active {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 600;
 }
 </style>
