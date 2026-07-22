@@ -1,0 +1,56 @@
+[1/27] 数学解题学引论 | 罗增儒
+   FAIL libgen_no_search (6.8s)
+[2/27] 英耀篇一 | ?
+   FAIL libgen_no_search (4.0s)
+[3/27] 狭义相对论 | ?
+   OK [pdf] 7498KB 35.6s  狭义相对论.pdf
+[4/27] 时间的天文学 | ?
+   FAIL libgen_no_search (4.0s)
+[5/27] 圣经 | ?
+   OK [epub] 3472KB 26.6s  圣经.epub
+[6/27] 古兰经 | ?
+   FAIL libgen_no_search (25.0s)
+[7/27] 语文开窍 | ?
+   FAIL libgen_no_search (4.1s)
+[8/27] 七种武器 | 古龙
+   OK [mobi] 2728KB 25.1s  七种武器__古龙.mobi
+[9/27] 哈利·波特系列（7部） | J.K.罗琳
+   FAIL libgen_no_search (8.5s)
+[10/27] 论人类不平等的起源和基础 | 卢梭
+   OK [mobi] 1048KB 23.5s  论人类不平等的起源和基础__卢梭.mobi
+[11/27] 人间词话 | 王国维
+   OK [epub] 690KB 27.4s  人间词话__王国维.epub
+[12/27] 西游记 | 吴承恩
+   OK [epub] 7679KB 20.1s  西游记__吴承恩.epub
+[13/27] 当代中国政府与政治 | 景跃进等
+   OK [epub] 159913KB 252.9s  当代中国政府与政治__景跃进等.epub
+[14/27] 治理中国 | [美] 李侃如
+   OK [epub] 1565KB 19.0s  治理中国.epub
+[15/27] 三国演义 | 罗贯中
+   OK [epub] 840KB 17.7s  三国演义__罗贯中.epub
+[16/27] 水浒传 | 施耐庵
+   OK [pdf] 21827KB 21.1s  水浒传__施耐庵.pdf
+[17/27] 谈美 | 朱光潜
+   OK [mobi] 14777KB 43.9s  谈美__朱光潜.mobi
+[18/27] 科学作为天职 / 政治作为天职 | 马克斯·韦伯
+   FAIL libgen_no_search (9.1s)
+[19/27] 六祖坛经 | ?
+   OK [mobi] 114KB 39.8s  六祖坛经.mobi
+[20/27] 汪国真精选集 | 汪国真
+   FAIL libgen_no_search (8.6s)
+[21/27] 鲁迅作品集 | 鲁迅
+   FAIL libgen_no_search (13.6s)
+[22/27] 叔本华论说文集 | 叔本华
+   OK [epub] 750KB 114.3s  叔本华论说文集__叔本华.epub
+[23/27] 理想国 | 柏拉图
+   OK [epub] 1392KB 24.8s  理想国__柏拉图.epub
+[24/27] 西方哲学史（学术版） | ?
+   OK [pdf] 16396KB 192.6s  西方哲学史（学术版）.pdf
+[25/27] 国富国穷 | ?
+   OK [epub] 355KB 19.6s  国富国穷.epub
+[26/27] 大国兴衰 | ?
+   OK [mobi] 977KB 22.4s  大国兴衰.mobi
+[27/27] 美洲三书 | ?
+   OK [pdf] 7182KB 24.8s  美洲三书.pdf
+
+=== retry done: ok=18 fail=9 ===

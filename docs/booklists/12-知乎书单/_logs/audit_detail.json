@@ -1,0 +1,1802 @@
+[
+  {
+    "file": "C语言程序设计：现代方法__K. N. King.pdf",
+    "ext": "pdf",
+    "size_mb": 11.56,
+    "pages": 534,
+    "text_chars": 3694,
+    "detected": "I N TERNATIONAL",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "Effective Java__Joshua Bloch.epub",
+    "ext": "epub",
+    "size_mb": 0.33,
+    "pages": 6,
+    "text_chars": 634329,
+    "detected": "Effective Java: Programming Language Guide",
+    "match": "OK"
+  },
+  {
+    "file": "Java编程思想__Bruce Eckel.epub",
+    "ext": "epub",
+    "size_mb": 1.28,
+    "pages": 632,
+    "text_chars": 58724,
+    "detected": "Java编程思想（第4版）",
+    "match": "OK"
+  },
+  {
+    "file": "Python Cookbook__David Beazley.epub",
+    "ext": "epub",
+    "size_mb": 1.81,
+    "pages": 355,
+    "text_chars": 14113,
+    "detected": "Python Cookbook",
+    "match": "OK"
+  },
+  {
+    "file": "STL源码剖析__侯捷.pdf",
+    "ext": "pdf",
+    "size_mb": 6.22,
+    "pages": 259,
+    "text_chars": 232,
+    "detected": "無限延伸你的視野",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "TCP_IP详解__W. Richard Stevens.epub",
+    "ext": "epub",
+    "size_mb": 30.76,
+    "pages": 55,
+    "text_chars": 295834,
+    "detected": "TCP-IP详解卷三：TCP事务协议，HTTP，NNTP和UNIX域协议",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "一片流云__詹姆斯·乔伊斯.azw3",
+    "ext": "azw3",
+    "size_mb": 0.37,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Yi_Pian_Liu_Yun__Qiao_Yi_Si_Dua",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "七种武器__古龙.mobi",
+    "ext": "mobi",
+    "size_mb": 2.66,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "DHMU",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "三国演义__罗贯中.epub",
+    "ext": "epub",
+    "size_mb": 0.82,
+    "pages": 25,
+    "text_chars": 221805,
+    "detected": "三国演义",
+    "match": "OK"
+  },
+  {
+    "file": "丑陋的日本人.epub",
+    "ext": "epub",
+    "size_mb": 0.11,
+    "pages": 7,
+    "text_chars": 82056,
+    "detected": "丑陋的日本人",
+    "match": "OK"
+  },
+  {
+    "file": "个人形成论__罗杰斯.epub",
+    "ext": "epub",
+    "size_mb": 101.89,
+    "pages": 2,
+    "text_chars": 48868,
+    "detected": "个人形成论 我的心理治疗观",
+    "match": "OK"
+  },
+  {
+    "file": "中国人史纲__柏杨.epub",
+    "ext": "epub",
+    "size_mb": 15.5,
+    "pages": 10,
+    "text_chars": 742078,
+    "detected": "中国人史纲",
+    "match": "OK"
+  },
+  {
+    "file": "中国四大名著.azw3",
+    "ext": "azw3",
+    "size_mb": 27.19,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!J3RNHSTV3D0RF4J8A254SD40209H",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "中国大历史__黄仁宇.epub",
+    "ext": "epub",
+    "size_mb": 7.57,
+    "pages": 76,
+    "text_chars": 25748,
+    "detected": "三国风云(群英云集的智勇较量) (中国大历史系列)",
+    "match": "OK"
+  },
+  {
+    "file": "中国方术正考__李零.pdf",
+    "ext": "pdf",
+    "size_mb": 24.02,
+    "pages": 464,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "亚洲教父：香港、东南亚的金钱和权力.azw3",
+    "ext": "azw3",
+    "size_mb": 1.38,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Ya_Zhou_Jiao_Fu__Xiang_Gang_,_D",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "人工智能.epub",
+    "ext": "epub",
+    "size_mb": 1.0,
+    "pages": 41,
+    "text_chars": 44535,
+    "detected": "智能的本质：人工智能与机器人领域的64个大问题(排版)",
+    "match": "OK"
+  },
+  {
+    "file": "人工智能：现代方法__Stuart Russell.mobi",
+    "ext": "mobi",
+    "size_mb": 2.24,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Ren_Gong_Zhi_Neng_----_Yi_Zhong",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "人月神话__Frederick P. Brooks Jr.epub",
+    "ext": "epub",
+    "size_mb": 2.44,
+    "pages": 28,
+    "text_chars": 36262,
+    "detected": "人月神话(二十周年纪念版)",
+    "match": "OK"
+  },
+  {
+    "file": "人生__路遥.epub",
+    "ext": "epub",
+    "size_mb": 0.22,
+    "pages": 31,
+    "text_chars": 26436,
+    "detected": "人生（路遥成名之作，影响千万青年的励志名篇，马云、贾樟柯倾情推荐。）",
+    "match": "OK"
+  },
+  {
+    "file": "人生十二法则__乔丹·彼得森.epub",
+    "ext": "epub",
+    "size_mb": 3.45,
+    "pages": 64,
+    "text_chars": 29560,
+    "detected": "人生十二法则",
+    "match": "OK"
+  },
+  {
+    "file": "人生的智慧__叔本华.epub",
+    "ext": "epub",
+    "size_mb": 0.91,
+    "pages": 18,
+    "text_chars": 23273,
+    "detected": "人生的智慧",
+    "match": "OK"
+  },
+  {
+    "file": "人类简史.epub",
+    "ext": "epub",
+    "size_mb": 1.54,
+    "pages": 101,
+    "text_chars": 1143782,
+    "detected": "人类简史：从动物到上帝",
+    "match": "OK"
+  },
+  {
+    "file": "人类群星闪耀时__斯蒂芬·茨威格.epub",
+    "ext": "epub",
+    "size_mb": 0.65,
+    "pages": 89,
+    "text_chars": 19351,
+    "detected": "人类群星闪耀时",
+    "match": "OK"
+  },
+  {
+    "file": "人间词话__王国维.epub",
+    "ext": "epub",
+    "size_mb": 0.67,
+    "pages": 264,
+    "text_chars": 26507,
+    "detected": "人间词话：叶嘉莹讲评本（诗词大家叶嘉莹逐条讲透、点评王国维诗词美学经典，读懂人生三境界）",
+    "match": "OK"
+  },
+  {
+    "file": "今日简史__尤瓦尔·赫拉利.epub",
+    "ext": "epub",
+    "size_mb": 0.6,
+    "pages": 7,
+    "text_chars": 662485,
+    "detected": "今日简史：人类命运大议题",
+    "match": "OK"
+  },
+  {
+    "file": "从牛顿、达尔文到巴菲特—投资的格栅理论.pdf",
+    "ext": "pdf",
+    "size_mb": 4.1,
+    "pages": 205,
+    "text_chars": 1571,
+    "detected": "查看更多教程>>",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "代码大全__Steve McConnell.mobi",
+    "ext": "mobi",
+    "size_mb": 2.91,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "epubor.com",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "以赛亚伯林文集.epub",
+    "ext": "epub",
+    "size_mb": 0.43,
+    "pages": 16,
+    "text_chars": 221537,
+    "detected": "启蒙的时代：十八世纪哲学家 (人文与社会译丛)",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "做哲学：88个思想实验中的哲学导论.epub",
+    "ext": "epub",
+    "size_mb": 2.4,
+    "pages": 54,
+    "text_chars": 24993,
+    "detected": "异类心理学：40个改变认知的疯狂思想实验【日本人气哲学家、人类文化学博士小川仁志，教你提升认知优势，跳出思维陷阱】(elib.cc)",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "全球通史.epub",
+    "ext": "epub",
+    "size_mb": 52.45,
+    "pages": 8,
+    "text_chars": 601502,
+    "detected": "全球通史：从史前史到21世纪(第7版）(上册)",
+    "match": "OK"
+  },
+  {
+    "file": "八十一梦__张恨水.epub",
+    "ext": "epub",
+    "size_mb": 0.27,
+    "pages": 18,
+    "text_chars": 58691,
+    "detected": "八十一梦 (张恨水作品经典)",
+    "match": "OK"
+  },
+  {
+    "file": "六祖坛经.mobi",
+    "ext": "mobi",
+    "size_mb": 0.11,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Liu_Zu_Tan_Jing",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "共同基金常识__约翰·博格.epub",
+    "ext": "epub",
+    "size_mb": 6.68,
+    "pages": 45,
+    "text_chars": 27246,
+    "detected": "共同基金常识：10周年纪念版",
+    "match": "OK"
+  },
+  {
+    "file": "出圈__叶明桂.mobi",
+    "ext": "mobi",
+    "size_mb": 0.96,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Chu_Quan__Ren_Ren_Neng_Kan_Jian",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "包法利夫人__福楼拜.mobi",
+    "ext": "mobi",
+    "size_mb": 0.73,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Bao_Fa_Li_Fu_Ren",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "十万个为什么.epub",
+    "ext": "epub",
+    "size_mb": 0.28,
+    "pages": 5,
+    "text_chars": 293475,
+    "detected": "十万个为什么（全集）",
+    "match": "OK"
+  },
+  {
+    "file": "南明史__顾诚.azw3",
+    "ext": "azw3",
+    "size_mb": 4.7,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Nan_Ming_Shi_(Quan_2Ce_)(Nei_Do",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "卡拉马佐夫兄弟.epub",
+    "ext": "epub",
+    "size_mb": 0.94,
+    "pages": 24,
+    "text_chars": 54649,
+    "detected": "卡拉马佐夫兄弟(套装上下册) (译文名著精选)",
+    "match": "OK"
+  },
+  {
+    "file": "历史大脉络__许倬云.epub",
+    "ext": "epub",
+    "size_mb": 2.53,
+    "pages": 32,
+    "text_chars": 10987,
+    "detected": "许倬云说历史:现代文明的成坏",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "历史的经验.epub",
+    "ext": "epub",
+    "size_mb": 0.33,
+    "pages": 2,
+    "text_chars": 182454,
+    "detected": "南怀瑾选集 历史的经验",
+    "match": "OK"
+  },
+  {
+    "file": "原则__瑞·达利欧.mobi",
+    "ext": "mobi",
+    "size_mb": 4.09,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "epubor.com",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "双面人：转型乡村中的人生、欲望与社会心态__谭同学.mobi",
+    "ext": "mobi",
+    "size_mb": 2.53,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Shuang_Mian_Ren__Zhuan_Xing_Xia",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "反脆弱__塔勒布.epub",
+    "ext": "epub",
+    "size_mb": 2.25,
+    "pages": 137,
+    "text_chars": 22486,
+    "detected": "黑天鹅+反脆弱+随机生存的智慧(套装共3册)",
+    "match": "OK"
+  },
+  {
+    "file": "叔本华的治疗__欧文·亚隆.mobi",
+    "ext": "mobi",
+    "size_mb": 0.6,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Shu_Ben_Hua_De_Yan_Lei__Shu_Ben",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "叔本华论说文集__叔本华.epub",
+    "ext": "epub",
+    "size_mb": 0.73,
+    "pages": 65,
+    "text_chars": 17087,
+    "detected": "叔本华论说文集",
+    "match": "OK"
+  },
+  {
+    "file": "变形记 _ 审判__卡夫卡.azw3",
+    "ext": "azw3",
+    "size_mb": 3.33,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!3RFVKZ2YT94WNCB3VPDHE2A7P1E3",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "古兰经.mobi",
+    "ext": "mobi",
+    "size_mb": 0.32,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Gu_Lan_Jing_Gu_Shi",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "史记__司马迁.epub",
+    "ext": "epub",
+    "size_mb": 0.97,
+    "pages": 132,
+    "text_chars": 84886,
+    "detected": "史记",
+    "match": "OK"
+  },
+  {
+    "file": "向知识分子介绍佛学.pdf",
+    "ext": "pdf",
+    "size_mb": 5.28,
+    "pages": 158,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "吕著中国通史__吕思勉.epub",
+    "ext": "epub",
+    "size_mb": 13.8,
+    "pages": 63,
+    "text_chars": 16053,
+    "detected": "吕著中国通史 (民国学术经典丛书)",
+    "match": "OK"
+  },
+  {
+    "file": "君主论__马基雅维利.epub",
+    "ext": "epub",
+    "size_mb": 0.56,
+    "pages": 14,
+    "text_chars": 272679,
+    "detected": "君主论•论李维(最新全译本)",
+    "match": "OK"
+  },
+  {
+    "file": "哈利·波特系列（7部）__J.K.罗琳.epub",
+    "ext": "epub",
+    "size_mb": 38.85,
+    "pages": 216,
+    "text_chars": 92004,
+    "detected": "Harry Potter - A Journey Through A History of Magic",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "哲学家都干了什么__林欣浩.epub",
+    "ext": "epub",
+    "size_mb": 0.32,
+    "pages": 5,
+    "text_chars": 269384,
+    "detected": "哲学家们都干了什么？",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "哲学导论：综合原典教程__罗伯特·C.所罗门.epub",
+    "ext": "epub",
+    "size_mb": 1.28,
+    "pages": 3,
+    "text_chars": 733363,
+    "detected": "哲学导论:综合原典阅读教程",
+    "match": "ok"
+  },
+  {
+    "file": "哲学研究__维特根斯坦.epub",
+    "ext": "epub",
+    "size_mb": 0.37,
+    "pages": 19,
+    "text_chars": 13127,
+    "detected": "哲学研究",
+    "match": "OK"
+  },
+  {
+    "file": "唐浩明评点曾国藩家书__唐浩明.epub",
+    "ext": "epub",
+    "size_mb": 0.86,
+    "pages": 3,
+    "text_chars": 824358,
+    "detected": "唐浩明评点曾国藩家书 (上下合集)",
+    "match": "OK"
+  },
+  {
+    "file": "唐诗宋词.epub",
+    "ext": "epub",
+    "size_mb": 16.68,
+    "pages": 216,
+    "text_chars": 95941,
+    "detected": "唐诗宋词元曲大全集(超值金版) (家庭珍藏经典畅销书系：超值金版)",
+    "match": "OK"
+  },
+  {
+    "file": "国史大纲__钱穆.epub",
+    "ext": "epub",
+    "size_mb": 5.29,
+    "pages": 71,
+    "text_chars": 15788,
+    "detected": "国史大纲",
+    "match": "OK"
+  },
+  {
+    "file": "国富国穷.epub",
+    "ext": "epub",
+    "size_mb": 0.35,
+    "pages": 10,
+    "text_chars": 188890,
+    "detected": "国富国穷",
+    "match": "OK"
+  },
+  {
+    "file": "圣经.epub",
+    "ext": "epub",
+    "size_mb": 3.39,
+    "pages": 46,
+    "text_chars": 1540415,
+    "detected": "《圣经》中英对照豪华版",
+    "match": "OK"
+  },
+  {
+    "file": "圣经新约.epub",
+    "ext": "epub",
+    "size_mb": 5.31,
+    "pages": 7120,
+    "text_chars": 47357,
+    "detected": "新约圣经",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "复分析：可视化方法.mobi",
+    "ext": "mobi",
+    "size_mb": 12.32,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "VQSULOCPP",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "大国兴衰.mobi",
+    "ext": "mobi",
+    "size_mb": 0.95,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Da_Guo_Xing_Shuai_----Quan_Qiu_",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "大数据.epub",
+    "ext": "epub",
+    "size_mb": 2.83,
+    "pages": 3,
+    "text_chars": 286776,
+    "detected": "决策知识自动化 大数据时代的商业决策分析方法",
+    "match": "OK"
+  },
+  {
+    "file": "天意__钱莉芳.epub",
+    "ext": "epub",
+    "size_mb": 0.5,
+    "pages": 10,
+    "text_chars": 213981,
+    "detected": "天意",
+    "match": "OK"
+  },
+  {
+    "file": "天鹅图腾__姜戎.epub",
+    "ext": "epub",
+    "size_mb": 0.66,
+    "pages": 58,
+    "text_chars": 31869,
+    "detected": "天鹅图腾（《狼图腾》作者重磅新作。一段百年不遇的雪灾下的传奇：灾祸即将砸下，留给所有生命的时间，只有两天！）",
+    "match": "OK"
+  },
+  {
+    "file": "天龙八部__金庸.epub",
+    "ext": "epub",
+    "size_mb": 3.53,
+    "pages": 67,
+    "text_chars": 90399,
+    "detected": "天龙八部",
+    "match": "OK"
+  },
+  {
+    "file": "契诃夫短篇小说全集__契诃夫.epub",
+    "ext": "epub",
+    "size_mb": 0.28,
+    "pages": 4,
+    "text_chars": 478694,
+    "detected": "The Duel and Other Stories (决斗与契诃夫其它短篇) (免费公版书)",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "如何阅读一本书__莫提默·J.艾德勒.azw3",
+    "ext": "azw3",
+    "size_mb": 1.59,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!ZN7D0JBYC15PSAEAXN96S3KMV9HF",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "孙子兵法__孙武.epub",
+    "ext": "epub",
+    "size_mb": 2.01,
+    "pages": 4,
+    "text_chars": 182744,
+    "detected": "《三十六计与孙子兵法》",
+    "match": "OK"
+  },
+  {
+    "file": "安娜卡列尼娜__托尔斯泰.epub",
+    "ext": "epub",
+    "size_mb": 1.7,
+    "pages": 16,
+    "text_chars": 388775,
+    "detected": "安娜•卡列尼娜(套装共2册) (世界文学文库) (新版百部世界文学文库)",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "富爸爸穷爸爸__罗伯特·清崎.epub",
+    "ext": "epub",
+    "size_mb": 0.84,
+    "pages": 20,
+    "text_chars": 55080,
+    "detected": "富爸爸穷爸爸",
+    "match": "OK"
+  },
+  {
+    "file": "对赌.epub",
+    "ext": "epub",
+    "size_mb": 0.52,
+    "pages": 95,
+    "text_chars": 18342,
+    "detected": "对赌",
+    "match": "OK"
+  },
+  {
+    "file": "小李飞刀（第一部）__古龙.mobi",
+    "ext": "mobi",
+    "size_mb": 0.84,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Gu_Long_Wen_Ji__Xiao_Li_Fei_Dao",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "小狗钱钱__博多·舍费尔.epub",
+    "ext": "epub",
+    "size_mb": 1.73,
+    "pages": 67,
+    "text_chars": 11374,
+    "detected": "小狗钱钱（套装全2册）",
+    "match": "OK"
+  },
+  {
+    "file": "小王子__圣埃克苏佩里.mobi",
+    "ext": "mobi",
+    "size_mb": 7.22,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!NNM91YB9G57ZN7RNF4PASD00TY1V",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "小镇喧嚣__吴毅.epub",
+    "ext": "epub",
+    "size_mb": 1.0,
+    "pages": 29,
+    "text_chars": 18163,
+    "detected": "小镇喧嚣：一个乡镇政治运作的演绎与阐释",
+    "match": "OK"
+  },
+  {
+    "file": "少有人走的路__M·斯科特·派克.epub",
+    "ext": "epub",
+    "size_mb": 0.43,
+    "pages": 3,
+    "text_chars": 223168,
+    "detected": "少有人走的路",
+    "match": "OK"
+  },
+  {
+    "file": "局外人__加缪.epub",
+    "ext": "epub",
+    "size_mb": 0.2,
+    "pages": 7,
+    "text_chars": 79552,
+    "detected": "局外人（加缪作品精装版）",
+    "match": "OK"
+  },
+  {
+    "file": "巨变：当代政治与经济的起源__卡尔·波兰尼.azw3",
+    "ext": "azw3",
+    "size_mb": 0.91,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!AG4AKJANQN1Z160557NZA5RVZY69",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "巨流河__齐邦媛.epub",
+    "ext": "epub",
+    "size_mb": 0.47,
+    "pages": 137,
+    "text_chars": 11028,
+    "detected": "巨流河",
+    "match": "OK"
+  },
+  {
+    "file": "平如美棠我俩的故事__饶平如.epub",
+    "ext": "epub",
+    "size_mb": 12.98,
+    "pages": 36,
+    "text_chars": 16130,
+    "detected": "平如美棠：我俩的故事（2013年度中国最美的书，感动柴静、姚晨、朱赢椿的故事，一个普通中国家庭六十载的记忆，也记录下了中国人最美、最好的精神世界）",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "幸福之路__伯特兰·罗素.epub",
+    "ext": "epub",
+    "size_mb": 0.68,
+    "pages": 63,
+    "text_chars": 48388,
+    "detected": "幸福之路",
+    "match": "OK"
+  },
+  {
+    "file": "异类__马尔科姆·格拉德威尔.epub",
+    "ext": "epub",
+    "size_mb": 0.39,
+    "pages": 22,
+    "text_chars": 13011,
+    "detected": "异类:不一样的成功启示录",
+    "match": "OK"
+  },
+  {
+    "file": "当代中国政府与政治__景跃进等.epub",
+    "ext": "epub",
+    "size_mb": 156.17,
+    "pages": 1,
+    "text_chars": 97235,
+    "detected": "当代中国政府与政治",
+    "match": "OK"
+  },
+  {
+    "file": "彼得·林奇的成功投资__彼得·林奇.epub",
+    "ext": "epub",
+    "size_mb": 0.32,
+    "pages": 5,
+    "text_chars": 387245,
+    "detected": "彼得林奇的成功投资",
+    "match": "ok"
+  },
+  {
+    "file": "心流__米哈里·契克森米哈赖.azw3",
+    "ext": "azw3",
+    "size_mb": 1.44,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!078DTVY9RH4PNASJNTS2H3QNH03N",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "心理学与生活__理查德·格里格.epub",
+    "ext": "epub",
+    "size_mb": 0.24,
+    "pages": 5,
+    "text_chars": 169732,
+    "detected": "心理学与生活",
+    "match": "OK"
+  },
+  {
+    "file": "怎样解题__波利亚.epub",
+    "ext": "epub",
+    "size_mb": 0.91,
+    "pages": 337,
+    "text_chars": 62674,
+    "detected": "怎样解题",
+    "match": "OK"
+  },
+  {
+    "file": "思考，快与慢__丹尼尔·卡尼曼.epub",
+    "ext": "epub",
+    "size_mb": 0.79,
+    "pages": 182,
+    "text_chars": 24280,
+    "detected": "思考,快与慢",
+    "match": "ok"
+  },
+  {
+    "file": "我们仨__杨绛.mobi",
+    "ext": "mobi",
+    "size_mb": 0.41,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Wo_Men_Sa",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "我们时代的神经症人格__卡伦·霍妮.epub",
+    "ext": "epub",
+    "size_mb": 0.28,
+    "pages": 21,
+    "text_chars": 38174,
+    "detected": "我们时代的神经症人格（卡伦·霍妮作品）（与荣格、阿德勒、弗洛姆齐名的心理学大师，新弗洛伊德学派代表人物，唯一开创一个精神分析思想流派的女学者） (卡伦·霍尼作品集)",
+    "match": "OK"
+  },
+  {
+    "file": "战争与和平__托尔斯泰.epub",
+    "ext": "epub",
+    "size_mb": 1.58,
+    "pages": 38,
+    "text_chars": 180508,
+    "detected": "战争与和平(套装共2册)",
+    "match": "OK"
+  },
+  {
+    "file": "房权政治：中国城市社区的业主维权__吴晓林.pdf",
+    "ext": "pdf",
+    "size_mb": 103.3,
+    "pages": 308,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "投资中最简单的事__邱国鹭.epub",
+    "ext": "epub",
+    "size_mb": 0.68,
+    "pages": 0,
+    "text_chars": 41296,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "投资最重要的事__霍华德·马克斯.epub",
+    "ext": "epub",
+    "size_mb": 0.71,
+    "pages": 31,
+    "text_chars": 14740,
+    "detected": "投资最重要的事（全新升级版）：顶尖价值投资者的忠告",
+    "match": "OK"
+  },
+  {
+    "file": "拖延心理学.epub",
+    "ext": "epub",
+    "size_mb": 0.5,
+    "pages": 41,
+    "text_chars": 20916,
+    "detected": "拖延心理学【豆瓣拖延小组的镇组之宝】 (湛庐文化•心视界)",
+    "match": "OK"
+  },
+  {
+    "file": "提升思维认知的10本书.epub",
+    "ext": "epub",
+    "size_mb": 2.4,
+    "pages": 59,
+    "text_chars": 28682,
+    "detected": "异类心理学：40个改变认知的疯狂思想实验【日本人气哲学家、人类文化学博士小川仁志，教你提升认知优势，跳出思维陷阱】",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "提升认知的37本书单.epub",
+    "ext": "epub",
+    "size_mb": 2.4,
+    "pages": 54,
+    "text_chars": 24993,
+    "detected": "异类心理学：40个改变认知的疯狂思想实验【日本人气哲学家、人类文化学博士小川仁志，教你提升认知优势，跳出思维陷阱】(elib.cc)",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "数学家的眼界__张景中.mobi",
+    "ext": "mobi",
+    "size_mb": 0.86,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Shi_Shang_Zui_Qiang_Nao_Li_Cao_",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "数据密集型应用系统设计__Martin Kleppmann.mobi",
+    "ext": "mobi",
+    "size_mb": 10.88,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "She_Ji_Shu_Ju_Mi_Ji_Xing_Ying_Y",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "新概念几何__张景中.pdf",
+    "ext": "pdf",
+    "size_mb": 3.86,
+    "pages": 329,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "新生，七年就是一辈子__李笑来.epub",
+    "ext": "epub",
+    "size_mb": 2.59,
+    "pages": 55,
+    "text_chars": 84704,
+    "detected": "新生——七年就是一辈子",
+    "match": "ok"
+  },
+  {
+    "file": "时间简史__史蒂芬·霍金.epub",
+    "ext": "epub",
+    "size_mb": 38.67,
+    "pages": 79,
+    "text_chars": 24221,
+    "detected": "霍金经典著作套装:时间简史(插图版)+果壳中的宇宙+大设计+我的简史(套装共4册)",
+    "match": "OK"
+  },
+  {
+    "file": "明朝那些事儿__当年明月.epub",
+    "ext": "epub",
+    "size_mb": 0.61,
+    "pages": 5,
+    "text_chars": 532796,
+    "detected": "明朝那些事儿",
+    "match": "OK"
+  },
+  {
+    "file": "易中天中华史__易中天.epub",
+    "ext": "epub",
+    "size_mb": 1.03,
+    "pages": 62,
+    "text_chars": 15776,
+    "detected": "《易中天中华史：青春志》",
+    "match": "OK"
+  },
+  {
+    "file": "月亮与六便士__毛姆.epub",
+    "ext": "epub",
+    "size_mb": 0.44,
+    "pages": 69,
+    "text_chars": 14922,
+    "detected": "月亮与六便士（毛姆极具影响代表作；被称为英国莫泊桑；月亮代表高高在上的理想，六便士则是现实的代表；南开教授谷启楠译本） (外国文学名著丛书)",
+    "match": "OK"
+  },
+  {
+    "file": "月亮和六便士__毛姆.epub",
+    "ext": "epub",
+    "size_mb": 2.3,
+    "pages": 136,
+    "text_chars": 22280,
+    "detected": "月亮和六便士",
+    "match": "OK"
+  },
+  {
+    "file": "未来简史__尤瓦尔·赫拉利.epub",
+    "ext": "epub",
+    "size_mb": 8.57,
+    "pages": 54,
+    "text_chars": 190284,
+    "detected": "未来简史·人类简史（套装）",
+    "match": "OK"
+  },
+  {
+    "file": "杜工部集__杜甫.pdf",
+    "ext": "pdf",
+    "size_mb": 5.37,
+    "pages": 417,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "来自新世界__贵志祐介.epub",
+    "ext": "epub",
+    "size_mb": 0.8,
+    "pages": 43,
+    "text_chars": 60653,
+    "detected": "来自新世界（全2册）",
+    "match": "OK"
+  },
+  {
+    "file": "极简欧洲史__约翰·赫斯特.epub",
+    "ext": "epub",
+    "size_mb": 0.19,
+    "pages": 8,
+    "text_chars": 113125,
+    "detected": "你一定爱读的极简欧洲史",
+    "match": "OK"
+  },
+  {
+    "file": "枪炮、病菌与钢铁.epub",
+    "ext": "epub",
+    "size_mb": 9.08,
+    "pages": 39,
+    "text_chars": 14869,
+    "detected": "枪炮病菌与钢铁 : 人类社会的命运",
+    "match": "ok"
+  },
+  {
+    "file": "柏杨资治通鉴__柏杨.mobi",
+    "ext": "mobi",
+    "size_mb": 0.31,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "YPWACDED",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "查拉斯图拉如是说__尼采.epub",
+    "ext": "epub",
+    "size_mb": 0.56,
+    "pages": 115,
+    "text_chars": 31185,
+    "detected": "看哪，这人；查拉斯图拉如是说",
+    "match": "OK"
+  },
+  {
+    "file": "梦的解析__弗洛伊德.epub",
+    "ext": "epub",
+    "size_mb": 0.15,
+    "pages": 5,
+    "text_chars": 2237,
+    "detected": "梦的解析",
+    "match": "OK"
+  },
+  {
+    "file": "横空出世 _ 原子弹出世记 _ 原子弹秘史.azw3",
+    "ext": "azw3",
+    "size_mb": 22.18,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Heng_Kong_Chu_Shi__He_Wu_Li_Yu_",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "次第花开__希阿荣博堪布.azw3",
+    "ext": "azw3",
+    "size_mb": 1.74,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!RZQS3VWNGD6CNCFD3GWQGYDY4XEJ",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "水浒传__施耐庵.pdf",
+    "ext": "pdf",
+    "size_mb": 21.32,
+    "pages": 456,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "汉书__班固.epub",
+    "ext": "epub",
+    "size_mb": 0.15,
+    "pages": 23,
+    "text_chars": 52582,
+    "detected": "汉书",
+    "match": "OK"
+  },
+  {
+    "file": "江湖丛谈__连阔如.epub",
+    "ext": "epub",
+    "size_mb": 0.68,
+    "pages": 152,
+    "text_chars": 13306,
+    "detected": "江湖丛谈",
+    "match": "OK"
+  },
+  {
+    "file": "汤姆·索亚历险记__马克·吐温.epub",
+    "ext": "epub",
+    "size_mb": 0.22,
+    "pages": 40,
+    "text_chars": 44944,
+    "detected": "汤姆索亚历险记",
+    "match": "ok"
+  },
+  {
+    "file": "沉思录__马可·奥勒留.epub",
+    "ext": "epub",
+    "size_mb": 0.36,
+    "pages": 31,
+    "text_chars": 50048,
+    "detected": "沉思录",
+    "match": "OK"
+  },
+  {
+    "file": "河湾__奈保尔.pdf",
+    "ext": "pdf",
+    "size_mb": 12.88,
+    "pages": 311,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "治理中国.epub",
+    "ext": "epub",
+    "size_mb": 1.53,
+    "pages": 22,
+    "text_chars": 22583,
+    "detected": "治理中国：从革命到改革",
+    "match": "OK"
+  },
+  {
+    "file": "注意力：专注的科学与训练__让-菲利普·拉夏.epub",
+    "ext": "epub",
+    "size_mb": 3.33,
+    "pages": 4,
+    "text_chars": 274074,
+    "detected": "注意力：专注的科学与训练",
+    "match": "OK"
+  },
+  {
+    "file": "深入理解计算机系统__Randal E. Bryant.epub",
+    "ext": "epub",
+    "size_mb": 0.13,
+    "pages": 4,
+    "text_chars": 207126,
+    "detected": "深入理解计算机系统（原书第2版）&lt;script&gt;alter('x')&lt;/script&gt;",
+    "match": "OK"
+  },
+  {
+    "file": "深度探索C++对象模型__Stanley B. Lippman.pdf",
+    "ext": "pdf",
+    "size_mb": 10.96,
+    "pages": 356,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "牛奶可乐经济学__罗伯特·弗兰克.epub",
+    "ext": "epub",
+    "size_mb": 0.16,
+    "pages": 10,
+    "text_chars": 175850,
+    "detected": "牛奶可乐经济学",
+    "match": "OK"
+  },
+  {
+    "file": "牧羊少年奇幻之旅__保罗·柯艾略.mobi",
+    "ext": "mobi",
+    "size_mb": 0.24,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Mu_Yang_Shao_Nian_Qi_Huan_Zhi_L",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "特殊函数概论__王竹溪.pdf",
+    "ext": "pdf",
+    "size_mb": 14.81,
+    "pages": 774,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "狭义相对论.pdf",
+    "ext": "pdf",
+    "size_mb": 7.32,
+    "pages": 335,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "猎魔人__安德烈·斯帕克沃夫斯基.mobi",
+    "ext": "mobi",
+    "size_mb": 0.72,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Xi_Mo_Ren_1_Bai_Lang_Jue_Qi",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "理想国__柏拉图.epub",
+    "ext": "epub",
+    "size_mb": 1.36,
+    "pages": 21,
+    "text_chars": 83792,
+    "detected": "理想国",
+    "match": "OK"
+  },
+  {
+    "file": "疯癫与文明__福柯.epub",
+    "ext": "epub",
+    "size_mb": 0.25,
+    "pages": 18,
+    "text_chars": 57156,
+    "detected": "疯癫与文明",
+    "match": "OK"
+  },
+  {
+    "file": "白话本国史__吕思勉.mobi",
+    "ext": "mobi",
+    "size_mb": 11.46,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Bai_Hua_Ben_Guo_Shi",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "白鹿原__陈忠实.epub",
+    "ext": "epub",
+    "size_mb": 2.37,
+    "pages": 36,
+    "text_chars": 95543,
+    "detected": "白鹿原",
+    "match": "OK"
+  },
+  {
+    "file": "社会心理学__戴维·迈尔斯.epub",
+    "ext": "epub",
+    "size_mb": 3.01,
+    "pages": 14,
+    "text_chars": 41128,
+    "detected": "社会心理学纲要(第6版)（迈尔斯《社会心理学》的精华版） (社会心理学精品译丛)",
+    "match": "OK"
+  },
+  {
+    "file": "祛魅__罗伯特·纳伯格.epub",
+    "ext": "epub",
+    "size_mb": 0.58,
+    "pages": 114,
+    "text_chars": 20490,
+    "detected": "牛津通识读本：印度哲学祛魅（中文版）",
+    "match": "OK"
+  },
+  {
+    "file": "科学作为天职 _ 政治作为天职__马克斯·韦伯.mobi",
+    "ext": "mobi",
+    "size_mb": 1.33,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Ke_Xue_Zuo_Wei_Tian_Zhi__Wei_Bo",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "稀缺.epub",
+    "ext": "epub",
+    "size_mb": 0.47,
+    "pages": 38,
+    "text_chars": 35963,
+    "detected": "稀缺：我们是如何陷入贫穷与忙碌的",
+    "match": "OK"
+  },
+  {
+    "file": "穷查理宝典__查理·芒格.epub",
+    "ext": "epub",
+    "size_mb": 44.8,
+    "pages": 0,
+    "text_chars": 33443,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "穿越百年中东__郭建龙.epub",
+    "ext": "epub",
+    "size_mb": 6.26,
+    "pages": 15,
+    "text_chars": 87834,
+    "detected": "穿越百年中东",
+    "match": "OK"
+  },
+  {
+    "file": "第三帝国兴亡史.pdf",
+    "ext": "pdf",
+    "size_mb": 50.87,
+    "pages": 227,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "筚路维艰__萧冬连.epub",
+    "ext": "epub",
+    "size_mb": 0.62,
+    "pages": 20,
+    "text_chars": 55758,
+    "detected": "筚路维艰",
+    "match": "OK"
+  },
+  {
+    "file": "算法导论__Thomas H. Cormen 等.pdf",
+    "ext": "pdf",
+    "size_mb": 106.54,
+    "pages": 794,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "算法设计__Jon Kleinberg.pdf",
+    "ext": "pdf",
+    "size_mb": 3.31,
+    "pages": 864,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "素书.epub",
+    "ext": "epub",
+    "size_mb": 0.23,
+    "pages": 55,
+    "text_chars": 25335,
+    "detected": "华娱素书 - 蒜小厮 - 54CHS",
+    "match": "OK"
+  },
+  {
+    "file": "红与黑__司汤达.epub",
+    "ext": "epub",
+    "size_mb": 0.48,
+    "pages": 78,
+    "text_chars": 32338,
+    "detected": "红与黑",
+    "match": "OK"
+  },
+  {
+    "file": "红楼梦__曹雪芹.mobi",
+    "ext": "mobi",
+    "size_mb": 3.23,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "WQK",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "红色资本__卡尔·沃尔特.epub",
+    "ext": "epub",
+    "size_mb": 3.3,
+    "pages": 3,
+    "text_chars": 648707,
+    "detected": "Red Capitalism红色资本",
+    "match": "OK"
+  },
+  {
+    "file": "纲鉴易知录__吴乘权等.epub",
+    "ext": "epub",
+    "size_mb": 3.5,
+    "pages": 138,
+    "text_chars": 68287,
+    "detected": "纲鉴易知录（上下册）——中华经典普及文库",
+    "match": "OK"
+  },
+  {
+    "file": "给我自由——一部美国的历史.epub",
+    "ext": "epub",
+    "size_mb": 11.13,
+    "pages": 39,
+    "text_chars": 163956,
+    "detected": "给我自由！一部美国的历史（套装上下卷）",
+    "match": "ok"
+  },
+  {
+    "file": "编码：隐匿在计算机软硬件背后的语言__Charles Petzold.epub",
+    "ext": "epub",
+    "size_mb": 11.59,
+    "pages": 8,
+    "text_chars": 1376382,
+    "detected": "《编码：隐匿在计算机软硬件背后的语言》",
+    "match": "OK"
+  },
+  {
+    "file": "编程珠玑__Jon Bentley.epub",
+    "ext": "epub",
+    "size_mb": 1.71,
+    "pages": 23,
+    "text_chars": 26241,
+    "detected": "编程珠玑（第2版·修订版）",
+    "match": "OK"
+  },
+  {
+    "file": "美学散步__宗白华.epub",
+    "ext": "epub",
+    "size_mb": 0.38,
+    "pages": 56,
+    "text_chars": 28558,
+    "detected": "美学散步",
+    "match": "OK"
+  },
+  {
+    "file": "美洲三书.pdf",
+    "ext": "pdf",
+    "size_mb": 7.01,
+    "pages": 346,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "美的历程__李泽厚.mobi",
+    "ext": "mobi",
+    "size_mb": 3.76,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Mei_De_Li_Cheng",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "聪明的投资者__本杰明·格雷厄姆.epub",
+    "ext": "epub",
+    "size_mb": 0.27,
+    "pages": 19,
+    "text_chars": 113300,
+    "detected": "聪明的投资者",
+    "match": "OK"
+  },
+  {
+    "file": "背德者 _ 窄门__纪德.epub",
+    "ext": "epub",
+    "size_mb": 18.64,
+    "pages": 36,
+    "text_chars": 31826,
+    "detected": "背德者·窄门",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "能量的真相.epub",
+    "ext": "epub",
+    "size_mb": 0.53,
+    "pages": 60,
+    "text_chars": 16089,
+    "detected": "幸福的三个真相：让你的身体、头脑、能量支持你实现快乐生活",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "自卑与超越__阿尔弗雷德·阿德勒.mobi",
+    "ext": "mobi",
+    "size_mb": 0.42,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Zi_Bei_Yu_Chao_Yue",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "自在独行__贾平凹.epub",
+    "ext": "epub",
+    "size_mb": 0.32,
+    "pages": 12,
+    "text_chars": 175145,
+    "detected": "自在独行",
+    "match": "OK"
+  },
+  {
+    "file": "自控力__凯利·麦格尼格尔.epub",
+    "ext": "epub",
+    "size_mb": 0.38,
+    "pages": 76,
+    "text_chars": 17460,
+    "detected": "自控力",
+    "match": "OK"
+  },
+  {
+    "file": "自然界中的分形几何__Mandelbrot.epub",
+    "ext": "epub",
+    "size_mb": 5.91,
+    "pages": 569,
+    "text_chars": 62739,
+    "detected": "The Fractal Geometry of Nature",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "自私的基因__理查德·道金斯.epub",
+    "ext": "epub",
+    "size_mb": 1.36,
+    "pages": 38,
+    "text_chars": 26126,
+    "detected": "自私的基因（20世纪经典著作）",
+    "match": "OK"
+  },
+  {
+    "file": "艺术的故事.epub",
+    "ext": "epub",
+    "size_mb": 22.37,
+    "pages": 34,
+    "text_chars": 81343,
+    "detected": "艺术的故事",
+    "match": "OK"
+  },
+  {
+    "file": "芝加哥大学论文写作指南__凯特·L.杜拉宾.azw3",
+    "ext": "azw3",
+    "size_mb": 11.43,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Zhi_Jia_Ge_Da_Xue_Lun_Wen_Xie_Z",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "苏菲的世界__乔斯坦·贾德.epub",
+    "ext": "epub",
+    "size_mb": 0.42,
+    "pages": 41,
+    "text_chars": 188543,
+    "detected": "苏菲的世界",
+    "match": "OK"
+  },
+  {
+    "file": "莎士比亚全集__莎士比亚.epub",
+    "ext": "epub",
+    "size_mb": 3.92,
+    "pages": 320,
+    "text_chars": 879375,
+    "detected": "莎士比亚全集",
+    "match": "OK"
+  },
+  {
+    "file": "蛤蟆先生去看心理医生__罗伯特·戴博德.azw3",
+    "ext": "azw3",
+    "size_mb": 0.51,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!0RPDHMQ1R50D536DX2CK1CEWAZH1",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "被讨厌的勇气__岸见一郎.epub",
+    "ext": "epub",
+    "size_mb": 0.21,
+    "pages": 64,
+    "text_chars": 16006,
+    "detected": "被讨厌的勇气",
+    "match": "OK"
+  },
+  {
+    "file": "西方哲学史__罗素.epub",
+    "ext": "epub",
+    "size_mb": 0.81,
+    "pages": 98,
+    "text_chars": 68095,
+    "detected": "西方哲学史:增补修订版（唯一带索引的版本）",
+    "match": "OK"
+  },
+  {
+    "file": "西方哲学史（学术版）.pdf",
+    "ext": "pdf",
+    "size_mb": 16.01,
+    "pages": 350,
+    "text_chars": 697,
+    "detected": "书在版编目 (CIP) 数据",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "西游记__吴承恩.epub",
+    "ext": "epub",
+    "size_mb": 7.5,
+    "pages": 105,
+    "text_chars": 263979,
+    "detected": "西游记",
+    "match": "OK"
+  },
+  {
+    "file": "规训与惩罚__福柯.epub",
+    "ext": "epub",
+    "size_mb": 0.37,
+    "pages": 5,
+    "text_chars": 234139,
+    "detected": "规训与惩罚:监狱的诞生",
+    "match": "OK"
+  },
+  {
+    "file": "论人类不平等的起源和基础__卢梭.mobi",
+    "ext": "mobi",
+    "size_mb": 1.02,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "UERNZXYXQMGA",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "设计模式__Erich Gamma 等.epub",
+    "ext": "epub",
+    "size_mb": 8.1,
+    "pages": 122,
+    "text_chars": 19125,
+    "detected": "设计模式：可复用面向对象软件的基础（典藏版）",
+    "match": "OK"
+  },
+  {
+    "file": "证券分析__格雷厄姆.epub",
+    "ext": "epub",
+    "size_mb": 20.93,
+    "pages": 93,
+    "text_chars": 30750,
+    "detected": "证券分析：原书第6版（经典畅销版全两册）（投资者的圣经！巴菲特灵魂导师、“华尔街教父”！本杰明·格雷厄姆 不朽著作！巴曙松领衔专业人士全新翻译！）",
+    "match": "OK"
+  },
+  {
+    "file": "读书教学四十年__杨振宁.pdf",
+    "ext": "pdf",
+    "size_mb": 0.52,
+    "pages": 6,
+    "text_chars": 8833,
+    "detected": "读 书 教 学 四 十 年",
+    "match": "OK"
+  },
+  {
+    "file": "谈美__朱光潜.mobi",
+    "ext": "mobi",
+    "size_mb": 14.43,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "CR!5A419KKKG1315AFVSCB5KXWFCEJW",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "财富自由之路__李笑来.epub",
+    "ext": "epub",
+    "size_mb": 1.22,
+    "pages": 56,
+    "text_chars": 48594,
+    "detected": "通往财富自由之路精细笔记",
+    "match": "OK"
+  },
+  {
+    "file": "资治通鉴__司马光.epub",
+    "ext": "epub",
+    "size_mb": 4.75,
+    "pages": 296,
+    "text_chars": 91134,
+    "detected": "资治通鉴",
+    "match": "OK"
+  },
+  {
+    "file": "跨越边界的社区：北京“浙江村”的生活史__项飙.epub",
+    "ext": "epub",
+    "size_mb": 19.87,
+    "pages": 3,
+    "text_chars": 52672,
+    "detected": "跨越边界的社区：北京浙江村的生活史",
+    "match": "ok"
+  },
+  {
+    "file": "追忆似水年华__普鲁斯特.epub",
+    "ext": "epub",
+    "size_mb": 0.22,
+    "pages": 5,
+    "text_chars": 168764,
+    "detected": "追忆似水年华:在少女花影下",
+    "match": "OK"
+  },
+  {
+    "file": "追风筝的人__卡勒德·胡赛尼.epub",
+    "ext": "epub",
+    "size_mb": 0.2,
+    "pages": 9,
+    "text_chars": 144114,
+    "detected": "追风筝的人",
+    "match": "OK"
+  },
+  {
+    "file": "逃离__艾丽丝·门罗.epub",
+    "ext": "epub",
+    "size_mb": 0.35,
+    "pages": 26,
+    "text_chars": 90718,
+    "detected": "逃离",
+    "match": "OK"
+  },
+  {
+    "file": "逻辑哲学论__维特根斯坦.mobi",
+    "ext": "mobi",
+    "size_mb": 0.44,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "Luo_Ji_Zhe_Xue_Lun",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "都柏林人__乔伊斯.epub",
+    "ext": "epub",
+    "size_mb": 2.1,
+    "pages": 34,
+    "text_chars": 45997,
+    "detected": "都柏林人 (乔伊斯文集)",
+    "match": "OK"
+  },
+  {
+    "file": "重构__Martin Fowler.epub",
+    "ext": "epub",
+    "size_mb": 3.16,
+    "pages": 30,
+    "text_chars": 29278,
+    "detected": "重构：改善既有代码的设计",
+    "match": "OK"
+  },
+  {
+    "file": "量子史话.epub",
+    "ext": "epub",
+    "size_mb": 5.48,
+    "pages": 27,
+    "text_chars": 49854,
+    "detected": "窥探上帝的秘密:量子史话 (巅峰之旅)",
+    "match": "OK"
+  },
+  {
+    "file": "随机漫步的傻瓜__塔勒布.epub",
+    "ext": "epub",
+    "size_mb": 0.3,
+    "pages": 28,
+    "text_chars": 24951,
+    "detected": "随机漫步的傻瓜",
+    "match": "OK"
+  },
+  {
+    "file": "集合论基础教程__张峰.pdf",
+    "ext": "pdf",
+    "size_mb": 98.13,
+    "pages": 327,
+    "text_chars": 136,
+    "detected": "集合论导引",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "集异壁之大成__侯世达.pdf",
+    "ext": "pdf",
+    "size_mb": 39.93,
+    "pages": 1091,
+    "text_chars": 0,
+    "detected": "",
+    "match": "?"
+  },
+  {
+    "file": "霍乱时期的爱情__加西亚·马尔克斯.epub",
+    "ext": "epub",
+    "size_mb": 0.43,
+    "pages": 13,
+    "text_chars": 147599,
+    "detected": "霍乱时期的爱情",
+    "match": "OK"
+  },
+  {
+    "file": "非对称风险__塔勒布.epub",
+    "ext": "epub",
+    "size_mb": 4.09,
+    "pages": 177,
+    "text_chars": 13337,
+    "detected": "(反脆弱 非对称风险等)塔勒布经济学五部曲（套装共5册）",
+    "match": "OK"
+  },
+  {
+    "file": "非理性的人__巴雷特.epub",
+    "ext": "epub",
+    "size_mb": 0.65,
+    "pages": 25,
+    "text_chars": 65678,
+    "detected": "非理性的人",
+    "match": "OK"
+  },
+  {
+    "file": "鱼羊野史__高晓松.mobi",
+    "ext": "mobi",
+    "size_mb": 0.33,
+    "pages": null,
+    "text_chars": 0,
+    "detected": "UUQO",
+    "match": "MISMATCH?"
+  },
+  {
+    "file": "鲁迅作品集__鲁迅.epub",
+    "ext": "epub",
+    "size_mb": 14.73,
+    "pages": 98,
+    "text_chars": 406083,
+    "detected": "鲁迅全集（全20卷）",
+    "match": "MISMATCH?"
+  }
+]
