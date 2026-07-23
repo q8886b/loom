@@ -121,6 +121,11 @@ def get_config() -> EmbeddingConfig:
 
 
 def embedding_dim() -> int:
+    # `none` is a supported operational mode for FTS-only imports/searches.
+    # Store initialization still needs a stable DB vector dimension even though
+    # individual embedding calls will intentionally be skipped by callers.
+    if _env("LOOM_EMBED_PROVIDER").strip().lower() == "none":
+        return _positive_int(_env("LOOM_EMBED_DIM", "2048"), name="LOOM_EMBED_DIM")
     return get_config().dim
 
 
@@ -167,8 +172,16 @@ def _http_post_json(
     raise last_err
 
 
-def _trim(text: str) -> str:
-    return text if len(text) <= 8000 else text[:8000]
+def _trim(text: str, cfg: EmbeddingConfig) -> str:
+    """Keep requests within the provider's practical input limit.
+
+    Zhipu's embedding-3 rejects long CJK strings before returning a vector, so
+    that provider is trimmed to 2000 characters; everyone else keeps the prior
+    8000-character ceiling. The limit retains a representative opening of a
+    Loom card or source unit.
+    """
+    limit = 2000 if cfg.provider == "zhipu" else 8000
+    return text if len(text) <= limit else text[:limit]
 
 
 def _validate(vec: list[float], cfg: EmbeddingConfig) -> list[float]:
@@ -184,7 +197,7 @@ def _validate(vec: list[float], cfg: EmbeddingConfig) -> list[float]:
 def _embed_batch_ollama(cfg: EmbeddingConfig, texts: list[str]) -> list[list[float]]:
     import urllib.error
 
-    payload = {"model": cfg.model, "input": [_trim(t) for t in texts]}
+    payload = {"model": cfg.model, "input": [_trim(t, cfg) for t in texts]}
     try:
         data = _http_post_json(f"{cfg.base_url}/api/embed", payload, timeout=120)
         vectors = data.get("embeddings")
@@ -199,7 +212,7 @@ def _embed_batch_ollama(cfg: EmbeddingConfig, texts: list[str]) -> list[list[flo
     for text in texts:
         data = _http_post_json(
             f"{cfg.base_url}/api/embeddings",
-            {"model": cfg.model, "prompt": _trim(text)},
+            {"model": cfg.model, "prompt": _trim(text, cfg)},
             timeout=120,
         )
         vec = data.get("embedding")
@@ -212,7 +225,7 @@ def _embed_batch_ollama(cfg: EmbeddingConfig, texts: list[str]) -> list[list[flo
 def _embed_batch_openai(cfg: EmbeddingConfig, texts: list[str]) -> list[list[float]]:
     if not cfg.api_key:
         raise RuntimeError("LOOM_EMBED_API_KEY or OPENAI_API_KEY is required for openai embeddings")
-    payload: dict[str, Any] = {"model": cfg.model, "input": [_trim(t) for t in texts]}
+    payload: dict[str, Any] = {"model": cfg.model, "input": [_trim(t, cfg) for t in texts]}
     if cfg.send_dimensions:
         payload["dimensions"] = cfg.dim
     data = _http_post_json(
@@ -230,7 +243,11 @@ def _embed_batch_openai(cfg: EmbeddingConfig, texts: list[str]) -> list[list[flo
 def _embed_batch_zhipu(cfg: EmbeddingConfig, texts: list[str]) -> list[list[float]]:
     if not cfg.api_key:
         raise RuntimeError("ZHIPU_API_KEY or LOOM_EMBED_API_KEY is required for zhipu embeddings")
-    payload = {"model": cfg.model, "input": [_trim(t) for t in texts], "dimensions": cfg.dim}
+    payload = {
+        "model": cfg.model,
+        "input": [_trim(t, cfg) for t in texts],
+        "dimensions": cfg.dim,
+    }
     data = _http_post_json(
         f"{cfg.base_url}/embeddings",
         payload,

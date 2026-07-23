@@ -95,7 +95,7 @@
       </div>
     </div>
 
-    <div class="sidebar-section">
+    <div class="sidebar-section grow">
       <button class="section-toggle" @click="cardsOpen = !cardsOpen">
         <span>卡片列表</span>
         <span class="section-count">{{ cards.length }}</span>
@@ -275,13 +275,24 @@ function onCardListScroll(e) {
   flex-direction: column;
   gap: 0;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 12px 0;
 }
 
 .sidebar-section {
   padding: 0 12px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+/* 卡片列表区吃掉剩余空间，成为主滚动区——外层不再整体滚动，
+   避免"滚动条里套滚动条" */
+.sidebar-section.grow {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
 }
 
 .section-title {
@@ -488,7 +499,8 @@ function onCardListScroll(e) {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  max-height: 420px;
+  flex: 1 1 0;
+  min-height: 0;
   overflow-y: auto;
   padding-right: 2px;
 }
@@ -570,7 +582,7 @@ function onCardListScroll(e) {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  max-height: 260px;
+  max-height: 34vh;
   overflow-y: auto;
   padding-right: 2px;
 }
@@ -658,6 +670,7 @@ function onCardListScroll(e) {
   font-size: 11px;
   color: #9ca3af;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .continue-btn {

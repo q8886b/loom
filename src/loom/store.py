@@ -71,7 +71,7 @@ MATURITY_PATTERN = re.compile(r"^\[(探索期|熟练期)\]")
 
 # Namespace patterns (005 §2.1)
 # 领域（按 sources/XX-领域/ 目录约定）
-DOMAINS = {"llm", "fin", "med", "law", "sw", "phil", "prod", "psy", "fit"}
+DOMAINS = {"llm", "fin", "med", "law", "sw", "phil", "prod", "psy", "fit", "hist", "soc", "sci"}
 _DOMAINS_RE = "|".join(sorted(DOMAINS))
 
 # 卢曼 ID：数字段与小写字母段交替，可停在任一段。

@@ -39,6 +39,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
 from handlers import pdf_handler, epub_handler, html_handler, office_handler, av_handler, text_handler, djvu_handler
+from handlers.epub_handler import estimate_ebook_content_min_chars
 from harness import check_raw_md, check_units, summarize
 from split_chapters import split_markdown
 
@@ -74,7 +75,11 @@ EXT_MAP = {
 }
 
 
-def estimate_min_chars(input_path: Path, ext: str) -> int:
+def estimate_min_chars(
+    input_path: Path,
+    ext: str,
+    ebook_content_min_chars: int | None = None,
+) -> int:
     """按格式估算最小期望字数（用于 harness 校验）。"""
     if ext in (".md", ".markdown", ".txt"):
         return max(100, input_path.stat().st_size // 4)
@@ -87,6 +92,13 @@ def estimate_min_chars(input_path: Path, ext: str) -> int:
         except Exception:
             return 1000
     if ext in (".epub", ".azw", ".azw3", ".mobi"):
+        min_chars = (
+            ebook_content_min_chars
+            if ebook_content_min_chars is not None
+            else estimate_ebook_content_min_chars(input_path)
+        )
+        if min_chars is not None:
+            return min_chars
         return max(500, input_path.stat().st_size // 10)
     if ext in (".docx", ".pptx"):
         return 500
@@ -146,7 +158,11 @@ def run(input_path: Path, out_dir: Path,
         return result
 
     # harness: 校验 raw.md
-    expected_min = estimate_min_chars(input_path, ext)
+    expected_min = estimate_min_chars(
+        input_path,
+        ext,
+        ebook_content_min_chars=convert_result.get("ebook_content_min_chars"),
+    )
     raw_checks = check_raw_md(raw_md, expected_min_chars=expected_min)
     result["raw_checks"] = [c.__dict__ for c in raw_checks]
     raw_summary = summarize(raw_checks)

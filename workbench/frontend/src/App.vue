@@ -58,7 +58,7 @@
     </header>
 
     <main class="body">
-      <aside class="left">
+      <aside class="left" :style="{ width: `${leftWidth}px` }">
         <Sidebar
           :ns-counts="nsCounts"
           :tags="tags"
@@ -77,6 +77,7 @@
           @pick-card="onPickCard"
         />
       </aside>
+      <div class="panel-resizer" title="拖拽调整侧栏宽度" @mousedown="startLeftResize"></div>
       <section class="center">
         <GraphExplorer
           ref="explorer"
@@ -93,7 +94,7 @@
           @set-focus-depth="onFocusDepth"
         />
       </section>
-      <div class="panel-resizer" title="拖拽调整详情栏宽度" @mousedown="startResize"></div>
+      <div class="panel-resizer" title="拖拽调整详情栏宽度" @mousedown="startRightResize"></div>
       <aside class="right" :style="{ width: `${rightWidth}px` }">
         <CardPanel
           :card-id="detailSelectedId"
@@ -164,7 +165,10 @@ const nsCounts = ref({})
 const layerCounts = ref({})
 const tags = ref([])
 const explorer = ref(null)
-const rightWidth = ref(360)
+const leftWidth = ref(Number(localStorage.getItem('loom.ui.leftWidth')) || 260)
+const MIN_LEFT_WIDTH = 180
+const MAX_LEFT_WIDTH = 480
+const rightWidth = ref(Number(localStorage.getItem('loom.ui.rightWidth')) || 360)
 const MIN_RIGHT_WIDTH = 300
 const MAX_RIGHT_WIDTH = 720
 const graphMode = ref('summary')
@@ -709,25 +713,52 @@ function onKeyDown(e) {
   }
 }
 
-function startResize(e) {
+function startResize(e, {
+  widthRef,
+  minWidth,
+  maxWidth,
+  deltaSign,
+  storageKey,
+}) {
   e.preventDefault()
   const startX = e.clientX
-  const startWidth = rightWidth.value
+  const startWidth = widthRef.value
   document.body.classList.add('resizing-panel')
 
   const onMove = (event) => {
-    const delta = startX - event.clientX
-    const next = Math.min(MAX_RIGHT_WIDTH, Math.max(MIN_RIGHT_WIDTH, startWidth + delta))
-    rightWidth.value = next
+    const delta = (event.clientX - startX) * deltaSign
+    const next = Math.min(maxWidth, Math.max(minWidth, startWidth + delta))
+    widthRef.value = next
   }
   const onUp = () => {
     document.body.classList.remove('resizing-panel')
     window.removeEventListener('mousemove', onMove)
     window.removeEventListener('mouseup', onUp)
+    try { localStorage.setItem(storageKey, String(widthRef.value)) } catch {}
   }
 
   window.addEventListener('mousemove', onMove)
   window.addEventListener('mouseup', onUp)
+}
+
+function startRightResize(e) {
+  startResize(e, {
+    widthRef: rightWidth,
+    minWidth: MIN_RIGHT_WIDTH,
+    maxWidth: MAX_RIGHT_WIDTH,
+    deltaSign: -1,
+    storageKey: 'loom.ui.rightWidth',
+  })
+}
+
+function startLeftResize(e) {
+  startResize(e, {
+    widthRef: leftWidth,
+    minWidth: MIN_LEFT_WIDTH,
+    maxWidth: MAX_LEFT_WIDTH,
+    deltaSign: 1,
+    storageKey: 'loom.ui.leftWidth',
+  })
 }
 
 onMounted(async () => {
@@ -859,8 +890,7 @@ body {
 
 .body { flex: 1; display: flex; min-height: 0; }
 .left {
-  width: 200px; flex-shrink: 0; background: var(--surface);
-  border-right: 1px solid var(--border);
+  flex-shrink: 0; background: var(--surface);
   min-height: 0;
 }
 .center { flex: 1; min-width: 0; position: relative; }

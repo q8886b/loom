@@ -1448,6 +1448,29 @@ def cmd_commit_ready(args) -> int:
     if not drafts:
         return _err(f"no drafts found for task {task_id}")
 
+    # 批量插入成功后、task_trace 落账前若进程被打断，重试不应因唯一键冲突而卡死。
+    # 仅在当前 drafts 与库中同 ID 卡片（含 links）完全一致时，恢复任务状态。
+    committed_ids = []
+    for draft in drafts:
+        card = store.get_card(draft.id)
+        if card is None or any(
+            card[field] != getattr(draft, field)
+            for field in ("title", "type", "content", "source", "layer", "origin")
+        ) or sorted(store.get_links(draft.id)) != sorted(draft.links):
+            break
+        committed_ids.append(draft.id)
+    else:
+        store.end_task(task_id, "done", drafts_count=len(drafts),
+                       committed_count=len(committed_ids), committed_ids=committed_ids)
+        computed_file.unlink(missing_ok=True)
+        (task_dir / ".ready").unlink(missing_ok=True)
+        _print_json({
+            "status": "recovered_already_committed",
+            "task_id": task_id,
+            "committed": committed_ids,
+        })
+        return 0
+
     commit_result = _commit_drafts(task_id, drafts)
     _print_json(commit_result)
     if commit_result.get("status") == "rejected":

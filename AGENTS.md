@@ -112,7 +112,7 @@ write-draft
 - L3：`<领域>:<卢曼ID>`，如 `llm:1a`
 - L4：`gen:<卢曼ID>`，如 `gen:1a`
 
-领域简写：`llm` / `fin` / `med` / `law` / `sw` / `phil` / `prod` / `fit` / `psy`。
+领域简写：`llm` / `fin` / `med` / `law` / `sw` / `phil` / `prod` / `fit` / `psy` / `hist` / `soc` / `sci`。
 
 卢曼 ID 用数字字母：`01` / `12a` / `12a1`，不用英文短语或中文短语。
 

@@ -356,6 +356,32 @@ def _convert_epub_inner(epub_path: Path, out_md: Path) -> dict:
 
 # ── 入口 ───────────────────────────────────────────────────────────────────
 
+_EBOOK_HTML_SUFFIXES = {".html", ".htm", ".xhtml"}
+_EBOOK_IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
+
+
+def estimate_ebook_content_min_chars(epub_path: Path) -> int | None:
+    """按 EPUB 包内 HTML 正文与图片页数估算最低期望字数。"""
+    try:
+        with zipfile.ZipFile(epub_path) as archive:
+            entries = [entry for entry in archive.infolist() if not entry.is_dir()]
+    except (OSError, zipfile.BadZipFile):
+        return None
+
+    html_size = sum(
+        entry.file_size
+        for entry in entries
+        if Path(entry.filename).suffix.lower() in _EBOOK_HTML_SUFFIXES
+    )
+    image_count = sum(
+        Path(entry.filename).suffix.lower() in _EBOOK_IMAGE_SUFFIXES
+        for entry in entries
+    )
+    if not html_size and not image_count:
+        return None
+    return max(500, html_size // 4, image_count * 200)
+
+
 def convert(epub_path: Path, out_md: Path) -> dict:
     """入口：自动检测 AZW/MOBI 并先解包为 EPUB。"""
     ext = epub_path.suffix.lower()
@@ -376,9 +402,12 @@ def convert(epub_path: Path, out_md: Path) -> dict:
         result["warnings"].insert(0, f"unpacked {ext} → EPUB via kindleunpack")
         tmpdir = real_epub.parent.parent
         shutil.rmtree(tmpdir, ignore_errors=True)
-        return result
+    else:
+        real_epub = epub_path
+        result = _convert_epub_inner(real_epub, out_md)
 
-    return _convert_epub_inner(epub_path, out_md)
+    result["ebook_content_min_chars"] = estimate_ebook_content_min_chars(real_epub)
+    return result
 
 
 if __name__ == "__main__":
